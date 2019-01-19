@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
+    <ClCompile Include="Engine\Render\DrawCall.cpp" />
     <ClCompile Include="Engine\Render\Renderer.cpp" />
     <ClCompile Include="Engine\Render\Texture.cpp" />
     <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp" />

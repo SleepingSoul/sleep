@@ -9,7 +9,14 @@ Object::Object()
     , m_layer(0)
 {}
 
+void Object::setUV(float const topLeftX, float const topLeftY, float const downRightX, const float downRightY)
+{
+    m_topLeftUV = { topLeftX, topLeftY };
+    m_downRightUV = { downRightX, downRightY };
+}
+
 void Object::render()
 {
-    GameWindow::instance().getRenderer().addDrawCall({ m_texture, m_layer });
+    DrawCall const drawCall(m_texture, m_position, m_topLeftUV, m_downRightUV, m_layer);
+    GameWindow::instance().getRenderer().addDrawCall(drawCall);
 }

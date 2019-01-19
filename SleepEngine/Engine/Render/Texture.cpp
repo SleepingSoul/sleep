@@ -5,8 +5,6 @@
 
 
 Texture::Texture(char const* path)
-    : m_topLeftUV(0.f, 0.f)
-    , m_downRightUV(1.f, 1.f)
 {
     int width, height, channelsNumber;
     m_data = stbi_load(path, &width, &height, &channelsNumber, 0);
@@ -26,12 +24,6 @@ Texture::Texture(char const* path)
 Texture::~Texture()
 {
     stbi_image_free(m_data);
-}
-
-void Texture::setUV(float const topLeftX, float const topLeftY, float const downRightX, const float downRightY)
-{
-    m_topLeftUV = { topLeftX, topLeftY };
-    m_downRightUV = { downRightX, downRightY };
 }
 
 GLenum Texture::channelsNumberToFormat(int const channelsNumber) const
