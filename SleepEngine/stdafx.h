@@ -18,3 +18,11 @@
 #include <thread>
 #include <mutex>
 #pragma endregion
+
+#pragma region Render
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#pragma endregion
+
+#include <Engine/Utils/MacroUtils.h>
+#include <Engine/Utils/Utils.h>
