@@ -8,7 +8,8 @@ namespace
     unsigned const GLFWVersionMinor = 3;
 }
 
-GameWindow::GameWindow(size_t const width, size_t const height, std::string_view const title)
+GameWindow::GameWindow(size_t const width, size_t const height, std::string_view const title, Color const bgColor)
+    : m_bgColor(bgColor)
 {
     if (m_instance)
     {
@@ -30,6 +31,13 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
     }
     glfwMakeContextCurrent(m_window);
     m_instance = this;
+
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader(reinterpret_cast <GLADloadproc>(glfwGetProcAddress)))
+    {
+        assertion(false, "Failed to initialize GLAD");
+    }
 }
 
 GameWindow::~GameWindow()
@@ -49,6 +57,20 @@ bool GameWindow::isValid() const
 GameWindow::operator bool() const
 {
     return isValid();
+}
+
+bool GameWindow::shouldClose() const
+{
+    return glfwWindowShouldClose(m_window);
+}
+
+void GameWindow::runFrame()
+{
+    glClearColor(m_bgColor.r, m_bgColor.g, m_bgColor.b, m_bgColor.a);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glfwSwapBuffers(m_window);
+    glfwPollEvents();
 }
 
 GameWindow& GameWindow::instance()

@@ -29,7 +29,6 @@
 #include <glm/glm.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
-using Color = glm::u8vec4;
 #pragma endregion
 
 #include <Engine/SleepTypes.h>
