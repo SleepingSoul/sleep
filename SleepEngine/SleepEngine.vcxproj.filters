@@ -83,5 +83,12 @@
     <ClInclude Include="Engine\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Render\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Render\Shaders\shader.vs" />
+    <None Include="Engine\Render\Shaders\shader.fs" />
   </ItemGroup>
 </Project>

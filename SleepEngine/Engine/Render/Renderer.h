@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Engine/Render/Shader.h>
+
 class Renderer
 {
 public:
@@ -11,6 +13,7 @@ public:
     void render();
 
 private:
+    Shader m_shader;
     DrawCallsContainer m_drawCalls;
     unsigned m_VBO;
     unsigned m_VAO;

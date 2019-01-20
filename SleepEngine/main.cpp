@@ -13,10 +13,20 @@ int main()
 {
     GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.2f, 1.f, 0.2f, 1.f });
     assert((bool)window);
-    window.getResourceManager().preloadFromDirectory("Data").get();
+
+    Object object;
+    object.setSize({ 800, 600 });
+    object.setTexture(window.getResourceManager().getTexture("Data/detroit_become_human_wallpaper_by_cemreksdmr-dcd31yr.jpg"));
+
+    Object o2;
+    o2.setSize({ 400, 300 });
+    o2.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
+    o2.setLayer(1);
 
     while (!window.shouldClose())
     {
+        o2.render();
+        object.render();
         window.runFrame();
     }
 

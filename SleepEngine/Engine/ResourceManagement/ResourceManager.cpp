@@ -26,7 +26,7 @@ ResourceManager::FutureType ResourceManager::preloadFromDirectory(std::string_vi
             return false;
         }
 
-        if (recursive)
+        if (!recursive)
         {
             auto dir = std::filesystem::directory_iterator(path);
             for (auto const& entry : dir)

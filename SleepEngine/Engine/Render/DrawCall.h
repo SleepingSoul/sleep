@@ -23,5 +23,5 @@ private:
 
 inline bool operator <(DrawCall const& left, DrawCall const& right)
 {
-    return left.getLayer() > right.getLayer();
+    return left.getTexture() > right.getTexture();
 }

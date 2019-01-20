@@ -37,6 +37,8 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
     {
         assertion(false, "Failed to initialize GLAD");
     }
+
+    m_renderer = std::make_unique <Renderer>();
 }
 
 GameWindow::~GameWindow()
@@ -68,12 +70,13 @@ void GameWindow::runFrame()
     glClearColor(m_bgColor.r, m_bgColor.g, m_bgColor.b, m_bgColor.a);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    m_renderer->render();
+
     glfwSwapBuffers(m_window);
     glfwPollEvents();
 }
 
 GameWindow& GameWindow::instance()
 {
-    assertion(!m_instance, "Attempt to create few windows in one program!");
     return *m_instance;
 }

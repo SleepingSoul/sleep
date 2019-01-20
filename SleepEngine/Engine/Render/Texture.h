@@ -12,6 +12,7 @@ public:
     size_t getWidth() const { return m_width; }
     size_t getHeight() const { return m_height; }
     size_t getChannelsNumber() const { return m_channelsNumber; }
+    void loadToGPU();
 
 private:
     GLenum channelsNumberToFormat(int channelsNumber) const;

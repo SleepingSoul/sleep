@@ -5,6 +5,8 @@ Object::Object()
     : m_color(0xff, 0xff, 0xff, 0xff)
     , m_position(0.f, 0.f)
     , m_size(1.f, 1.f)
+    , m_topLeftUV(0.f, 0.f)
+    , m_downRightUV(1.f, 1.f)
     , m_texture(nullptr)
     , m_layer(0)
 {}
