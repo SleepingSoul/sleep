@@ -6,3 +6,4 @@ Requires (all of this packages can be installed with [vcpkg](https://github.com/
 - glfw3
 - glm
 - glad
+- stb
