@@ -11,6 +11,8 @@ public:
     bool isValid() const;
     operator bool() const;
     Renderer& getRenderer() { return m_renderer; }
+    ResourceManager& getResourceManager() { return m_resourceManager; }
+    Camera& getCamera() { return m_camera; }
     bool shouldClose() const;
     void runFrame();
 
@@ -20,5 +22,7 @@ private:
     Color m_bgColor;
     NotOwnedPtr <GLFWwindow> m_window;
     Renderer m_renderer;
+    ResourceManager m_resourceManager;
+    Camera m_camera;
     inline static NotOwnedPtr <GameWindow> m_instance = nullptr;
 };

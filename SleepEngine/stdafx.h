@@ -39,4 +39,6 @@
 #include <Engine/Updator.h>
 #include <Engine/Render/DrawCall.h>
 #include <Engine/Render/Renderer.h>
+#include <Engine/ResourceManagement/ResourceManager.h>
+#include <Engine/Camera.h>
 #include <Engine/GameWindow.h>

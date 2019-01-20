@@ -10,6 +10,7 @@ namespace
 
 GameWindow::GameWindow(size_t const width, size_t const height, std::string_view const title, Color const bgColor)
     : m_bgColor(bgColor)
+    , m_camera(width, height)
 {
     if (m_instance)
     {
@@ -32,8 +33,6 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
     glfwMakeContextCurrent(m_window);
     m_instance = this;
 
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
     if (!gladLoadGLLoader(reinterpret_cast <GLADloadproc>(glfwGetProcAddress)))
     {
         assertion(false, "Failed to initialize GLAD");

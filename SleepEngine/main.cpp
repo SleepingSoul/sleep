@@ -13,6 +13,7 @@ int main()
 {
     GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.2f, 1.f, 0.2f, 1.f });
     assert((bool)window);
+    window.getResourceManager().preloadFromDirectory("Data").get();
 
     while (!window.shouldClose())
     {

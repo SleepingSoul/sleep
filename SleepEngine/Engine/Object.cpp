@@ -17,6 +17,6 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
 
 void Object::render()
 {
-    DrawCall const drawCall(m_texture, m_position, m_topLeftUV, m_downRightUV, m_layer);
+    DrawCall const drawCall(m_texture, m_position, m_size, m_topLeftUV, m_downRightUV, m_layer);
     GameWindow::instance().getRenderer().addDrawCall(drawCall);
 }

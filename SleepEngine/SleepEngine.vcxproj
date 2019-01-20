@@ -89,6 +89,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,6 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -136,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
@@ -147,6 +150,7 @@
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\GameWindow.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Render\DrawCall.h" />

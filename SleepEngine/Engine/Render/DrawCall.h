@@ -3,10 +3,11 @@
 class DrawCall
 {
 public:
-    DrawCall(Texture* texture, glm::vec2 position, glm::vec2 topLeftUV, glm::vec2 downRightUV, Layer layer);
+    DrawCall(Texture* texture, glm::vec2 position, glm::vec2 size, glm::vec2 topLeftUV, glm::vec2 downRightUV, Layer layer);
 
     Texture* getTexture() const { return m_texture; }
     glm::vec2 getPosition() const { return m_position; }
+    glm::vec2 getSize() const { return m_size; }
     glm::vec2 getTopLeftUV() const { return m_topLeftUV; }
     glm::vec2 getDownRightUV() const { return m_downRightUV; }
     Layer getLayer() const { return m_layer; }
@@ -14,7 +15,13 @@ public:
 private:
     NotOwnedPtr <Texture> m_texture;
     glm::vec2 m_position;
+    glm::vec2 m_size;
     glm::vec2 m_topLeftUV;
     glm::vec2 m_downRightUV;
     Layer m_layer;
 };
+
+inline bool operator <(DrawCall const& left, DrawCall const& right)
+{
+    return left.getLayer() > right.getLayer();
+}
