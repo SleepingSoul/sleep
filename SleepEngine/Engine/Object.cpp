@@ -1,14 +1,16 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object()
+Object::Object() noexcept(true)
     : m_color(0xff, 0xff, 0xff, 0xff)
+    , m_scale(1.f, 1.f)
     , m_position(0.f, 0.f)
     , m_size(1.f, 1.f)
     , m_topLeftUV(0.f, 0.f)
     , m_downRightUV(1.f, 1.f)
     , m_texture(nullptr)
     , m_layer(0)
+    , m_rotation(0.f)
 {}
 
 void Object::setUV(float const topLeftX, float const topLeftY, float const downRightX, const float downRightY)
@@ -19,6 +21,5 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
 
 void Object::render()
 {
-    DrawCall const drawCall(m_texture, m_position, m_size, m_topLeftUV, m_downRightUV, m_layer);
-    GameWindow::instance().getRenderer().addDrawCall(drawCall);
+    GameWindow::instance().getRenderer().addDrawCall({ this });
 }

@@ -5,7 +5,7 @@ class Texture final
 public:
     using TextureIDType = GLuint;
 
-    Texture(char const* path);
+    Texture(char const* path) noexcept(true);
     ~Texture();
 
     TextureIDType getID() const { return m_id; }

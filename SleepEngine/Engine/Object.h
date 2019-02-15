@@ -3,11 +3,14 @@
 class Object : public Updator
 {
 public:
-    Object();
+    Object() noexcept(true);
 
     Color getColor() const { return m_color; }
     Color& modifyColor() { return m_color; }
     void setColor(Color const color) { m_color = color; }
+
+    glm::vec2 getScale() const { return m_scale; }
+    void setScale(glm::vec2 const scale) { m_scale = scale; }
 
     glm::vec2 getPosition() const { return m_position; }
     void setPosition(glm::vec2 const position) { m_position = position; }
@@ -29,14 +32,19 @@ public:
 
     void setUV(float topLeftX, float topLeftY, float downRightX, float downRightY);
 
+    float getRotation() const { return m_rotation; }
+    void setRotation(float const rotation) { m_rotation = rotation; }
+
     void render() override;
 
 private:
     Color m_color;
+    glm::vec2 m_scale;
     glm::vec2 m_position;
     glm::vec2 m_size;
     glm::vec2 m_topLeftUV;
     glm::vec2 m_downRightUV;
     NotOwnedPtr <Texture> m_texture;
     Layer m_layer;
+    float m_rotation;
 };

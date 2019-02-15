@@ -6,8 +6,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1200;
+const unsigned int SCR_HEIGHT = 1200;
 
 int main()
 {
@@ -15,17 +15,22 @@ int main()
     assert((bool)window);
 
     Object object;
-    object.setSize({ 800, 600 });
+    object.setSize({ 500, 500 });
+    //object.setScale({ 0.5f, 0.5f });
+    //object.setDownRightUV({ 1.f, 0.6f });
+    object.setRotation(-45.f);
+    object.setLayer(0);
+    object.setPosition({ 900.f, 0.f });
     object.setTexture(window.getResourceManager().getTexture("Data/detroit_become_human_wallpaper_by_cemreksdmr-dcd31yr.jpg"));
 
-    Object o2;
-    o2.setSize({ 400, 300 });
+    /*Object o2;
+    o2.setSize({ 800, 600 });
     o2.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
-    o2.setLayer(1);
+    o2.setLayer(9);*/
 
     while (!window.shouldClose())
     {
-        o2.render();
+        //o2.render();
         object.render();
         window.runFrame();
     }
