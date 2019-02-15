@@ -1,4 +1,8 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
+
+BeginNamespaceSleep
 
 class Object : public Updator
 {
@@ -18,11 +22,17 @@ public:
     glm::vec2 getSize() const { return m_size; }
     void setSize(glm::vec2 const size) { m_size = size; }
 
+    float getX() const { return m_size.x; }
+    void setX(float x) { m_size.x = x; }
+
+    float getY() const { return m_size.y; }
+    void setY(float y) { m_size.y = y; }
+
     Texture* getTexture() const { return m_texture; }
     void setTexture(Texture* const texture) { m_texture = texture; }
 
     Layer getLayer() const { return m_layer; }
-    void setLayer(Layer const layer) { m_layer = layer; }
+    void setLayer(Layer layer);
 
     glm::vec2 getTopLeftUV() const { return m_topLeftUV; }
     void setTopLeftUV(glm::vec2 const uv) { m_topLeftUV = uv; }
@@ -48,3 +58,5 @@ private:
     Layer m_layer;
     float m_rotation;
 };
+
+EndNamespaceSleep

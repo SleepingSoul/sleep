@@ -1,4 +1,8 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
+
+BeginNamespaceSleep
 
 class Updator
 {
@@ -14,3 +18,5 @@ public:
 private:
     ContainerType m_children;
 };
+
+EndNamespaceSleep

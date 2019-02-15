@@ -3,6 +3,8 @@
 #include <Engine/Object.h>
 
 
+BeginNamespaceSleep
+
 DrawCall::DrawCall(Object* const object) noexcept(true)
     : m_texture(object->getTexture())
     , m_scale(object->getScale())
@@ -13,3 +15,5 @@ DrawCall::DrawCall(Object* const object) noexcept(true)
     , m_downRightUV(object->getDownRightUV())
     , m_layer(object->getLayer())
 {}
+
+EndNamespaceSleep

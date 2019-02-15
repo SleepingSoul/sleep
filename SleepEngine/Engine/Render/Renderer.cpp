@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Renderer.h"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/rotate_vector.hpp>
 
+
+BeginNamespaceSleep
 
 Renderer::Renderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
@@ -36,6 +40,9 @@ void Renderer::addDrawCall(DrawCall const drawCall)
 
 void Renderer::render()
 {
+    /*Clear buffers every frame*/
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     std::stable_sort(m_drawCalls.begin(), m_drawCalls.end());
 
     Texture* prevTexture = nullptr;
@@ -43,18 +50,21 @@ void Renderer::render()
     for (auto const& drawCall : m_drawCalls)
     {
         auto& camera = GameWindow::instance().getCamera();
-        /*auto const topLeft = camera.virtualPositionToNormalized({ position.x - size.x / 2, position.y + size.y / 2 }),
-            topRight = camera.virtualPositionToNormalized({ position.x + size.x / 2, position.y + size.y / 2 }),
-            downRight = camera.virtualPositionToNormalized({ position.x + size.x / 2, position.y - size.y / 2 }),
-            downLeft = camera.virtualPositionToNormalized({ position.x - size.x / 2, position.y - size.y / 2 });*/
+
         glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(drawCall.getPosition());
+
+
+
+        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(
+            calculateLesserInsertionSize(drawCall.getTexture()->getSize(), drawCall.getSize())
+        );
 
         glm::vec2 const topLeftUV = drawCall.getTopLeftUV();
         glm::vec2 const downRightUV = drawCall.getDownRightUV();
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = static_cast <float>(drawCall.getLayer());
+        float const layer = -static_cast <float>(drawCall.getLayer());
 
         float uv[] = {
             topRightUV.x, topRightUV.y,
@@ -64,9 +74,6 @@ void Renderer::render()
             topLeftUV.x, topLeftUV.y,
             topRightUV.x, topRightUV.y
         };
-
-        /*Clear buffers every frame*/
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_uvVBO);
@@ -83,16 +90,26 @@ void Renderer::render()
 
         m_shader.use();
 
-        // we use ONLY model and view matrices (since we don't need projection matrix for 2D graphix)
-        glm::mat4 model(1.f);
-        model = glm::scale(model, glm::vec3(drawCall.getScale(), 1.f));
-        model = glm::rotate(model, glm::radians(drawCall.getRotation()), glm::vec3(0.f, 0.f, 1.f));
+        glm::mat4 modelview(1.f);
+        modelview = glm::translate(modelview, glm::vec3(normalizedPos, layer));
+        modelview = glm::rotate(modelview, glm::radians(drawCall.getRotation()), glm::vec3(0.f, 0.f, 1.f));
+        auto resultingScale = glm::vec3(drawCall.getScale() * normalizedSize, 1.f);
+        modelview = glm::scale(modelview, resultingScale);
 
-        glm::mat4 view(1.f);
-        view = glm::translate(view, glm::vec3(normalizedPos, layer));
+        float const scaleX = camera.getScreenWidth() / PrimaryWindowSize.x;
+        float const scaleY = camera.getScreenHeight() / PrimaryWindowSize.y;
 
-        m_shader.setMat4("model", model);
-        m_shader.setMat4("view", view);
+        glm::mat4 projection = glm::ortho(
+            -scaleX,
+             scaleX,
+            -scaleY,
+             scaleY,
+             -1.f,
+             100.f
+        );
+
+        m_shader.setMat4("modelview", modelview);
+        m_shader.setMat4("projection", projection);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, currentTexture->getID());
@@ -101,3 +118,5 @@ void Renderer::render()
 
     m_drawCalls.clear();
 }
+
+EndNamespaceSleep

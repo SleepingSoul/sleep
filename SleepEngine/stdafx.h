@@ -31,8 +31,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #pragma endregion
 
-#include <Engine/SleepTypes.h>
 #include <Engine/Utils/MacroUtils.h>
+#include <Engine/EngineConfig.h>
+#include <Engine/SleepTypes.h>
 #include <Engine/Utils/Utils.h>
 
 #include <Engine/Render/Texture.h>

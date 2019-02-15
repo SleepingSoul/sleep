@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "Object.h"
+#include <Engine/EngineConfig.h>
+
+
+BeginNamespaceSleep
 
 Object::Object() noexcept(true)
     : m_color(0xff, 0xff, 0xff, 0xff)
@@ -13,6 +17,12 @@ Object::Object() noexcept(true)
     , m_rotation(0.f)
 {}
 
+void Object::setLayer(Layer const layer)
+{
+    assertion(layer < slp::MaxLayer, "Layer is more then 'MaxLayer' defined in EngineConfig");
+    m_layer = layer;
+}
+
 void Object::setUV(float const topLeftX, float const topLeftY, float const downRightX, const float downRightY)
 {
     m_topLeftUV = { topLeftX, topLeftY };
@@ -21,5 +31,7 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
 
 void Object::render()
 {
-    GameWindow::instance().getRenderer().addDrawCall({ this });
+    GameWindow::instance().getRenderer().emplaceDrawCall(this);
 }
+
+EndNamespaceSleep

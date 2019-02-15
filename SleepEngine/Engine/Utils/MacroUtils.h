@@ -1,3 +1,5 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
 
 #define assertion(condition, message)\
@@ -14,3 +16,6 @@ classname& operator =(classname&&) = delete;
 #define ForbidCopyAndMove(classname)\
 ForbidCopy(classname)\
 ForbidMove(classname)
+
+#define BeginNamespaceSleep namespace slp{
+#define EndNamespaceSleep }

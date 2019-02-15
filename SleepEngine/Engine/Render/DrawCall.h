@@ -1,4 +1,8 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
+
+BeginNamespaceSleep
 
 class Object;
 
@@ -31,3 +35,5 @@ inline bool operator <(DrawCall const& left, DrawCall const& right)
 {
     return left.getTexture() > right.getTexture();
 }
+
+EndNamespaceSleep

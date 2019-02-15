@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager()
-{
-}
+
+BeginNamespaceSleep
 
 Texture* ResourceManager::getTexture(std::string const& path)
 {
@@ -54,3 +53,5 @@ ResourceManager::FutureType ResourceManager::preloadFromDirectory(std::string_vi
 
     return std::async(std::launch::async, preload);
 }
+
+EndNamespaceSleep

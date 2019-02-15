@@ -4,6 +4,8 @@
 #include <stb_image.h>
 
 
+BeginNamespaceSleep
+
 Texture::Texture(char const* path) noexcept(true)
 {
     int width, height, channelsNumber;
@@ -61,3 +63,5 @@ GLenum Texture::channelsNumberToFormat(int const channelsNumber) const
 
     return result;
 }
+
+EndNamespaceSleep

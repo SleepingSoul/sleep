@@ -6,31 +6,41 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH = 1200;
-const unsigned int SCR_HEIGHT = 1200;
+const unsigned int SCR_WIDTH = 300;
+const unsigned int SCR_HEIGHT = 300;
+
+using namespace slp;
 
 int main()
 {
     GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.2f, 1.f, 0.2f, 1.f });
-    assert((bool)window);
+    assert(window.isValid());
 
     Object object;
-    object.setSize({ 500, 500 });
+    object.setSize({ 1, 1 });
     //object.setScale({ 0.5f, 0.5f });
     //object.setDownRightUV({ 1.f, 0.6f });
-    object.setRotation(-45.f);
-    object.setLayer(0);
-    object.setPosition({ 900.f, 0.f });
-    object.setTexture(window.getResourceManager().getTexture("Data/detroit_become_human_wallpaper_by_cemreksdmr-dcd31yr.jpg"));
+    object.setRotation(0.f);
+    object.setLayer(8);
+    object.setPosition({ 0, 0 });
+    object.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
 
-    /*Object o2;
-    o2.setSize({ 800, 600 });
+    Object o2;
+    o2.setPosition({ 1, 0 });
+    o2.setSize({ 1, 1 });
     o2.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
-    o2.setLayer(9);*/
+    o2.setRotation(0.f);
+    o2.setLayer(4);
+
+    Object o3;
+    o3.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
+    o3.setPosition({ 1, 1 });
+    o3.setSize({ 1, 1 });
 
     while (!window.shouldClose())
     {
-        //o2.render();
+        o3.render();
+        o2.render();
         object.render();
         window.runFrame();
     }
@@ -52,5 +62,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
+    //GameWindow::instance().getCamera().setScreenSize(width, height);
     glViewport(0, 0, width, height);
 }

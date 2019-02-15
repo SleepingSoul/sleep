@@ -1,3 +1,8 @@
+// Copyright JOEY DE VRIES
+// https://joeydevries.com/#home
+// https://learnopengl.com/
+// Changelist: nothing changed
+
 #pragma once
 
 #include <glad/glad.h>
@@ -7,6 +12,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
 
 class Shader
 {

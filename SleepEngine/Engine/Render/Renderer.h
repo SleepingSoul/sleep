@@ -1,6 +1,11 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
 
 #include <Engine/Render/Shader.h>
+
+
+BeginNamespaceSleep
 
 class Renderer
 {
@@ -11,6 +16,11 @@ public:
     Renderer();
 
     void addDrawCall(DrawCall drawCall);
+    template <class ...Args>
+    void emplaceDrawCall(Args&&... args)
+    {
+        m_drawCalls.emplace_back(std::forward <Args>(args)...);
+    }
     void render();
 
 private:
@@ -20,3 +30,5 @@ private:
     unsigned m_uvVBO;
     unsigned m_VAO;
 };
+
+EndNamespaceSleep

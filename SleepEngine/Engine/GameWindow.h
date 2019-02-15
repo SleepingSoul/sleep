@@ -1,4 +1,8 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
+
+BeginNamespaceSleep
 
 class GameWindow
 {
@@ -33,3 +37,5 @@ private:
     Camera m_camera;
     inline static NotOwnedPtr <GameWindow> m_instance = nullptr;
 };
+
+EndNamespaceSleep

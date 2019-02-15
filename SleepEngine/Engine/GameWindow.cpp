@@ -2,6 +2,8 @@
 #include "GameWindow.h"
 
 
+BeginNamespaceSleep
+
 namespace
 {
     unsigned const GLFWVersionMajor = 3;
@@ -86,3 +88,5 @@ GameWindow& GameWindow::instance()
 {
     return *m_instance;
 }
+
+EndNamespaceSleep
