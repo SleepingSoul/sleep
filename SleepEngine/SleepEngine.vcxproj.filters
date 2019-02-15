@@ -86,6 +86,9 @@
     <ClInclude Include="Engine\Render\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\EngineConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Render\Shaders\shader.vs" />

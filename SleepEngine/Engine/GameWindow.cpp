@@ -2,10 +2,17 @@
 #include "GameWindow.h"
 
 
+BeginNamespaceSleep
+
 namespace
 {
     unsigned const GLFWVersionMajor = 3;
     unsigned const GLFWVersionMinor = 3;
+    void framebufferSizeCallback(GLFWwindow* const window, int const width, int const height)
+    {
+        glViewport(0, 0, width, height);
+        GameWindow::instance().getCamera().setScreenSize(width, height);
+    }
 }
 
 GameWindow::GameWindow(size_t const width, size_t const height, std::string_view const title, Color const bgColor)
@@ -31,6 +38,7 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
         assertion(false, "Window wasn't created!");
     }
     glfwMakeContextCurrent(m_window);
+    glfwSetFramebufferSizeCallback(m_window, framebufferSizeCallback);
     m_instance = this;
 
     if (!gladLoadGLLoader(reinterpret_cast <GLADloadproc>(glfwGetProcAddress)))
@@ -80,3 +88,5 @@ GameWindow& GameWindow::instance()
 {
     return *m_instance;
 }
+
+EndNamespaceSleep

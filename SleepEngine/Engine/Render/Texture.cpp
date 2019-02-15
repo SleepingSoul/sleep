@@ -4,10 +4,11 @@
 #include <stb_image.h>
 
 
-Texture::Texture(char const* path)
+BeginNamespaceSleep
+
+Texture::Texture(char const* path) noexcept(true)
 {
     int width, height, channelsNumber;
-    //stbi_set_flip_vertically_on_load(true);
     m_data = stbi_load(path, &width, &height, &channelsNumber, 0);
     assertion(width > 0 && height > 0 && channelsNumber > 0, "Failed to properly read texture.");
 
@@ -62,3 +63,5 @@ GLenum Texture::channelsNumberToFormat(int const channelsNumber) const
 
     return result;
 }
+
+EndNamespaceSleep

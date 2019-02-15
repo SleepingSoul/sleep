@@ -2,6 +2,8 @@
 #include "Updator.h"
 
 
+BeginNamespaceSleep
+
 void Updator::addChild(Updator* const child)
 {
     m_children.push_back(child);
@@ -27,3 +29,5 @@ void Updator::render()
         child->render();
     }
 }
+
+EndNamespaceSleep

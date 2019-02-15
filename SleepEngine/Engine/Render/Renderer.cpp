@@ -1,18 +1,35 @@
 #include "stdafx.h"
 #include "Renderer.h"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/rotate_vector.hpp>
 
+
+BeginNamespaceSleep
 
 Renderer::Renderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
 {
+    glEnable(GL_DEPTH_TEST);
+
     glGenVertexArrays(1, &m_VAO);
-    glGenBuffers(1, &m_VBO);
-    glGenBuffers(1, &m_EBO);
+    glGenBuffers(1, &m_vertexVBO);
+    glGenBuffers(1, &m_uvVBO);
 
     glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-    unsigned indices[] = { 0, 1, 3, 1, 2, 3 };
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    float vertices[] = {
+             1,  1,
+             1, -1,
+            -1, -1,
+            -1, -1,
+            -1,  1,
+             1,  1
+    };
+
+    glBindVertexArray(m_VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
+    glEnableVertexAttribArray(0);
     glBindVertexArray(0);
 }
 
@@ -23,41 +40,47 @@ void Renderer::addDrawCall(DrawCall const drawCall)
 
 void Renderer::render()
 {
+    /*Clear buffers every frame*/
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     std::stable_sort(m_drawCalls.begin(), m_drawCalls.end());
+
+    Texture* prevTexture = nullptr;
 
     for (auto const& drawCall : m_drawCalls)
     {
-        auto const position = drawCall.getPosition();
-        auto const size = drawCall.getSize();
         auto& camera = GameWindow::instance().getCamera();
-        auto const topLeft = camera.virtualPositionToNormalized({ position.x - size.x / 2, position.y + size.y / 2 }),
-            topRight = camera.virtualPositionToNormalized({ position.x + size.x / 2, position.y + size.y / 2 }),
-            downRight = camera.virtualPositionToNormalized({ position.x + size.x / 2, position.y - size.y / 2 }),
-            downLeft = camera.virtualPositionToNormalized({ position.x - size.x / 2, position.y - size.y / 2 });
-        float const layer = static_cast <float>(drawCall.getLayer());
-        auto const topLeftUV = drawCall.getTopLeftUV();
-        auto const downRightUV = drawCall.getDownRightUV();
+
+        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(drawCall.getPosition());
+
+
+
+        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(
+            calculateLesserInsertionSize(drawCall.getTexture()->getSize(), drawCall.getSize())
+        );
+
+        glm::vec2 const topLeftUV = drawCall.getTopLeftUV();
+        glm::vec2 const downRightUV = drawCall.getDownRightUV();
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float vertices[] = {
-            topRight.x, topRight.y, layer, topRightUV.x, topRightUV.y,
-            downRight.x, downRight.y, layer, downRightUV.x, downRightUV.y,
-            downLeft.x, downLeft.y, layer, downLeftUV.x, downLeftUV.y,
-            downLeft.x, downLeft.y, layer, downLeftUV.x, downLeftUV.y,
-            topLeft.x, topLeft.y, layer, topLeftUV.x, topLeftUV.y,
-            topRight.x, topRight.y, layer, topRightUV.x, topRightUV.y
+        float const layer = -static_cast <float>(drawCall.getLayer());
+
+        float uv[] = {
+            topRightUV.x, topRightUV.y,
+            downRightUV.x, downRightUV.y,
+            downLeftUV.x, downLeftUV.y,
+            downLeftUV.x, downLeftUV.y,
+            topLeftUV.x, topLeftUV.y,
+            topRightUV.x, topRightUV.y
         };
 
         glBindVertexArray(m_VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), reinterpret_cast <void*>(0));
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), reinterpret_cast <void*>(3 * sizeof(float)));
+        glBindBuffer(GL_ARRAY_BUFFER, m_uvVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
         glEnableVertexAttribArray(1);
 
-        static Texture* prevTexture = nullptr;
         auto* const currentTexture = drawCall.getTexture();
         if (currentTexture != prevTexture)
         {
@@ -66,6 +89,28 @@ void Renderer::render()
         }
 
         m_shader.use();
+
+        glm::mat4 modelview(1.f);
+        modelview = glm::translate(modelview, glm::vec3(normalizedPos, layer));
+        modelview = glm::rotate(modelview, glm::radians(drawCall.getRotation()), glm::vec3(0.f, 0.f, 1.f));
+        auto resultingScale = glm::vec3(drawCall.getScale() * normalizedSize, 1.f);
+        modelview = glm::scale(modelview, resultingScale);
+
+        float const scaleX = camera.getScreenWidth() / PrimaryWindowSize.x;
+        float const scaleY = camera.getScreenHeight() / PrimaryWindowSize.y;
+
+        glm::mat4 projection = glm::ortho(
+            -scaleX,
+             scaleX,
+            -scaleY,
+             scaleY,
+             -1.f,
+             100.f
+        );
+
+        m_shader.setMat4("modelview", modelview);
+        m_shader.setMat4("projection", projection);
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, currentTexture->getID());
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -73,3 +118,5 @@ void Renderer::render()
 
     m_drawCalls.clear();
 }
+
+EndNamespaceSleep

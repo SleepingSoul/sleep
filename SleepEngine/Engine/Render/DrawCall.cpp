@@ -1,12 +1,19 @@
 #include "stdafx.h"
+#include "DrawCall.h"
+#include <Engine/Object.h>
 
 
-DrawCall::DrawCall(Texture* const texture, glm::vec2 const position, glm::vec2 size,
-    glm::vec2 const topLeftUV, glm::vec2 const downRightUV, Layer const layer)
-    : m_texture(texture)
-    , m_position(position)
-    , m_size(size)
-    , m_topLeftUV(topLeftUV)
-    , m_downRightUV(downRightUV)
-    , m_layer(layer)
+BeginNamespaceSleep
+
+DrawCall::DrawCall(Object* const object) noexcept(true)
+    : m_texture(object->getTexture())
+    , m_scale(object->getScale())
+    , m_position(object->getPosition())
+    , m_rotation(object->getRotation())
+    , m_size(object->getSize())
+    , m_topLeftUV(object->getTopLeftUV())
+    , m_downRightUV(object->getDownRightUV())
+    , m_layer(object->getLayer())
 {}
+
+EndNamespaceSleep

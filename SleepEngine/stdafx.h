@@ -27,12 +27,13 @@
 
 #pragma region Math
 #include <glm/glm.hpp>
-#include <glm/vec2.hpp>
-#include <glm/vec4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #pragma endregion
 
-#include <Engine/SleepTypes.h>
 #include <Engine/Utils/MacroUtils.h>
+#include <Engine/EngineConfig.h>
+#include <Engine/SleepTypes.h>
 #include <Engine/Utils/Utils.h>
 
 #include <Engine/Render/Texture.h>
