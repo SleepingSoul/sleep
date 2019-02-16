@@ -6,8 +6,11 @@ BeginNamespaceSleep
 
 namespace
 {
+    float const FPS = 60.f;
+
     unsigned const GLFWVersionMajor = 3;
     unsigned const GLFWVersionMinor = 3;
+
     void framebufferSizeCallback(GLFWwindow* const window, int const width, int const height)
     {
         glViewport(0, 0, width, height);
@@ -18,6 +21,7 @@ namespace
 GameWindow::GameWindow(size_t const width, size_t const height, std::string_view const title, Color const bgColor)
     : m_bgColor(bgColor)
     , m_camera(width, height)
+    , m_clock(FPS)
 {
     if (m_instance)
     {
@@ -75,13 +79,20 @@ bool GameWindow::shouldClose() const
 
 void GameWindow::runFrame()
 {
+    m_clock.frameStart();
+
     glClearColor(m_bgColor.r, m_bgColor.g, m_bgColor.b, m_bgColor.a);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    update();
+    render();
 
     m_renderer->render();
 
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+
+    m_clock.frameEnd();
 }
 
 GameWindow& GameWindow::instance()

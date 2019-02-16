@@ -183,18 +183,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp" />
+    <ClCompile Include="Engine\Clock.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
     <ClCompile Include="Engine\Render\Renderer.cpp" />
     <ClCompile Include="Engine\Render\Texture.cpp" />
     <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp" />
+    <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Updator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Camera.h" />
+    <ClInclude Include="Engine\Clock.h" />
+    <ClInclude Include="Engine\Controllers\Controller.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\GameWindow.h" />
     <ClInclude Include="Engine\Object.h" />
@@ -204,6 +208,7 @@
     <ClInclude Include="Engine\Render\Texture.h" />
     <ClInclude Include="Engine\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Engine\SleepTypes.h" />
+    <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Updator.h" />
     <ClInclude Include="Engine\Utils\MacroUtils.h" />
     <ClInclude Include="Engine\Utils\Utils.h" />

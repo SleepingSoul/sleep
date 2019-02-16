@@ -10,6 +10,8 @@ Renderer::Renderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
 {
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_vertexVBO);
@@ -45,15 +47,13 @@ void Renderer::render()
 
     std::stable_sort(m_drawCalls.begin(), m_drawCalls.end());
 
-    Texture* prevTexture = nullptr;
+    static Texture* prevTexture = nullptr;
 
     for (auto const& drawCall : m_drawCalls)
     {
         auto& camera = GameWindow::instance().getCamera();
 
         glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(drawCall.getPosition());
-
-
 
         glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(
             calculateLesserInsertionSize(drawCall.getTexture()->getSize(), drawCall.getSize())
@@ -77,7 +77,7 @@ void Renderer::render()
 
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_uvVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_DYNAMIC_DRAW);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
         glEnableVertexAttribArray(1);
 
@@ -110,6 +110,7 @@ void Renderer::render()
 
         m_shader.setMat4("modelview", modelview);
         m_shader.setMat4("projection", projection);
+        m_shader.setVec4("ColorMask", drawCall.getColor());
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, currentTexture->getID());

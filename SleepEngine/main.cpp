@@ -13,36 +13,45 @@ using namespace slp;
 
 int main()
 {
-    GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.2f, 1.f, 0.2f, 1.f });
+    GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.003f, 0.007f, 0.298f, 1.f });
     assert(window.isValid());
+    window.getClock().setRestrictFPS(true);
 
     Object object;
-    object.setSize({ 1, 1 });
-    //object.setScale({ 0.5f, 0.5f });
-    //object.setDownRightUV({ 1.f, 0.6f });
-    object.setRotation(0.f);
+    object.setSize({ 4, 4 });
+    object.setDownRightUV({ 1.f, 0.5f });
     object.setLayer(8);
     object.setPosition({ 0, 0 });
     object.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
 
     Object o2;
-    o2.setPosition({ 1, 0 });
-    o2.setSize({ 1, 1 });
+    o2.setPosition({ 4, 0 });
+    o2.setSize({ 4, 4 });
     o2.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
-    o2.setRotation(0.f);
+    o2.setRotation(45.f);
     o2.setLayer(4);
+    o2.modifyColor().a = 0.5f;
 
     Object o3;
-    o3.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
-    o3.setPosition({ 1, 1 });
-    o3.setSize({ 1, 1 });
+    o3.setTexture(window.getResourceManager().getTexture("Data/red.png"));
+    o3.setPosition({ 4, 4 });
+    o3.setSize({ 4, 4 });
+    o3.setScale({ 0.5f, 1.f });
+    o3.setColor({ 0.5f, 0.5f, 0.5f, 0.4f });
+
+    window.addChildren({ &object, &o2, &o3});
+
+    Timer timer;
+    auto moveO3 = [&o3]
+    {
+        o3.setX(std::sin((float)glfwGetTime()));
+    };
+    timer.every(0.016f, moveO3);
 
     while (!window.shouldClose())
     {
-        o3.render();
-        o2.render();
-        object.render();
         window.runFrame();
+        std::cout << "FPS: " << window.getClock().calculateFPS() << ", DT: " << window.getClock().getDT() << '\n';
     }
 
     return 0;

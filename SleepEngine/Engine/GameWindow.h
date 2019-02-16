@@ -4,7 +4,7 @@
 
 BeginNamespaceSleep
 
-class GameWindow
+class GameWindow : public Updator
 {
     ForbidCopyAndMove(GameWindow)
 public:
@@ -20,8 +20,13 @@ public:
     Renderer& getRenderer() { return *m_renderer; }
 
     ResourceManager& getResourceManager() { return m_resourceManager; }
+    ResourceManager const& getResourceManager() const { return m_resourceManager; }
 
     Camera& getCamera() { return m_camera; }
+    Camera const& getCamera() const { return m_camera; }
+
+    Clock& getClock() { return m_clock; }
+    Clock const& getClock() const { return m_clock; }
 
     bool shouldClose() const;
 
@@ -35,6 +40,7 @@ private:
     std::unique_ptr <Renderer> m_renderer;
     ResourceManager m_resourceManager;
     Camera m_camera;
+    Clock m_clock;
     inline static NotOwnedPtr <GameWindow> m_instance = nullptr;
 };
 
