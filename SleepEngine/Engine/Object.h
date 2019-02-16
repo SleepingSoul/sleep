@@ -22,11 +22,11 @@ public:
     glm::vec2 getSize() const { return m_size; }
     void setSize(glm::vec2 const size) { m_size = size; }
 
-    float getX() const { return m_size.x; }
-    void setX(float x) { m_size.x = x; }
+    float getX() const { return m_position.x; }
+    void setX(float x) { m_position.x = x; }
 
-    float getY() const { return m_size.y; }
-    void setY(float y) { m_size.y = y; }
+    float getY() const { return m_position.y; }
+    void setY(float y) { m_position.y = y; }
 
     Texture* getTexture() const { return m_texture; }
     void setTexture(Texture* const texture) { m_texture = texture; }

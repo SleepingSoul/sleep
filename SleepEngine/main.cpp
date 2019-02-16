@@ -13,7 +13,7 @@ using namespace slp;
 
 int main()
 {
-    GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.2f, 1.f, 0.2f, 1.f });
+    GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.003f, 0.007f, 0.298f, 1.f });
     assert(window.isValid());
     window.getClock().setRestrictFPS(true);
 
@@ -39,16 +39,18 @@ int main()
     o3.setScale({ 0.5f, 1.f });
     o3.setColor({ 0.5f, 0.5f, 0.5f, 0.4f });
 
+    window.addChildren({ &object, &o2, &o3});
+
+    Timer timer;
+    auto moveO3 = [&o3]
+    {
+        o3.setX(std::sin((float)glfwGetTime()));
+    };
+    timer.every(0.016f, moveO3);
+
     while (!window.shouldClose())
     {
-        window.getClock().frameStart();
-
-        o3.render();
-        o2.render();
-        object.render();
         window.runFrame();
-
-        window.getClock().frameEnd();
         std::cout << "FPS: " << window.getClock().calculateFPS() << ", DT: " << window.getClock().getDT() << '\n';
     }
 

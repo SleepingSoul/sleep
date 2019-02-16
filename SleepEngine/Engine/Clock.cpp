@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Clock.h"
+#include <Engine/Timer.h>
 
 
 BeginNamespaceSleep
@@ -7,6 +8,7 @@ BeginNamespaceSleep
 Clock::Clock(float fps)
     : m_desiredFrameTime(1.f / fps)
     , m_restrictFPS(false)
+    , m_amortizedDT(1.f / fps)
 {
     std::fill(m_lastDTs.begin(), m_lastDTs.end(), m_desiredFrameTime);
     m_lastDT = m_lastDTs.begin();
@@ -15,6 +17,7 @@ Clock::Clock(float fps)
 void Clock::frameStart()
 {
     m_frameStartTime = glfwGetTime();
+    updateTimers();
 }
 
 void Clock::frameEnd()
@@ -24,8 +27,9 @@ void Clock::frameEnd()
 
     if (m_restrictFPS && frameTime < m_desiredFrameTime)
     {
+        auto const millisecondsToSleep = 1000.f * m_desiredFrameTime - frameTime;
+        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
         frameTime = m_desiredFrameTime;
-        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(m_desiredFrameTime - frameTime))));
     }
 
     *m_lastDT = frameTime;
@@ -39,6 +43,31 @@ void Clock::frameEnd()
 float Clock::calculateFPS() const
 {
     return 1.f / m_amortizedDT;
+}
+
+void Clock::registerTimer(Timer* timer)
+{
+    m_timers.push_back(timer);
+}
+
+void Clock::unregisterTimer(Timer* timer)
+{
+    auto it = std::find(m_timers.cbegin(), m_timers.cend(), timer);
+    if (it == m_timers.cend())
+    {
+        assertion(false, "Attempt to unregister timer: timer not found");
+        return;
+    }
+
+    m_timers.erase(it);
+}
+
+void Clock::updateTimers()
+{
+    for (auto* const timer : m_timers)
+    {
+        timer->update(m_amortizedDT);
+    }
 }
 
 EndNamespaceSleep

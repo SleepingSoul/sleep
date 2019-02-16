@@ -4,11 +4,14 @@
 
 BeginNamespaceSleep
 
+class Timer;
+
 class Clock
 {
     ForbidCopyAndMove(Clock)
 public:
     using DTStorageContainerType = std::array <float, 10>;
+    using TimersContainerType = std::vector <Timer*>;
 
     Clock(float fps);
 
@@ -21,9 +24,16 @@ public:
 
     float calculateFPS() const;
 
+    void registerTimer(Timer* timer);
+    void unregisterTimer(Timer* timer);
+
 private:
+    void updateTimers();
+
     DTStorageContainerType m_lastDTs;
     DTStorageContainerType::iterator m_lastDT;
+
+    TimersContainerType m_timers;
 
     double m_frameStartTime;
     float m_amortizedDT;

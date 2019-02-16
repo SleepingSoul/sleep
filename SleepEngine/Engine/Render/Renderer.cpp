@@ -47,7 +47,7 @@ void Renderer::render()
 
     std::stable_sort(m_drawCalls.begin(), m_drawCalls.end());
 
-    Texture* prevTexture = nullptr;
+    static Texture* prevTexture = nullptr;
 
     for (auto const& drawCall : m_drawCalls)
     {

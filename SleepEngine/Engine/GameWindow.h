@@ -4,7 +4,7 @@
 
 BeginNamespaceSleep
 
-class GameWindow
+class GameWindow : public Updator
 {
     ForbidCopyAndMove(GameWindow)
 public:

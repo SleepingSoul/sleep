@@ -44,5 +44,6 @@
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
+#include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
 #include <Engine/Object.h>
