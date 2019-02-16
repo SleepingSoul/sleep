@@ -17,6 +17,7 @@
 #include <cmath>
 #include <thread>
 #include <mutex>
+#include <numeric>
 #include <future>
 #pragma endregion
 
@@ -42,5 +43,6 @@
 #include <Engine/Render/Renderer.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Camera.h>
+#include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
 #include <Engine/Object.h>

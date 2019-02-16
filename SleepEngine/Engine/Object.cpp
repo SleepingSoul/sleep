@@ -6,7 +6,7 @@
 BeginNamespaceSleep
 
 Object::Object() noexcept(true)
-    : m_color(0xff, 0xff, 0xff, 0xff)
+    : m_color(1.f, 1.f, 1.f, 1.f)
     , m_scale(1.f, 1.f)
     , m_position(0.f, 0.f)
     , m_size(1.f, 1.f)

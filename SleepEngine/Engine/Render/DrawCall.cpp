@@ -13,6 +13,7 @@ DrawCall::DrawCall(Object* const object) noexcept(true)
     , m_size(object->getSize())
     , m_topLeftUV(object->getTopLeftUV())
     , m_downRightUV(object->getDownRightUV())
+    , m_color(object->getColor())
     , m_layer(object->getLayer())
 {}
 
