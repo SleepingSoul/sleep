@@ -55,9 +55,7 @@ void Renderer::render()
 
         glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(drawCall.getPosition());
 
-        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(
-            calculateLesserInsertionSize(drawCall.getTexture()->getSize(), drawCall.getSize())
-        );
+        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(drawCall.getSize());
 
         glm::vec2 const topLeftUV = drawCall.getTopLeftUV();
         glm::vec2 const downRightUV = drawCall.getDownRightUV();
