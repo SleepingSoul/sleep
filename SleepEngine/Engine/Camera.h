@@ -17,6 +17,7 @@ public:
     glm::vec2 getScale() const;
     size_t getScreenWidth() const { return m_screenWidth; }
     size_t getScreenHeight() const { return m_screenHeight; }
+    glm::vec2 getScreenSize() const { return { m_screenWidth, m_screenHeight }; }
 
 private:
     size_t m_screenWidth;
