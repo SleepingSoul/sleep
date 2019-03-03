@@ -18,6 +18,8 @@ public:
     size_t getChannelsNumber() const { return m_channelsNumber; }
     glm::vec2 getSize() const { return { m_width, m_height }; }
     void loadToGPU();
+    void unloadFromGPU();
+    bool isInGPU() const { return m_isInGPU; }
 
 private:
     GLenum channelsNumberToFormat(int channelsNumber) const;
@@ -27,6 +29,8 @@ private:
     size_t m_width;
     size_t m_height;
     size_t m_channelsNumber;
+
+    bool m_isInGPU;
 };
 
 EndNamespaceSleep

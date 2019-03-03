@@ -35,7 +35,7 @@ private:
 
 inline bool operator <(DrawCall const& left, DrawCall const& right)
 {
-    return left.getTexture() > right.getTexture();
+    return left.getLayer() < right.getLayer();
 }
 
 EndNamespaceSleep

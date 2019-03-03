@@ -1,13 +1,27 @@
 #include "stdafx.h"
 #include "Renderer.h"
+#include <Engine/EngineConfig.h>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 
+
+namespace
+{
+    // Offset, that is set between all objects in one layer to make blending work
+    float const OffsetBetweenLayers = 0.001f;
+
+    // Near and Far distances for our ortho view matrix.
+    // Far distance define the max number of Layers
+    float const NearDistance = -1.f;
+    float const FarDistance = slp::MaxLayer + 1;
+}
 
 BeginNamespaceSleep
 
 Renderer::Renderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
+    , m_gpuMemoryBufferSize(1000)
+    , m_usedGPUMemory(0)
 {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -45,12 +59,19 @@ void Renderer::render()
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    std::stable_sort(m_drawCalls.begin(), m_drawCalls.end());
+    std::sort(m_drawCalls.begin(), m_drawCalls.end());
 
-    static Texture* prevTexture = nullptr;
+    float lastLayer = static_cast <float>(m_drawCalls.front().getLayer());
+    float nextLayerOffset = 0.f;
 
     for (auto const& drawCall : m_drawCalls)
     {
+        if (drawCall.getLayer() != lastLayer)
+        {
+            lastLayer = static_cast <float>(drawCall.getLayer());
+            nextLayerOffset = 0.f;
+        }
+
         auto& camera = GameWindow::instance().getCamera();
 
         glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(drawCall.getPosition());
@@ -62,7 +83,8 @@ void Renderer::render()
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = -static_cast <float>(drawCall.getLayer());
+        float const layer = MaxLayer - (static_cast <float>(drawCall.getLayer()) + nextLayerOffset);
+        nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
             topRightUV.x, topRightUV.y,
@@ -79,17 +101,17 @@ void Renderer::render()
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
         glEnableVertexAttribArray(1);
 
-        auto* const currentTexture = drawCall.getTexture();
-        if (currentTexture != prevTexture)
+        // TODO: preload textures to GPU to avoid huge first frame dt?
+        auto& currentTexture = *drawCall.getTexture();
+        if (!currentTexture.isInGPU())
         {
-            currentTexture->loadToGPU();
-            prevTexture = currentTexture;
+            currentTexture.loadToGPU();
         }
 
         m_shader.use();
 
         glm::mat4 modelview(1.f);
-        modelview = glm::translate(modelview, glm::vec3(normalizedPos, layer));
+        modelview = glm::translate(modelview, glm::vec3(normalizedPos, -layer));
         modelview = glm::rotate(modelview, glm::radians(drawCall.getRotation()), glm::vec3(0.f, 0.f, 1.f));
         auto resultingScale = glm::vec3(drawCall.getScale() * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
@@ -102,8 +124,8 @@ void Renderer::render()
              scaleX,
             -scaleY,
              scaleY,
-             -1.f,
-             100.f
+             NearDistance,
+             FarDistance
         );
 
         m_shader.setMat4("modelview", modelview);
@@ -111,7 +133,7 @@ void Renderer::render()
         m_shader.setVec4("ColorMask", drawCall.getColor());
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, currentTexture->getID());
+        glBindTexture(GL_TEXTURE_2D, currentTexture.getID());
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 
