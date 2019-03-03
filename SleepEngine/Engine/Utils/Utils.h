@@ -9,22 +9,22 @@ using NotOwnedPtr = T*;
 
 inline float metersToPixels(float const meters)
 {
-    return meters * MeterLengthInPixels;
+    return meters * MeterLengthInPixels / 2.f;
 }
 
 inline float pixelsToMeters(float const pixels)
 {
-    return pixels / MeterLengthInPixels;
+    return pixels * 2.f / MeterLengthInPixels;
 }
 
 inline glm::vec2 sizeInMetersToPixels(glm::vec2 const sizeInMeters)
 {
-    return sizeInMeters * static_cast <float>(MeterLengthInPixels);
+    return sizeInMeters * static_cast <float>(MeterLengthInPixels) / 2.f;
 }
 
 inline glm::vec2 sizeInPixelsToMeters(glm::vec2 const sizeInPixels)
 {
-    return sizeInPixels / static_cast <float>(MeterLengthInPixels);
+    return sizeInPixels * 2.f / static_cast <float>(MeterLengthInPixels);
 }
 
 inline glm::vec2 positionInMetersToPixels(glm::vec2 const positionInMeters)

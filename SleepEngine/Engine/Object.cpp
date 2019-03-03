@@ -13,7 +13,7 @@ Object::Object() noexcept(true)
     , m_topLeftUV(0.f, 0.f)
     , m_downRightUV(1.f, 1.f)
     , m_texture(nullptr)
-    , m_layer(0)
+    , m_layer(1)
     , m_rotation(0.f)
 {}
 

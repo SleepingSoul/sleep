@@ -1,52 +1,40 @@
 #include "stdafx.h"
 
-#include <iostream>
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow *window);
-
 // settings
-const unsigned int SCR_WIDTH = 300;
-const unsigned int SCR_HEIGHT = 300;
-
-using namespace slp;
+namespace
+{
+    size_t const WindowWidth = 1920;
+    size_t const WindowHeight = 1080;
+    slp::Color WindowBgColor(0.003f, 0.007f, 0.298f, 1.f);
+}
 
 int main()
 {
-    GameWindow window(SCR_WIDTH, SCR_HEIGHT, "I dont like sand", { 0.003f, 0.007f, 0.298f, 1.f });
+    slp::GameWindow window(WindowWidth, WindowHeight, "Heroes of the storm", WindowBgColor);
     assert(window.isValid());
+    window.getClock().setFPS(30.f);
     window.getClock().setRestrictFPS(true);
 
-    Object object;
-    object.setSize({ 4, 4 });
-    object.setDownRightUV({ 1.f, 0.5f });
-    object.setLayer(8);
-    object.setPosition({ 0, 0 });
-    object.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
+    slp::Object background;
+    background.setTexture(window.getResourceManager().getTexture("Data/orphea.jpg"));
+    background.setSize(slp::sizeInPixelsToMeters(window.getCamera().getScreenSize()));
+    background.setLayer(0);
+    window.addChild(&background);
 
-    Object o2;
-    o2.setPosition({ 4, 0 });
-    o2.setSize({ 4, 4 });
-    o2.setTexture(window.getResourceManager().getTexture("Data/CJ9qfDJ.jpg"));
-    o2.setRotation(45.f);
-    o2.setLayer(4);
-    o2.modifyColor().a = 0.5f;
+    slp::Object cirillas[3];
+    auto ciriTexture = window.getResourceManager().getTexture("Data/cirilla.png");
 
-    Object o3;
-    o3.setTexture(window.getResourceManager().getTexture("Data/red.png"));
-    o3.setPosition({ 4, 4 });
-    o3.setSize({ 4, 4 });
-    o3.setScale({ 0.5f, 1.f });
-    o3.setColor({ 0.5f, 0.5f, 0.5f, 0.4f });
-
-    window.addChildren({ &object, &o2, &o3});
-
-    Timer timer;
-    auto moveO3 = [&o3]
     {
-        o3.setX(std::sin((float)glfwGetTime()));
-    };
-    timer.every(0.016f, moveO3);
+        size_t i = 0;
+        for (auto& c : cirillas)
+        {
+            c.setTexture(ciriTexture);
+            c.setLayer(1);
+            c.setSize(slp::sizeInPixelsToMeters(ciriTexture->getSize()));
+            c.setPosition({ i++ * 3.f, 0.f });
+            window.addChild(&c);
+        }
+    }
 
     while (!window.shouldClose())
     {
@@ -55,22 +43,4 @@ int main()
     }
 
     return 0;
-}
-
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow *window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
-
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
-    //GameWindow::instance().getCamera().setScreenSize(width, height);
-    glViewport(0, 0, width, height);
 }

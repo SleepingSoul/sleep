@@ -7,6 +7,7 @@
 BeginNamespaceSleep
 
 Texture::Texture(char const* path) noexcept(true)
+    : m_isInGPU(false)
 {
     int width, height, channelsNumber;
     m_data = stbi_load(path, &width, &height, &channelsNumber, 0);
@@ -41,6 +42,14 @@ void Texture::loadToGPU()
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    m_isInGPU = true;
+}
+
+void Texture::unloadFromGPU()
+{
+    glDeleteTextures(1, &m_id);
+    m_isInGPU = false;
 }
 
 GLenum Texture::channelsNumberToFormat(int const channelsNumber) const

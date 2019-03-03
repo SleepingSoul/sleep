@@ -7,7 +7,7 @@
 
 BeginNamespaceSleep
 
-static Layer const MaxLayer = 100;
+static Layer const MaxLayer = 99;
 static size_t const MeterLengthInPixels = 100;
 static glm::vec2 const PrimaryWindowSize(1024.f, 1024.f);
 
