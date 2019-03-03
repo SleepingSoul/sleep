@@ -70,7 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
+    <LibraryPath>$(ProjectDir)\external\easy_profiler\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
@@ -90,18 +91,20 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <CustomBuildStep>
-      <Command>
-      </Command>
+      <Command>xcopy $(ProjectDir)\external\easy_profiler\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>
-      </Outputs>
+      <Outputs>easy_profiler.dll</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>
       <Command>xcopy $(ProjectDir)\Engine\Render\Shaders $(TargetDir) /E /I /F /Y</Command>
     </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>easy_profiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

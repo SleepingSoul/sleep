@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <easy/profiler.h>
 
 // settings
 namespace
@@ -10,6 +11,8 @@ namespace
 
 int main()
 {
+    EASY_FUNCTION(profiler::colors::Magenta);
+
     slp::GameWindow window(WindowWidth, WindowHeight, "Heroes of the storm", WindowBgColor);
     assert(window.isValid());
     window.getClock().setFPS(30.f);
