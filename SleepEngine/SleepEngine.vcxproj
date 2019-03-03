@@ -70,11 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
-    <LibraryPath>$(ProjectDir)\external\easy_profiler\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\debug\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
+    <LibraryPath>$(ProjectDir)\external\easy_profiler\debug\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\release\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(ProjectDir)\external\easy_profiler\release\bin;$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
@@ -94,7 +95,7 @@
       <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <CustomBuildStep>
-      <Command>xcopy $(ProjectDir)\external\easy_profiler\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
+      <Command>xcopy $(ProjectDir)\external\easy_profiler\debug\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>easy_profiler.dll</Outputs>
@@ -145,12 +146,10 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <CustomBuildStep>
-      <Command>
-      </Command>
+      <Command>xcopy $(ProjectDir)\external\easy_profiler\release\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>
-      </Outputs>
+      <Outputs>easy_profiler.dll</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>
       <Command>xcopy $(ProjectDir)\Engine\Render\Shaders $(TargetDir) /E /I /F /Y</Command>
