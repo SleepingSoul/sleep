@@ -27,7 +27,7 @@ void Clock::frameEnd()
 
     if (m_restrictFPS && frameTime < m_desiredFrameTime)
     {
-        auto const millisecondsToSleep = 1000.f * m_desiredFrameTime - frameTime;
+        auto const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
         std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
         frameTime = m_desiredFrameTime;
     }

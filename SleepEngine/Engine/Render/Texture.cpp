@@ -8,6 +8,7 @@ BeginNamespaceSleep
 
 Texture::Texture(char const* path) noexcept(true)
     : m_isInGPU(false)
+    , m_path(path)
 {
     int width, height, channelsNumber;
     m_data = stbi_load(path, &width, &height, &channelsNumber, 0);

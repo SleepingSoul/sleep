@@ -20,6 +20,7 @@ public:
     void loadToGPU();
     void unloadFromGPU();
     bool isInGPU() const { return m_isInGPU; }
+    std::string_view getPath() const { return m_path; }
 
 private:
     GLenum channelsNumberToFormat(int channelsNumber) const;
@@ -30,6 +31,7 @@ private:
     size_t m_height;
     size_t m_channelsNumber;
 
+    std::string m_path;
     bool m_isInGPU;
 };
 
