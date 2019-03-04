@@ -79,18 +79,18 @@ bool GameWindow::shouldClose() const
 
 void GameWindow::runFrame()
 {
+    EASY_FUNCTION();
     m_clock.frameStart();
-
-    glClearColor(m_bgColor.r, m_bgColor.g, m_bgColor.b, m_bgColor.a);
-    glClear(GL_COLOR_BUFFER_BIT);
 
     update();
     render();
 
     m_renderer->render();
 
+    EASY_BLOCK("Swap buffers/poll events");
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+    EASY_END_BLOCK;
 
     m_clock.frameEnd();
 }

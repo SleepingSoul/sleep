@@ -32,6 +32,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #pragma endregion
 
+//profiling
+#include <easy/profiler.h>
+
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/EngineConfig.h>
 #include <Engine/SleepTypes.h>

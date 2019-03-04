@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <easy/profiler.h>
 
 // settings
 namespace
@@ -11,11 +10,12 @@ namespace
 
 int main()
 {
-    EASY_FUNCTION(profiler::colors::Magenta);
+    EASY_PROFILER_ENABLE;
+    profiler::startListen(9999);
 
     slp::GameWindow window(WindowWidth, WindowHeight, "Heroes of the storm", WindowBgColor);
     assert(window.isValid());
-    window.getClock().setFPS(30.f);
+    window.getClock().setFPS(60.f);
     window.getClock().setRestrictFPS(true);
 
     slp::Object background;
@@ -24,7 +24,7 @@ int main()
     background.setLayer(0);
     window.addChild(&background);
 
-    slp::Object cirillas[3];
+    slp::Object cirillas[500];
     auto ciriTexture = window.getResourceManager().getTexture("Data/cirilla.png");
 
     {
@@ -33,8 +33,9 @@ int main()
         {
             c.setTexture(ciriTexture);
             c.setLayer(1);
+            c.setRotation(static_cast <float>(i) * 4.4f);
             c.setSize(slp::sizeInPixelsToMeters(ciriTexture->getSize()));
-            c.setPosition({ i++ * 3.f, 0.f });
+            c.setPosition({ -slp::pixelsToMeters(window.getCamera().getScreenWidth() / 2.f) + i++, 0.f });
             window.addChild(&c);
         }
     }
@@ -42,8 +43,11 @@ int main()
     while (!window.shouldClose())
     {
         window.runFrame();
+        EASY_BLOCK("Output")
         std::cout << "FPS: " << window.getClock().calculateFPS() << ", DT: " << window.getClock().getDT() << '\n';
+        EASY_END_BLOCK;
     }
 
+    profiler::stopListen();
     return 0;
 }

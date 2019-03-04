@@ -56,16 +56,23 @@ void Renderer::addDrawCall(DrawCall const drawCall)
 
 void Renderer::render()
 {
+    EASY_FUNCTION(profiler::colors::Red);
+
+    auto bgColor = GameWindow::instance().getBackgroundColor();
+    glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    EASY_BLOCK("Sort draw calls");
     std::sort(m_drawCalls.begin(), m_drawCalls.end());
+    EASY_END_BLOCK;
 
     float lastLayer = static_cast <float>(m_drawCalls.front().getLayer());
     float nextLayerOffset = 0.f;
 
     for (auto const& drawCall : m_drawCalls)
     {
+        EASY_BLOCK("render draw call");
         if (drawCall.getLayer() != lastLayer)
         {
             lastLayer = static_cast <float>(drawCall.getLayer());
@@ -95,11 +102,13 @@ void Renderer::render()
             topRightUV.x, topRightUV.y
         };
 
+        EASY_BLOCK("Load UV in GPU");
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_uvVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_DYNAMIC_DRAW);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
         glEnableVertexAttribArray(1);
+        EASY_END_BLOCK;
 
         // TODO: preload textures to GPU to avoid huge first frame dt?
         auto& currentTexture = *drawCall.getTexture();
@@ -110,6 +119,7 @@ void Renderer::render()
 
         m_shader.use();
 
+        EASY_BLOCK("MVP matrices load to GPU");
         glm::mat4 modelview(1.f);
         modelview = glm::translate(modelview, glm::vec3(normalizedPos, -layer));
         modelview = glm::rotate(modelview, glm::radians(drawCall.getRotation()), glm::vec3(0.f, 0.f, 1.f));
@@ -131,10 +141,14 @@ void Renderer::render()
         m_shader.setMat4("modelview", modelview);
         m_shader.setMat4("projection", projection);
         m_shader.setVec4("ColorMask", drawCall.getColor());
+        EASY_END_BLOCK;
 
+        EASY_BLOCK("OpenGL render");
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, currentTexture.getID());
         glDrawArrays(GL_TRIANGLES, 0, 6);
+        EASY_END_BLOCK;
+        EASY_END_BLOCK;
     }
 
     m_drawCalls.clear();
