@@ -70,6 +70,7 @@ void Renderer::render()
     float lastLayer = static_cast <float>(m_drawCalls.front().getLayer());
     float nextLayerOffset = 0.f;
 
+    size_t i = 0;
     for (auto const& drawCall : m_drawCalls)
     {
         EASY_BLOCK("render draw call");
@@ -103,9 +104,13 @@ void Renderer::render()
         };
 
         EASY_BLOCK("Load UV in GPU");
+        EASY_TEXT("Texture", drawCall.getTexture()->getPath().data());
+        EASY_VALUE("Number of draw call", i++);
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_uvVBO);
+        EASY_BLOCK("GL buffer data");
         glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_DYNAMIC_DRAW);
+        EASY_END_BLOCK;
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
         glEnableVertexAttribArray(1);
         EASY_END_BLOCK;
@@ -151,6 +156,7 @@ void Renderer::render()
         EASY_END_BLOCK;
     }
 
+    i = 0;
     m_drawCalls.clear();
 }
 
