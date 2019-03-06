@@ -24,7 +24,7 @@ int main()
     background.setLayer(0);
     window.addChild(&background);
 
-    slp::Object cirillas[5000];
+    slp::Object cirillas[300];
     auto ciriTexture = window.getResourceManager().getTexture("Data/cirilla.png");
 
     {

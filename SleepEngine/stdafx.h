@@ -43,6 +43,7 @@
 
 #include <Engine/Render/Texture.h>
 #include <Engine/Updator.h>
+#include <Engine/Render/Transform2D.h>
 #include <Engine/Render/DrawCall.h>
 #include <Engine/Render/Renderer.h>
 #include <Engine/ResourceManagement/ResourceManager.h>

@@ -5,22 +5,24 @@
 
 BeginNamespaceSleep
 
-Object::Object() noexcept(true)
-    : m_color(1.f, 1.f, 1.f, 1.f)
-    , m_scale(1.f, 1.f)
-    , m_position(0.f, 0.f)
-    , m_size(1.f, 1.f)
+Object::Object() noexcept(std::is_nothrow_constructible_v <Transform2D>)
+    : m_transform{
+        glm::vec2(1.f, 1.f), // scale
+        glm::vec2(0.f, 0.f), // pos
+        glm::vec2(1.f, 1.f), // size
+        1,                   // layer
+        0.f                  // rotation
+        }
+    , m_color(1.f, 1.f, 1.f, 1.f)
     , m_topLeftUV(0.f, 0.f)
     , m_downRightUV(1.f, 1.f)
     , m_texture(nullptr)
-    , m_layer(1)
-    , m_rotation(0.f)
 {}
 
 void Object::setLayer(Layer const layer)
 {
     assertion(layer < slp::MaxLayer, "Layer is more then 'MaxLayer' defined in EngineConfig");
-    m_layer = layer;
+    m_transform.layer = layer;
 }
 
 void Object::setUV(float const topLeftX, float const topLeftY, float const downRightX, const float downRightY)
@@ -31,7 +33,7 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
 
 void Object::render()
 {
-    GameWindow::instance().getRenderer().emplaceDrawCall(this);
+    GameWindow::instance().getRenderer().emplaceDrawCall(m_transform, m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
 EndNamespaceSleep
