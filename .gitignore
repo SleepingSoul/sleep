@@ -23,3 +23,6 @@ bld/
 [Ll]og/
 
 .vs
+
+# profiles
+*.prof
