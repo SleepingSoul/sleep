@@ -7,3 +7,4 @@ Requires (all of this packages can be installed with [vcpkg](https://github.com/
 - glm
 - glad
 - stb
+- spdlog

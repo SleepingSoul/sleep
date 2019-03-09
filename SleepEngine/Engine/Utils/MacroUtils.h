@@ -5,6 +5,13 @@
 #define assertion(condition, message)\
 assert((message, condition))
 
+#define logAndAssertError(condition, message)\
+if (!condition)\
+{\
+    spdlog::get(slp::EngineLogger)->error(message);\
+    assertion(condition, message);\
+}
+
 #define ForbidCopy(classname)\
 classname(classname const&) = delete;\
 classname& operator =(classname const&) = delete;
