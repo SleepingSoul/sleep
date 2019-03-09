@@ -35,6 +35,8 @@ public:
     static GameWindow& instance();
 
 private:
+    void SetupLogger() const;
+
     Color m_bgColor;
     NotOwnedPtr <GLFWwindow> m_window;
     std::unique_ptr <Renderer> m_renderer;

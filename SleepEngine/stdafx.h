@@ -36,6 +36,10 @@
 #include <easy/profiler.h>
 #include <easy/arbitrary_value.h>
 
+// logging
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/EngineConfig.h>
 #include <Engine/SleepTypes.h>

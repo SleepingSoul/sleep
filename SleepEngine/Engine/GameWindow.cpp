@@ -23,8 +23,11 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
     , m_camera(width, height)
     , m_clock(FPS)
 {
+    SetupLogger();
+
     if (m_instance)
     {
+        logAndAssertError(false, "Attempt to create second game window! It is forbidden!");
         return;
     }
 
@@ -39,7 +42,8 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
     m_window = glfwCreateWindow(width, height, title.data(), NULL, NULL);
     if (!m_window)
     {
-        assertion(false, "Window wasn't created!");
+        logAndAssertError(false, "Window wasn't created!");
+        return;
     }
     glfwMakeContextCurrent(m_window);
     glfwSetFramebufferSizeCallback(m_window, framebufferSizeCallback);
@@ -47,7 +51,8 @@ GameWindow::GameWindow(size_t const width, size_t const height, std::string_view
 
     if (!gladLoadGLLoader(reinterpret_cast <GLADloadproc>(glfwGetProcAddress)))
     {
-        assertion(false, "Failed to initialize GLAD");
+        logAndAssertError(false, "Failed to initialize GLAD");
+        return;
     }
 
     m_renderer = std::make_unique <Renderer>();
@@ -104,6 +109,13 @@ void GameWindow::runFrame()
 GameWindow& GameWindow::instance()
 {
     return *m_instance;
+}
+
+void GameWindow::SetupLogger() const
+{
+    bool const rewriteOldLog = true;
+    auto engineLogger = spdlog::basic_logger_mt(EngineLogger, EngineLoggerPath, rewriteOldLog);
+    engineLogger->set_level(spdlog::level::debug);
 }
 
 EndNamespaceSleep
