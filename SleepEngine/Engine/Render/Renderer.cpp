@@ -67,31 +67,33 @@ void Renderer::render()
     std::sort(m_drawCalls.begin(), m_drawCalls.end());
     EASY_END_BLOCK;
 
-    float lastLayer = static_cast <float>(m_drawCalls.front().getLayer());
+    float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().layer);
     float nextLayerOffset = 0.f;
 
-    size_t i = 0;
     for (auto const& drawCall : m_drawCalls)
     {
         EASY_BLOCK("render draw call");
-        if (drawCall.getLayer() != lastLayer)
+        
+        auto const& transform = drawCall.getTransform();
+
+        if (transform.layer != lastLayer)
         {
-            lastLayer = static_cast <float>(drawCall.getLayer());
+            lastLayer = static_cast <float>(transform.layer);
             nextLayerOffset = 0.f;
         }
 
         auto& camera = GameWindow::instance().getCamera();
 
-        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(drawCall.getPosition());
+        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(transform.position);
 
-        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(drawCall.getSize());
+        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(transform.size);
 
         glm::vec2 const topLeftUV = drawCall.getTopLeftUV();
         glm::vec2 const downRightUV = drawCall.getDownRightUV();
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = MaxLayer - (static_cast <float>(drawCall.getLayer()) + nextLayerOffset);
+        float const layer = MaxLayer - (static_cast <float>(transform.layer) + nextLayerOffset);
         nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
@@ -104,8 +106,6 @@ void Renderer::render()
         };
 
         EASY_BLOCK("Load UV in GPU");
-        EASY_TEXT("Texture", drawCall.getTexture()->getPath().data());
-        EASY_VALUE("Number of draw call", i++);
         glBindVertexArray(m_VAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_uvVBO);
         EASY_BLOCK("GL buffer data");
@@ -127,8 +127,8 @@ void Renderer::render()
         EASY_BLOCK("MVP matrices load to GPU");
         glm::mat4 modelview(1.f);
         modelview = glm::translate(modelview, glm::vec3(normalizedPos, -layer));
-        modelview = glm::rotate(modelview, glm::radians(drawCall.getRotation()), glm::vec3(0.f, 0.f, 1.f));
-        auto resultingScale = glm::vec3(drawCall.getScale() * normalizedSize, 1.f);
+        modelview = glm::rotate(modelview, glm::radians(transform.rotation), glm::vec3(0.f, 0.f, 1.f));
+        auto resultingScale = glm::vec3(transform.scale * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
 
         float const scaleX = camera.getScreenWidth() / PrimaryWindowSize.x;
@@ -156,7 +156,6 @@ void Renderer::render()
         EASY_END_BLOCK;
     }
 
-    i = 0;
     m_drawCalls.clear();
 }
 
