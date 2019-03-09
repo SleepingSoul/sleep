@@ -79,7 +79,7 @@ bool GameWindow::shouldClose() const
 
 void GameWindow::runFrame()
 {
-    EASY_FUNCTION();
+    EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
     update();
@@ -87,10 +87,16 @@ void GameWindow::runFrame()
 
     m_renderer->render();
 
-    EASY_BLOCK("Swap buffers/poll events");
+    EASY_BLOCK("Swap buffers/poll events", profiler::colors::Purple);
     glfwSwapBuffers(m_window);
     glfwPollEvents();
     EASY_END_BLOCK;
+
+#ifdef SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT
+    EASY_BLOCK("Console output", profiler::colors::Grey);
+    std::cout << "FPS: " << m_clock.calculateFPS() << ", DT: " << m_clock.getDT() << '\n';
+    EASY_END_BLOCK;
+#endif
 
     m_clock.frameEnd();
 }
