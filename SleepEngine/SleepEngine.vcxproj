@@ -193,6 +193,7 @@
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
     <ClCompile Include="Engine\Render\Renderer.cpp" />
     <ClCompile Include="Engine\Render\Texture.cpp" />
+    <ClCompile Include="Engine\Render\Transform2D.cpp" />
     <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Updator.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Engine\Render\Renderer.h" />
     <ClInclude Include="Engine\Render\Shader.h" />
     <ClInclude Include="Engine\Render\Texture.h" />
+    <ClInclude Include="Engine\Render\Transform2D.h" />
     <ClInclude Include="Engine\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Engine\SleepTypes.h" />
     <ClInclude Include="Engine\Timer.h" />
