@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
 // settings
 namespace
@@ -19,7 +19,7 @@ int main()
 
     slp::Object background;
     background.setTexture(window.getResourceManager().getTexture("Data/orphea.jpg"));
-    background.setSize(slp::sizeInPixelsToMeters(window.getCamera().getScreenSize()));
+    background.setSize(slp::pixelsToMeters(window.getCamera().getScreenSize()));
     background.setLayer(0);
     window.addChild(&background);
 
@@ -33,7 +33,7 @@ int main()
             c.setTexture(ciriTexture);
             c.setLayer(1);
             c.setRotation(static_cast <float>(i) * 4.4f);
-            c.setSize(slp::sizeInPixelsToMeters(ciriTexture->getSize()));
+            c.setSize(slp::pixelsToMeters(ciriTexture->getSize()));
             c.setPosition({ -slp::pixelsToMeters(window.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
             window.addChild(&c);
         }
