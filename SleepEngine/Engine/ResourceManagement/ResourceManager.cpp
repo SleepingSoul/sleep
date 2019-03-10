@@ -21,7 +21,7 @@ ResourceManager::FutureType ResourceManager::preloadFromDirectory(std::string_vi
     {
         if (!std::filesystem::exists(path))
         {
-            assertion(false, "Directory not exists");
+            logAndAssertError(false, "Directory not exists");
             return false;
         }
 
