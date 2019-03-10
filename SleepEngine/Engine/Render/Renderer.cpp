@@ -14,6 +14,9 @@ namespace
     // Far distance define the max number of Layers
     float const NearDistance = -1.f;
     float const FarDistance = slp::MaxLayer + 1;
+
+    size_t const IndicesBufferSize = 2048;
+
 }
 
 BeginNamespaceSleep
@@ -30,6 +33,7 @@ Renderer::Renderer()
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_vertexVBO);
     glGenBuffers(1, &m_uvVBO);
+    glGenBuffers(1, &m_elementBuffer);
 
     glBindVertexArray(m_VAO);
     float vertices[] = {
@@ -41,7 +45,6 @@ Renderer::Renderer()
              1,  1
     };
 
-    glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), reinterpret_cast <void*>(0));
@@ -64,7 +67,7 @@ void Renderer::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     EASY_BLOCK("Sort draw calls");
-    std::sort(m_drawCalls.begin(), m_drawCalls.end());
+    std::stable_sort(All(m_drawCalls));
     EASY_END_BLOCK;
 
     float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().layer);
@@ -97,12 +100,18 @@ void Renderer::render()
         nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
-            topRightUV.x, topRightUV.y,
+            /*topRightUV.x, topRightUV.y,
             downRightUV.x, downRightUV.y,
             downLeftUV.x, downLeftUV.y,
             downLeftUV.x, downLeftUV.y,
             topLeftUV.x, topLeftUV.y,
-            topRightUV.x, topRightUV.y
+            topRightUV.x, topRightUV.y*/
+            1, 0,
+            1, 1,
+            0, 1,
+            0, 1,
+            0, 0,
+            1, 0
         };
 
         EASY_BLOCK("Load UV in GPU");
@@ -157,6 +166,47 @@ void Renderer::render()
     }
 
     m_drawCalls.clear();
+}
+
+void Renderer::renderLayer(DrawCallsContainer::iterator begin, DrawCallsContainer::iterator end)
+{
+
+    EASY_FUNCTION(profiler::colors::LightBlue);
+
+    auto const sortByTexture = [](DrawCall const& left, DrawCall const& right)
+    {
+        return left.getTexture() < right.getTexture();
+    };
+
+    std::stable_sort(begin, end, sortByTexture);
+
+    auto it = begin;
+    for (auto lastTextureIt = std::find_if(it, end, [texture = it->getTexture()](DrawCall const& dc) { return dc.getTexture() != texture; });
+         lastTextureIt != end;)
+    {
+        auto oldIt = std::exchange(it, std::next(lastTextureIt));
+        renderOneTexturedDrawCalls(oldIt, it);
+    }
+}
+
+void Renderer::renderOneTexturedDrawCalls(DrawCallsContainer::const_iterator begin, DrawCallsContainer::const_iterator end)
+{
+    EASY_FUNCTION(profiler::colors::DarkGreen);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+    
+    size_t const indicesPerDrawCall = 6;
+    unsigned indices[] = { 0, 1, 3, 1, 2, 3 };
+
+    size_t const size = std::distance(begin, end) * indicesPerDrawCall;
+
+    std::array <unsigned, IndicesBufferSize> m_indices;
+    size_t i = 0;
+    for (auto it = begin; it != end; ++it)
+    {
+        i += indicesPerDrawCall;
+        std::copy(AllConst(indices), m_indices[i]);
+    }
 }
 
 EndNamespaceSleep

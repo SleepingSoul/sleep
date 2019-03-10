@@ -20,6 +20,9 @@ classname& operator =(classname const&) = delete;
 classname(classname&&) = delete;\
 classname& operator =(classname&&) = delete;
 
+#define All(container) std::begin(container), std::end(container)
+#define AllConst(container) std::cbegin(container), std::cend(container)
+
 #define ForbidCopyAndMove(classname)\
 ForbidCopy(classname)\
 ForbidMove(classname)
