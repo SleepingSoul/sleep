@@ -24,5 +24,12 @@ classname& operator =(classname&&) = delete;
 ForbidCopy(classname)\
 ForbidMove(classname)
 
+#define REF_GETTERS(getterName, member) GETTERS(auto&, getterName, member)
+
+#define GETTERS(type, getterName, member)\
+type getterName() { return member; }\
+const type getterName() const { return member; }
+
+
 #define BeginNamespaceSleep namespace slp{
 #define EndNamespaceSleep }

@@ -41,7 +41,6 @@
 #include <spdlog/sinks/basic_file_sink.h>
 
 #include <Engine/Utils/MacroUtils.h>
-#include <Engine/EngineConfig.h>
 #include <Engine/SleepTypes.h>
 #include <Engine/Utils/Utils.h>
 
