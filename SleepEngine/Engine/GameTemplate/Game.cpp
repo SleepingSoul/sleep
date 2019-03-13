@@ -26,8 +26,14 @@ Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
 		return;
 	}
 	m_instance = this;
-
 	m_renderer = std::make_unique <Renderer>();
+
+	if (!sceneIniter)
+	{
+		logAndAssertError(false, "sceneIniter is null");
+		return;
+	}
+	sceneIniter(*this);
 }
 
 void Game::addToRoot(Object* object)
