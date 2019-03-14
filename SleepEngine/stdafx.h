@@ -40,6 +40,8 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
+#include <nlohmann/json.hpp>
+
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
 #include <Engine/Utils/Utils.h>

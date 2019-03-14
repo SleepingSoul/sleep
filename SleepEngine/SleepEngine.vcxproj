@@ -93,6 +93,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>external/nlohmann/include</AdditionalIncludeDirectories>
     </ClCompile>
     <CustomBuildStep>
       <Command>xcopy $(ProjectDir)\external\easy_profiler\prof_debug\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
@@ -220,6 +221,7 @@
     <ClInclude Include="Engine\Updator.h" />
     <ClInclude Include="Engine\Utils\MacroUtils.h" />
     <ClInclude Include="Engine\Utils\Utils.h" />
+    <ClInclude Include="external\nlohmann\include\nlohmann\json.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
