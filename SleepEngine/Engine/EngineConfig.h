@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <glm/glm.hpp>
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
 

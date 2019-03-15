@@ -3,6 +3,7 @@
 #include <Engine/EngineConfig.h>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
+#include <Engine/GameTemplate/Game.h>
 
 
 namespace
@@ -14,6 +15,7 @@ namespace
     // Far distance define the max number of Layers
     float const NearDistance = -1.f;
     float const FarDistance = slp::MaxLayer + 1;
+	slp::Color WindowBgColor(0.003f, 0.007f, 0.298f, 1.f);
 }
 
 BeginNamespaceSleep
@@ -58,8 +60,7 @@ void Renderer::render()
 {
     EASY_FUNCTION(profiler::colors::Red);
 
-    auto bgColor = GameWindow::instance().getBackgroundColor();
-    glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+    glClearColor(WindowBgColor.r, WindowBgColor.g, WindowBgColor.b, WindowBgColor.a);
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -82,7 +83,7 @@ void Renderer::render()
             nextLayerOffset = 0.f;
         }
 
-        auto& camera = GameWindow::instance().getCamera();
+        auto& camera = Game::instance().getCamera();
 
         glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(transform.position);
 

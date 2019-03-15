@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Timer.h"
-
+#include <Engine/GameTemplate/Game.h>
 
 BeginNamespaceSleep
 
@@ -8,12 +8,12 @@ Timer::Timer()
     : m_accumulator(0.f)
     , m_interval(1.f)
 {
-    GameWindow::instance().getClock().registerTimer(this);
+    Game::instance().getClock().registerTimer(this);
 }
 
 Timer::~Timer()
 {
-    GameWindow::instance().getClock().unregisterTimer(this);
+    Game::instance().getClock().unregisterTimer(this);
 }
 
 void Timer::every(float time, Callback callback)

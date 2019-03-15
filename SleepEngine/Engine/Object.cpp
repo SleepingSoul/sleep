@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Object.h"
 #include <Engine/EngineConfig.h>
-
+#include <Engine/GameTemplate/Game.h>
 
 BeginNamespaceSleep
 
@@ -33,7 +33,7 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
 
 void Object::render()
 {
-    GameWindow::instance().getRenderer().emplaceDrawCall(m_transform, m_texture, m_topLeftUV, m_downRightUV, m_color);
+    Game::instance().getRenderer().emplaceDrawCall(m_transform, m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
 EndNamespaceSleep

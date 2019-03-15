@@ -16,6 +16,9 @@ public:
     Clock(float fps);
 
     void frameStart();
+	// also sleeps if m_restrictFPS is set and 
+    // also sleeps if m_restrictFPS is set and
+    // the frame was to short to sustain desired fps has passed since last frame
     void frameEnd();
     float getDT() const { return m_amortizedDT; }
 

@@ -1,48 +1,47 @@
 #include <stdafx.h>
+#include <Engine/GameTemplate/Game.h>
 
 // settings
 namespace
 {
-    size_t const WindowWidth = 1920;
-    size_t const WindowHeight = 1080;
-    slp::Color WindowBgColor(0.003f, 0.007f, 0.298f, 1.f);
+	size_t const WindowWidth = 1920;
+	size_t const WindowHeight = 1080;
 }
 
 int main()
 {
     EASY_PROFILER_ENABLE;
 
-    slp::GameWindow window(WindowWidth, WindowHeight, "Heroes of the storm", WindowBgColor);
-    assert(window.isValid());
-    window.getClock().setFPS(60.f);
-    window.getClock().setRestrictFPS(true);
-
-    slp::Object background;
-    background.setTexture(window.getResourceManager().getTexture("Data/orphea.jpg"));
-    background.setSize(slp::pixelsToMeters(window.getCamera().getScreenSize()));
-    background.setLayer(0);
-    window.addChild(&background);
-
-    slp::Object cirillas[200];
-    auto ciriTexture = window.getResourceManager().getTexture("Data/cirilla.png");
-
+	// right now the heap allocated objects leak because Updator does not own them, fixed in Updator re-do by tihran
+    auto initScene = [](slp::Game& game)
     {
-        size_t i = 0;
-        for (auto& c : cirillas)
+        auto* background = new slp::Object();
+        background->setTexture(game.getResourceManager().getTexture("Data/orphea.jpg"));
+        background->setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
+        background->setLayer(0);
+        game.addToRoot(background);
+
+        auto ciriTexture = game.getResourceManager().getTexture("Data/cirilla.png");
+
+        for (int i = 0; i < 200; i++)
         {
-            c.setTexture(ciriTexture);
-            c.setLayer(1);
-            c.setRotation(static_cast <float>(i) * 4.4f);
-            c.setSize(slp::pixelsToMeters(ciriTexture->getSize()));
-            c.setPosition({ -slp::pixelsToMeters(window.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
-            window.addChild(&c);
-        }
-    }
+	        auto* ciri = new slp::Object();
 
-    while (!window.shouldClose())
-    {
-        window.runFrame();
-    }
+	        ciri->setTexture(ciriTexture);
+	        ciri->setLayer(1);
+	        ciri->setRotation(static_cast <float>(i) * 4.4f);
+	        ciri->setSize(slp::pixelsToMeters(ciriTexture->getSize()));
+	        ciri->setPosition({ -slp::pixelsToMeters(game.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
+	        game.addToRoot(ciri);
+        }
+    };
+
+	slp::Game game(initScene, WindowWidth, WindowHeight);
+
+    game.getClock().setFPS(60.f);
+	game.getClock().setRestrictFPS(true);
+
+	game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;

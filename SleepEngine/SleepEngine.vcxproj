@@ -188,6 +188,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Clock.cpp" />
+    <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Engine\Clock.h" />
     <ClInclude Include="Engine\Controllers\Controller.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
+    <ClInclude Include="Engine\GameTemplate\Game.h" />
     <ClInclude Include="Engine\GameWindow.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Render\DrawCall.h" />
