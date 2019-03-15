@@ -17,7 +17,7 @@ namespace
     }
 }
 
-GameWindow::GameWindow(size_t const width, size_t const height, std::string_view const title)
+GameWindow::GameWindow(size_t width, size_t height, std::string_view title)
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLFWVersionMajor);
