@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Timer.h"
-#include "GameTemplate/Game.h"
+#include <Engine/GameTemplate/Game.h>
 
 BeginNamespaceSleep
 

@@ -69,10 +69,9 @@ bool GameWindow::shouldClose() const
 
 void GameWindow::runFrame()
 {
-    EASY_BLOCK("Swap buffers/poll events", profiler::colors::Purple);
+    EASY_FUNCTION(profiler::colors::Orange);
     glfwSwapBuffers(m_window);
     glfwPollEvents();
-    EASY_END_BLOCK;
 }
 
 EndNamespaceSleep
