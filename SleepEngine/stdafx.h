@@ -53,4 +53,5 @@
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
+#include <Engine/Components/Component.h>
 #include <Engine/Object.h>

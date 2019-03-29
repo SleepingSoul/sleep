@@ -4,10 +4,12 @@
 
 BeginNamespaceSleep
 
-class Object : public Updator
+class Object
 {
 public:
-    Object() noexcept(std::is_nothrow_constructible_v <Transform2D>);
+    using ComponentsContainer = std::vector <std::unique_ptr <Component>>;
+
+    Object() noexcept(std::is_nothrow_constructible_v <Transform2D> && std::is_nothrow_constructible_v <ComponentsContainer>);
 
     Color getColor() const { return m_color; }
     Color& modifyColor() { return m_color; }
@@ -45,10 +47,15 @@ public:
     float getRotation() const { return m_transform.rotation; }
     void setRotation(float const rotation) { m_transform.rotation = rotation; }
 
-    void render() override;
+    void addComponent(ComponentsContainer::value_type&& component);
+
+    virtual void update(float dt);
 
 private:
+    ComponentsContainer m_components;
+
     Transform2D m_transform;
+
     Color m_color;
     glm::vec2 m_topLeftUV;
     glm::vec2 m_downRightUV;

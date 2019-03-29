@@ -5,7 +5,7 @@
 
 BeginNamespaceSleep
 
-Object::Object() noexcept(std::is_nothrow_constructible_v <Transform2D>)
+Object::Object() noexcept(std::is_nothrow_constructible_v <Transform2D> && std::is_nothrow_constructible_v <ComponentsContainer>)
     : m_transform{
         glm::vec2(1.f, 1.f), // scale
         glm::vec2(0.f, 0.f), // pos
@@ -31,9 +31,17 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
     m_downRightUV = { downRightX, downRightY };
 }
 
-void Object::render()
+void Object::addComponent(ComponentsContainer::value_type&& component)
 {
-    Game::instance().getRenderer().emplaceDrawCall(m_transform, m_texture, m_topLeftUV, m_downRightUV, m_color);
+    m_components.emplace_back(std::move(component));
+}
+
+void Object::update(float dt)
+{
+    for (auto& component : m_components)
+    {
+        component->update(dt);
+    }
 }
 
 EndNamespaceSleep
