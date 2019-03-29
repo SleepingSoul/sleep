@@ -29,14 +29,18 @@ inline glm::vec2 pixelsToMeters(glm::vec2 sizeInPixels)
 
 namespace TypeIDDetails
 {
-    static std::atomic <TypeID> nextID = 0;
+    static TypeID getNextID()
+    {
+        static TypeID nextID = 0;
+        return nextID++;
+    }
 }
 
 /*Generates an unique ID for any type.*/
 template <class T>
 static TypeID getTypeID()
 {
-    static TypeID id = TypeIDDetails::nextID++;
+    static TypeID id = TypeIDDetails::getNextID();
     return id;
 }
 

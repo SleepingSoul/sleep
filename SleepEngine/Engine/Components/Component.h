@@ -14,7 +14,7 @@ public:
 
     virtual void update(float dt) = 0;
     virtual void setParent(Object* parent) { m_parent = parent; }
-    TypeID getComponentTypeID() const { return m_id; }
+    TypeID getComponentTypeID() const { return m_typeID; }
 
 protected:
     NotOwnedPtr <Object> m_parent{ nullptr };

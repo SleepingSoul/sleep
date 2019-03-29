@@ -53,6 +53,10 @@
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
+#include <Engine/ObjectTree.h>
 #include <Engine/GameTemplate/Game.h>
 #include <Engine/Components/Component.h>
 #include <Engine/Object.h>
+#include <Engine/Components/Renderer.h>
+#include <Engine/Components/Transform2D.h>
+#include <Engine/Utils/FactoryUtils.h>

@@ -9,26 +9,36 @@ class Object
 public:
     using ComponentsContainer = std::vector <std::unique_ptr <Component>>;
 
+    virtual void update(float dt);
+
     void addComponent(ComponentsContainer::value_type&& component);
 
-    virtual void update(float dt);
+    template <class TComponent>
+    void addComponent()
+    {
+        static_assert(std::is_default_constructible_v <TComponent>, "TComponent is not default constructible. Please, "
+            "create an instance of this class and use non-templated 'addConponent' method.");
+        addComponent(std::make_unique <TComponent>());
+    }
     
     template <class TComponent>
     TComponent const* getComponent() const
     {
         auto const id = getTypeID <TComponent>();
-        auto const findByID = [id](ComponentsContainer::reference component)
+
+        auto const findByID = [id](auto const& component)
         {
             return component->getComponentTypeID() == id;
-        }
-        auto it = std::find(m_components.cbegin(), m_components.cend(), findByID);
+        };
+
+        auto it = std::find_if(m_components.cbegin(), m_components.cend(), findByID);
         
-        if (it == m_components.end())
+        if (it == m_components.cend())
         {
             return nullptr;
         }
 
-        return it->get();
+        return static_cast <TComponent*>(it->get());
     }
 
     template <class TComponent>
