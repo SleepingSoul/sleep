@@ -8,11 +8,19 @@ class Component
 {
     ForbidCopyAndMove(Component)
 public:
+    Component(TypeID id)
+        : m_typeID(id)
+    {}
+
     virtual void update(float dt) = 0;
     virtual void setParent(Object* parent) { m_parent = parent; }
+    TypeID getComponentTypeID() const { return m_id; }
+
+protected:
+    NotOwnedPtr <Object> m_parent{ nullptr };
 
 private:
-    NotOwnedPtr <Object> m_parent{ nullptr };
+    TypeID m_typeID;
 };
 
 EndNamespaceSleep

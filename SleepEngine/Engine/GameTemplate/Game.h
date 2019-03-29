@@ -36,7 +36,7 @@ private:
     Updator m_objectTree;
     Clock m_clock;
     Camera m_camera;
-    std::unique_ptr <Renderer> m_renderer;
+    std::unique_ptr <GameRenderer> m_renderer;
     ResourceManager m_resourceManager;
 
     void runFrame();

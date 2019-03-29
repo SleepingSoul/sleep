@@ -26,7 +26,7 @@ Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
 	    return;
     }
     m_instance = this;
-    m_renderer = std::make_unique <Renderer>();
+    m_renderer = std::make_unique <GameRenderer>();
 
     if (!sceneIniter)
     {
