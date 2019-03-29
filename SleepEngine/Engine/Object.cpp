@@ -33,6 +33,7 @@ void Object::setUV(float const topLeftX, float const topLeftY, float const downR
 
 void Object::addComponent(ComponentsContainer::value_type&& component)
 {
+    component->setParent(this);
     m_components.emplace_back(std::move(component));
 }
 
