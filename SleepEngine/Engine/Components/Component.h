@@ -16,11 +16,20 @@ public:
     virtual void setParent(Object* parent) { m_parent = parent; }
     TypeID getComponentTypeID() const { return m_typeID; }
 
+    template <class TComponent>
+    static TypeID getComponentTypeID()
+    {
+        static auto id = m_nextComponentTypeID++;
+        return id;
+    }
+
 protected:
     NotOwnedPtr <Object> m_parent{ nullptr };
 
 private:
     TypeID m_typeID;
+
+    inline static TypeID m_nextComponentTypeID = 0;
 };
 
 EndNamespaceSleep

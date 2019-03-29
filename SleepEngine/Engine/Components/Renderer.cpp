@@ -6,7 +6,7 @@
 BeginNamespaceSleep
 
 Renderer::Renderer() noexcept(true)
-    : Base(getTypeID <Renderer>())
+    : Base(getComponentTypeID <Renderer>())
     , m_color(1.f, 1.f, 1.f, 1.f)
     , m_topLeftUV(0.f, 0.f)
     , m_downRightUV(1.f, 1.f)

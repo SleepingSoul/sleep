@@ -27,21 +27,4 @@ inline glm::vec2 pixelsToMeters(glm::vec2 sizeInPixels)
     return sizeInPixels * 2.f / static_cast <float>(MeterLengthInPixels);
 }
 
-namespace TypeIDDetails
-{
-    static TypeID getNextID()
-    {
-        static TypeID nextID = 0;
-        return nextID++;
-    }
-}
-
-/*Generates an unique ID for any type.*/
-template <class T>
-static TypeID getTypeID()
-{
-    static TypeID id = TypeIDDetails::getNextID();
-    return id;
-}
-
 EndNamespaceSleep

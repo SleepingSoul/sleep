@@ -5,7 +5,7 @@
 BeginNamespaceSleep
 
 Transform2D::Transform2D() noexcept(true)
-    : Base(getTypeID <Transform2D>())
+    : Base(getComponentTypeID <Transform2D>())
     , m_data{
         { 1.f, 1.f },
         { 0.f, 0.f },

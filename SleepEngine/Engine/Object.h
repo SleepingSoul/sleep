@@ -24,7 +24,7 @@ public:
     template <class TComponent>
     TComponent const* getComponent() const
     {
-        auto const id = getTypeID <TComponent>();
+        auto const id = Component::getComponentTypeID <TComponent>();
 
         auto const findByID = [id](auto const& component)
         {
