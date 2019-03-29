@@ -44,7 +44,7 @@ public:
     template <class TComponent>
     TComponent* getComponent()
     {
-        return const_cast <TComponent*>(const_cast <Object const*>(this)->getComponent <TComponent>());
+        return const_cast <TComponent*>(static_cast <Object const*>(this)->getComponent <TComponent>());
     }
 
 protected:
