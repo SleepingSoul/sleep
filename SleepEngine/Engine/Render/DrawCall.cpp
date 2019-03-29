@@ -6,8 +6,8 @@
 
 BeginNamespaceSleep
 
-DrawCall::DrawCall(Transform2D const& transform, Texture* texture, glm::vec2 topLeftUV, glm::vec2 downRightUV, Color color)
-    noexcept(std::is_nothrow_constructible_v <Transform2D>)
+DrawCall::DrawCall(Transform2DData const& transform, Texture* texture, glm::vec2 topLeftUV, glm::vec2 downRightUV, Color color)
+    noexcept(std::is_nothrow_constructible_v <Transform2DData>)
     : m_transform(transform)
     , m_texture(texture)
     , m_topLeftUV(topLeftUV)

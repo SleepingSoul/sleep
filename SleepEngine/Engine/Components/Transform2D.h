@@ -11,7 +11,7 @@ public:
 
     Transform2D() noexcept(true);
 
-    REF_GETTERS(getData, m_data);
+    REF_GETTERS(getData, m_data)
 
     void update(float dt) override {}
 
