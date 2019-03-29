@@ -4,7 +4,7 @@
 
 BeginNamespaceSleep
 
-struct Transform2D
+struct Transform2DData
 {
     glm::vec2 scale;
     glm::vec2 position;

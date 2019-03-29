@@ -7,13 +7,13 @@
 
 BeginNamespaceSleep
 
-class Renderer
+class GameRenderer
 {
-    ForbidCopyAndMove(Renderer)
+    ForbidCopyAndMove(GameRenderer)
 public:
     using DrawCallsContainer = std::vector <DrawCall>;
 
-    Renderer();
+    GameRenderer();
 
     void addDrawCall(DrawCall drawCall);
     template <class ...Args>

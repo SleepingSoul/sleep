@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Renderer.h"
+#include "GameRenderer.h"
 #include <Engine/EngineConfig.h>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
@@ -20,7 +20,7 @@ namespace
 
 BeginNamespaceSleep
 
-Renderer::Renderer()
+GameRenderer::GameRenderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
     , m_gpuMemoryBufferSize(1000)
     , m_usedGPUMemory(0)
@@ -51,12 +51,12 @@ Renderer::Renderer()
     glBindVertexArray(0);
 }
 
-void Renderer::addDrawCall(DrawCall const drawCall)
+void GameRenderer::addDrawCall(DrawCall const drawCall)
 {
     m_drawCalls.push_back(drawCall);
 }
 
-void Renderer::render()
+void GameRenderer::render()
 {
     EASY_FUNCTION(profiler::colors::Red);
 

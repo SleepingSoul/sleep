@@ -9,17 +9,17 @@ class Object;
 class DrawCall
 {
 public:
-    DrawCall(Transform2D const& transform, Texture* texture, glm::vec2 topLeftUV, glm::vec2 downRightUV, Color color)
-        noexcept(std::is_nothrow_constructible_v <Transform2D>);
+    DrawCall(Transform2DData const& transform, Texture* texture, glm::vec2 topLeftUV, glm::vec2 downRightUV, Color color)
+        noexcept(std::is_nothrow_constructible_v <Transform2DData>);
 
-    Transform2D const& getTransform() const { return m_transform; }
+    Transform2DData const& getTransform() const { return m_transform; }
     Texture* getTexture() const { return m_texture; }
     glm::vec2 getTopLeftUV() const { return m_topLeftUV; }
     glm::vec2 getDownRightUV() const { return m_downRightUV; }
     Color getColor() const { return m_color; }
 
 private:
-    Transform2D m_transform;
+    Transform2DData m_transform;
     NotOwnedPtr <Texture> m_texture;
     glm::vec2 m_topLeftUV;
     glm::vec2 m_downRightUV;

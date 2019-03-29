@@ -45,13 +45,18 @@
 #include <Engine/Utils/Utils.h>
 
 #include <Engine/Render/Texture.h>
-#include <Engine/Updator.h>
-#include <Engine/Render/Transform2D.h>
+#include <Engine/Transform2DData.h>
 #include <Engine/Render/DrawCall.h>
-#include <Engine/Render/Renderer.h>
+#include <Engine/Render/GameRenderer.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
+#include <Engine/ObjectTree.h>
+#include <Engine/GameTemplate/Game.h>
+#include <Engine/Components/Component.h>
 #include <Engine/Object.h>
+#include <Engine/Components/Renderer.h>
+#include <Engine/Components/Transform2D.h>
+#include <Engine/Utils/FactoryUtils.h>

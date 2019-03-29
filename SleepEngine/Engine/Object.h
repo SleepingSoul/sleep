@@ -4,55 +4,51 @@
 
 BeginNamespaceSleep
 
-class Object : public Updator
+class Object
 {
 public:
-    Object() noexcept(std::is_nothrow_constructible_v <Transform2D>);
+    using ComponentsContainer = std::vector <std::unique_ptr <Component>>;
 
-    Color getColor() const { return m_color; }
-    Color& modifyColor() { return m_color; }
-    void setColor(Color const color) { m_color = color; }
+    virtual void update(float dt);
 
-    glm::vec2 getScale() const { return m_transform.scale; }
-    void setScale(glm::vec2 const scale) { m_transform.scale = scale; }
+    void addComponent(ComponentsContainer::value_type&& component);
 
-    glm::vec2 getPosition() const { return m_transform.position; }
-    void setPosition(glm::vec2 const position) { m_transform.position = position; }
+    template <class TComponent>
+    void addComponent()
+    {
+        static_assert(std::is_default_constructible_v <TComponent>, "TComponent is not default constructible. Please, "
+            "create an instance of this class and use non-templated 'addConponent' method.");
+        addComponent(std::make_unique <TComponent>());
+    }
+    
+    template <class TComponent>
+    TComponent const* getComponent() const
+    {
+        auto const id = Component::getComponentTypeID <TComponent>();
 
-    glm::vec2 getSize() const { return m_transform.size; }
-    void setSize(glm::vec2 const size) { m_transform.size = size; }
+        auto const findByID = [id](auto const& component)
+        {
+            return component->getComponentTypeID() == id;
+        };
 
-    float getX() const { return m_transform.position.x; }
-    void setX(float x) { m_transform.position.x = x; }
+        auto it = std::find_if(m_components.cbegin(), m_components.cend(), findByID);
+        
+        if (it == m_components.cend())
+        {
+            return nullptr;
+        }
 
-    float getY() const { return m_transform.position.y; }
-    void setY(float y) { m_transform.position.y = y; }
+        return static_cast <TComponent*>(it->get());
+    }
 
-    Texture* getTexture() const { return m_texture; }
-    void setTexture(Texture* const texture) { m_texture = texture; }
+    template <class TComponent>
+    TComponent* getComponent()
+    {
+        return const_cast <TComponent*>(static_cast <Object const*>(this)->getComponent <TComponent>());
+    }
 
-    Layer getLayer() const { return m_transform.layer; }
-    void setLayer(Layer layer);
-
-    glm::vec2 getTopLeftUV() const { return m_topLeftUV; }
-    void setTopLeftUV(glm::vec2 const uv) { m_topLeftUV = uv; }
-
-    glm::vec2 getDownRightUV() const { return m_downRightUV; }
-    void setDownRightUV(glm::vec2 const uv) { m_downRightUV = uv; }
-
-    void setUV(float topLeftX, float topLeftY, float downRightX, float downRightY);
-
-    float getRotation() const { return m_transform.rotation; }
-    void setRotation(float const rotation) { m_transform.rotation = rotation; }
-
-    void render() override;
-
-private:
-    Transform2D m_transform;
-    Color m_color;
-    glm::vec2 m_topLeftUV;
-    glm::vec2 m_downRightUV;
-    NotOwnedPtr <Texture> m_texture;
+protected:
+    ComponentsContainer m_components;
 };
 
 EndNamespaceSleep

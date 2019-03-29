@@ -26,7 +26,7 @@ Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
 	    return;
     }
     m_instance = this;
-    m_renderer = std::make_unique <Renderer>();
+    m_renderer = std::make_unique <GameRenderer>();
 
     if (!sceneIniter)
     {
@@ -34,11 +34,6 @@ Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
 	    return;
     }
     sceneIniter(*this);
-}
-
-void Game::addToRoot(Object* object)
-{
-    m_objectTree.addChild(object);
 }
 
 void Game::run()
@@ -54,8 +49,8 @@ void Game::runFrame()
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
-    m_objectTree.update();
-    m_objectTree.render();
+    Base::update(m_clock.getDT());
+
     m_renderer->render();
 
     m_window.runFrame();
