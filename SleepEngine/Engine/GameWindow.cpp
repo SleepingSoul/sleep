@@ -3,7 +3,7 @@
 #include <Engine/EngineConfig.h>
 #include <Engine/GameTemplate/Game.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 namespace
 {
@@ -74,4 +74,4 @@ void GameWindow::runFrame()
     glfwPollEvents();
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

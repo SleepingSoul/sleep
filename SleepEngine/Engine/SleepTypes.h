@@ -4,11 +4,11 @@
 
 #include <Engine/Utils/MacroUtils.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 using Color = glm::vec4;
 using Layer = unsigned;
 using Callback = std::function <void()>;
 using TypeID = unsigned;
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

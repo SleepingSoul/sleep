@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class ObjectTree
 {
@@ -16,4 +16,4 @@ protected:
     ObjectsContainer m_objects;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

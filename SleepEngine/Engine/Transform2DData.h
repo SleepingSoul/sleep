@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 struct Transform2DData
 {
@@ -13,4 +13,4 @@ struct Transform2DData
     float rotation;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

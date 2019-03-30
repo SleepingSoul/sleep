@@ -3,7 +3,7 @@
 #include <Engine/EngineConfig.h>
 #include <Engine/GameTemplate/Game.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 void Object::addComponent(ComponentsContainer::value_type&& component)
 {
@@ -19,4 +19,4 @@ void Object::update(float dt)
     }
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

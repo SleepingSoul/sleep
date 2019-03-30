@@ -18,7 +18,7 @@ namespace
 	slp::Color WindowBgColor(0.003f, 0.007f, 0.298f, 1.f);
 }
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 GameRenderer::GameRenderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
@@ -160,4 +160,4 @@ void GameRenderer::render()
     m_drawCalls.clear();
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

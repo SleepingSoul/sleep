@@ -2,13 +2,13 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Timer;
 
 class Clock
 {
-    ForbidCopyAndMove(Clock)
+    FORBID_COPY_AND_MOVE(Clock)
 public:
     using DTStorageContainerType = std::array <float, 10>;
     using TimersContainerType = std::vector <Timer*>;
@@ -20,10 +20,12 @@ public:
     // also sleeps if m_restrictFPS is set and
     // the frame was to short to sustain desired fps has passed since last frame
     void frameEnd();
-    float getDT() const { return m_amortizedDT; }
+
+    GETTER(getDT, m_amortizedDT)
 
     void setFPS(float fps) { m_desiredFrameTime = 1.f / fps; }
-    void setRestrictFPS(bool restrictFPS) { m_restrictFPS = restrictFPS; }
+
+    SETTER(bool, setRestrictFPS, m_restrictFPS)
 
     float calculateFPS() const;
 
@@ -45,4 +47,4 @@ private:
     bool m_restrictFPS;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class ResourceManager
 {
@@ -19,4 +19,4 @@ private:
     TexturesContainerType m_textures;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

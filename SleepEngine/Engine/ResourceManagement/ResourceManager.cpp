@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Texture* ResourceManager::getTexture(std::string const& path)
 {
@@ -54,4 +54,4 @@ ResourceManager::FutureType ResourceManager::preloadFromDirectory(std::string_vi
     return std::async(std::launch::async, preload);
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

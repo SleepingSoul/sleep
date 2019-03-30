@@ -5,7 +5,7 @@
 #include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 namespace
 {
@@ -71,5 +71,5 @@ void Game::setupLogger()
     engineLogger->set_level(spdlog::level::debug);
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP
 

@@ -2,7 +2,7 @@
 #include "ObjectTree.h"
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 void ObjectTree::update(float dt)
 {
@@ -17,4 +17,4 @@ void ObjectTree::addToRoot(ObjectsContainer::value_type&& object)
     m_objects.emplace_back(std::move(object));
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

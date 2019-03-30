@@ -2,7 +2,7 @@
 #include "Camera.h"
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Camera::Camera(size_t const screenWidth, size_t const screenHeight)
     : m_screenWidth(screenWidth)
@@ -48,4 +48,4 @@ glm::vec2 Camera::getScale() const
     return result;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

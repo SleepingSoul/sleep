@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Timer
 {
@@ -25,4 +25,4 @@ private:
     bool m_isStarted;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -4,7 +4,7 @@
 #include <Engine/Object.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 DrawCall::DrawCall(Transform2DData const& transform, Texture* texture, glm::vec2 topLeftUV, glm::vec2 downRightUV, Color color)
     noexcept(std::is_nothrow_constructible_v <Transform2DData>)
@@ -15,4 +15,4 @@ DrawCall::DrawCall(Transform2DData const& transform, Texture* texture, glm::vec2
     , m_color(color)
 {}
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Object;
 
@@ -12,11 +12,11 @@ public:
     DrawCall(Transform2DData const& transform, Texture* texture, glm::vec2 topLeftUV, glm::vec2 downRightUV, Color color)
         noexcept(std::is_nothrow_constructible_v <Transform2DData>);
 
-    Transform2DData const& getTransform() const { return m_transform; }
-    Texture* getTexture() const { return m_texture; }
-    glm::vec2 getTopLeftUV() const { return m_topLeftUV; }
-    glm::vec2 getDownRightUV() const { return m_downRightUV; }
-    Color getColor() const { return m_color; }
+    CONST_REF_GETTER(getTransform, m_transform)
+    GETTER(getTexture, m_texture)
+    GETTER(getTopLeftUV, m_topLeftUV)
+    GETTER(getDownRightUV, m_downRightUV)
+    GETTER(getColor, m_color)
 
 private:
     Transform2DData m_transform;
@@ -31,4 +31,4 @@ inline bool operator <(DrawCall const& left, DrawCall const& right)
     return left.getTransform().layer < right.getTransform().layer;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

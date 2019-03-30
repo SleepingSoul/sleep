@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Object
 {
@@ -51,4 +51,4 @@ protected:
     ComponentsContainer m_components;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

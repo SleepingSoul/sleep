@@ -2,11 +2,11 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Component
 {
-    ForbidCopyAndMove(Component)
+    FORBID_COPY_AND_MOVE(Component)
 public:
     Component(TypeID id)
         : m_typeID(id)
@@ -32,4 +32,4 @@ private:
     inline static TypeID m_nextComponentTypeID = 0;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -3,7 +3,7 @@
 #include <Engine/Components/Transform2D.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Renderer::Renderer() noexcept(true)
     : Base(getComponentTypeID <Renderer>())
@@ -26,4 +26,4 @@ void Renderer::update(float dt)
     Game::instance().getRenderer().emplaceDrawCall(transform->getData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

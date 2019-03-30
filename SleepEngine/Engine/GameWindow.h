@@ -2,11 +2,11 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class GameWindow
 {
-    ForbidCopyAndMove(GameWindow)
+    FORBID_COPY_AND_MOVE(GameWindow)
 public:
     GameWindow(size_t width, size_t height, std::string_view title);
     ~GameWindow();
@@ -22,4 +22,4 @@ private:
     NotOwnedPtr <GLFWwindow> m_window;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

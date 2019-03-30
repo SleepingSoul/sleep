@@ -2,7 +2,7 @@
 #include "Transform2D.h"
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Transform2D::Transform2D() noexcept(true)
     : Base(getComponentTypeID <Transform2D>())
@@ -15,4 +15,4 @@ Transform2D::Transform2D() noexcept(true)
       }
 {}
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

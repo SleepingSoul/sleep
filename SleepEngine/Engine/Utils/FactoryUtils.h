@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 inline std::unique_ptr <Object> createRenderableObject()
 {
@@ -14,4 +14,4 @@ inline std::unique_ptr <Object> createRenderableObject()
     return object;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

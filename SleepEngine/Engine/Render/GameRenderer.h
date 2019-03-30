@@ -5,11 +5,11 @@
 #include <Engine/Render/Shader.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class GameRenderer
 {
-    ForbidCopyAndMove(GameRenderer)
+    FORBID_COPY_AND_MOVE(GameRenderer)
 public:
     using DrawCallsContainer = std::vector <DrawCall>;
 
@@ -23,9 +23,6 @@ public:
     }
     void render();
 
-    void SetGPUMemoryBufferSize(size_t size) { m_gpuMemoryBufferSize = size; }
-    size_t GetGPUMemoryBufferSize() const { return m_gpuMemoryBufferSize; }
-
 private:
     Shader m_shader;
     DrawCallsContainer m_drawCalls;
@@ -38,4 +35,4 @@ private:
     size_t m_usedGPUMemory;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP
