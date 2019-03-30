@@ -4,7 +4,7 @@
 
 #include <Engine/Utils/MacroUtils.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 using Color = glm::vec4;
 using Layer = unsigned;

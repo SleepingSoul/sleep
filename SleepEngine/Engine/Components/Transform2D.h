@@ -2,7 +2,7 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Transform2D : public Component
 {

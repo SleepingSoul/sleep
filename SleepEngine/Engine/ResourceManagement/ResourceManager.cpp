@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Texture* ResourceManager::getTexture(std::string const& path)
 {

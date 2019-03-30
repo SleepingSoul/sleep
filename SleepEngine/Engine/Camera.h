@@ -2,11 +2,11 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Camera
 {
-    ForbidCopyAndMove(Camera)
+    FORBID_COPY_AND_MOVE(Camera)
 public:
     Camera(size_t screenWidth, size_t screenHeight);
 

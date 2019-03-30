@@ -5,7 +5,7 @@
 #include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 namespace
 {

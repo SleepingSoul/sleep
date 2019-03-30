@@ -2,7 +2,7 @@
 #include "Timer.h"
 #include <Engine/GameTemplate/Game.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Timer::Timer()
     : m_accumulator(0.f)

@@ -2,7 +2,7 @@
 #include <Engine/EngineConfig.h>
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 template <class T>
 using NotOwnedPtr = T*;

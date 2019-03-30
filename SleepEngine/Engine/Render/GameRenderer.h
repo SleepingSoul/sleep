@@ -5,11 +5,11 @@
 #include <Engine/Render/Shader.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class GameRenderer
 {
-    ForbidCopyAndMove(GameRenderer)
+    FORBID_COPY_AND_MOVE(GameRenderer)
 public:
     using DrawCallsContainer = std::vector <DrawCall>;
 

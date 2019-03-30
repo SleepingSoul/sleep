@@ -3,7 +3,7 @@
 #include <Engine/Timer.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Clock::Clock(float fps)
     : m_desiredFrameTime(1.f / fps)

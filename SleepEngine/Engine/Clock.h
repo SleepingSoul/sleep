@@ -2,13 +2,13 @@
 
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 class Timer;
 
 class Clock
 {
-    ForbidCopyAndMove(Clock)
+    FORBID_COPY_AND_MOVE(Clock)
 public:
     using DTStorageContainerType = std::array <float, 10>;
     using TimersContainerType = std::vector <Timer*>;

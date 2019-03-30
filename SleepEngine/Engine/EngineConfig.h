@@ -6,7 +6,7 @@
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 static Layer const MaxLayer = 99;
 static size_t const MeterLengthInPixels = 100;

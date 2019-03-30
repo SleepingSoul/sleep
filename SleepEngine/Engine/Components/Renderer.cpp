@@ -3,7 +3,7 @@
 #include <Engine/Components/Transform2D.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Renderer::Renderer() noexcept(true)
     : Base(getComponentTypeID <Renderer>())

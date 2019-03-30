@@ -4,7 +4,7 @@ class GameWindow;
 class Clock;
 class Camera;
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components

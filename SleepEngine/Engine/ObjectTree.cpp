@@ -2,7 +2,7 @@
 #include "ObjectTree.h"
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 void ObjectTree::update(float dt)
 {
