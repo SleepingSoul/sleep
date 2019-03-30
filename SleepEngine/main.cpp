@@ -29,7 +29,7 @@ int main()
         transform2D->getData().setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
         transform2D->getData().setLayer(2);
 
-        scene.addToRoot(std::move(background));
+        //scene.addToRoot(std::move(background));
 
         auto ciriTexture = game.getResourceManager().getTexture("Data/cirilla.png");
 

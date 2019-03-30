@@ -15,15 +15,13 @@ namespace
     // Far distance define the max number of Layers
     float const NearDistance = -1.f;
     float const FarDistance = slp::MaxLayer + 1;
-	slp::Color WindowBgColor(0.003f, 0.007f, 0.298f, 1.f);
 }
 
 BEGIN_NAMESPACE_SLEEP
 
 GameRenderer::GameRenderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
-    , m_gpuMemoryBufferSize(1000)
-    , m_usedGPUMemory(0)
+    , m_backgroundColor(0.f, 0.f, 0.f, 0.f)
 {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -60,7 +58,7 @@ void GameRenderer::render()
 {
     EASY_FUNCTION(profiler::colors::Red);
 
-    glClearColor(WindowBgColor.r, WindowBgColor.g, WindowBgColor.b, WindowBgColor.a);
+    glClearColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
