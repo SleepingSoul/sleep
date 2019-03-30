@@ -102,7 +102,10 @@ void Game::runFrame()
 
     if (m_currentScene != m_scenes.end())
     {
+        EASY_BLOCK("Current scene update", profiler::colors::Amber100);
         m_currentScene->second.first.update(m_clock.getDT());
+        EASY_END_BLOCK;
+
         m_renderer->render();
     }
 
