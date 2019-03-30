@@ -27,9 +27,9 @@ int main()
 
         renderer->setTexture(game.getResourceManager().getTexture("Data/orphea.jpg"));
         transform2D->getData().setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
-        transform2D->getData().setLayer(2);
+        transform2D->getData().setLayer(0);
 
-        //scene.addToRoot(std::move(background));
+        scene.addToRoot(std::move(background));
 
         auto ciriTexture = game.getResourceManager().getTexture("Data/cirilla.png");
 
