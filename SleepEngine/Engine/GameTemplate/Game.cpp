@@ -13,10 +13,11 @@ namespace
     float const FPS = 60.f;
 }
 
-Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
+Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of the storm")
+    , m_nextSceneID(0)
 {
     setupLogger();
 
@@ -27,13 +28,61 @@ Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
     }
     m_instance = this;
     m_renderer = std::make_unique <GameRenderer>();
+}
 
-    if (!sceneIniter)
+Game::SceneIDType Game::addScene(SceneIniter initer)
+{
+    auto sceneAndIniter = std::make_pair(Scene(), initer);
+    auto [it, wasInserted] = m_scenes.insert({ m_nextSceneID++, std::move(sceneAndIniter) });
+    assertion(wasInserted, "nextSceneID overflow");
+
+    if (m_scenes.size() == 1)
     {
-	    logAndAssertError(false, "sceneIniter is null");
-	    return;
+        m_currentScene = it;
+        initCurrentScene();
     }
-    sceneIniter(*this);
+
+    return it->first;
+}
+
+Game::Scene* Game::findScene(SceneIDType id)
+{
+    return const_cast <Game*>(this)->findScene(id);
+}
+
+Game::Scene const* Game::findScene(SceneIDType id) const
+{
+    auto it = m_scenes.find(id);
+
+    return it != m_scenes.cend() ? &it->second.first : nullptr;
+}
+
+bool Game::tryRemoveScene(SceneIDType id)
+{
+    auto it = m_scenes.find(id);
+
+    if (it == m_scenes.end())
+    {
+        return false;
+    }
+
+    m_scenes.erase(it);
+    return true;
+}
+
+void Game::changeScene(SceneIDType id)
+{
+    auto it = m_scenes.find(id);
+
+    if (it == m_currentScene)
+    {
+        return;
+    }
+
+    m_currentScene->second.first.clear();
+    m_currentScene = it;
+
+    initCurrentScene();
 }
 
 void Game::run()
@@ -49,9 +98,11 @@ void Game::runFrame()
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
-    Base::update(m_clock.getDT());
-
-    m_renderer->render();
+    if (m_currentScene != ScenesContainer::iterator())
+    {
+        m_currentScene->second.first.update(m_clock.getDT());
+        m_renderer->render();
+    }
 
     m_window.runFrame();
 
@@ -69,6 +120,12 @@ void Game::setupLogger()
     bool const rewriteOldLog = true;
     auto engineLogger = spdlog::basic_logger_mt(EngineLogger, EngineLoggerPath, rewriteOldLog);
     engineLogger->set_level(spdlog::level::debug);
+}
+
+void Game::initCurrentScene()
+{
+    auto& [scene, initer] = m_currentScene->second;
+    initer(scene);
 }
 
 END_NAMESPACE_SLEEP

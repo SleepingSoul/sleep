@@ -17,4 +17,9 @@ void ObjectTree::addToRoot(ObjectsContainer::value_type&& object)
     m_objects.emplace_back(std::move(object));
 }
 
+void ObjectTree::clear()
+{
+    m_objects.clear();
+}
+
 END_NAMESPACE_SLEEP
