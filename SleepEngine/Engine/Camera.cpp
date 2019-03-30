@@ -48,4 +48,4 @@ glm::vec2 Camera::getScale() const
     return result;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

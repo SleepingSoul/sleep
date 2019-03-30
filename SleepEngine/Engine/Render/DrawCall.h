@@ -31,4 +31,4 @@ inline bool operator <(DrawCall const& left, DrawCall const& right)
     return left.getTransform().layer < right.getTransform().layer;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

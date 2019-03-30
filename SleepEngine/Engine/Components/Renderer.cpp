@@ -26,4 +26,4 @@ void Renderer::update(float dt)
     Game::instance().getRenderer().emplaceDrawCall(transform->getData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

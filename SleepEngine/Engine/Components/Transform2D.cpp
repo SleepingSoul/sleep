@@ -15,4 +15,4 @@ Transform2D::Transform2D() noexcept(true)
       }
 {}
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -32,4 +32,4 @@ private:
     NotOwnedPtr <Texture> m_texture;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

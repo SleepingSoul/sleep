@@ -74,4 +74,4 @@ GLenum Texture::channelsNumberToFormat(int const channelsNumber) const
     return result;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

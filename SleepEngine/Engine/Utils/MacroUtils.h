@@ -65,4 +65,4 @@ CONST_REF_SETTER(type const&, setterName, member)
 #pragma endregion
 
 #define BEGIN_NAMESPACE_SLEEP namespace slp{
-#define EndNamespaceSleep }
+#define END_NAMESPACE_SLEEP }

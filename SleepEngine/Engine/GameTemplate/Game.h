@@ -42,4 +42,4 @@ private:
     void setupLogger();
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

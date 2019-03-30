@@ -19,4 +19,4 @@ private:
     TexturesContainerType m_textures;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

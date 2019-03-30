@@ -38,4 +38,4 @@ private:
     size_t m_usedGPUMemory;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

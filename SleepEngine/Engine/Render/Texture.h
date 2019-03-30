@@ -35,4 +35,4 @@ private:
     bool m_isInGPU;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

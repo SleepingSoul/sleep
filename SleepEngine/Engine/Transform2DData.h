@@ -13,4 +13,4 @@ struct Transform2DData
     float rotation;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -25,4 +25,4 @@ private:
     glm::uvec2 m_virtualScreenSize;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

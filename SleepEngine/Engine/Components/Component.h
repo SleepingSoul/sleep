@@ -32,4 +32,4 @@ private:
     inline static TypeID m_nextComponentTypeID = 0;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

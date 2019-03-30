@@ -74,4 +74,4 @@ void GameWindow::runFrame()
     glfwPollEvents();
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

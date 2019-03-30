@@ -71,5 +71,5 @@ void Game::setupLogger()
     engineLogger->set_level(spdlog::level::debug);
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP
 

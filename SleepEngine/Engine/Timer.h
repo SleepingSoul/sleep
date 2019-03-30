@@ -25,4 +25,4 @@ private:
     bool m_isStarted;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

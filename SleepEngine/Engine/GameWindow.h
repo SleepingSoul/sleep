@@ -22,4 +22,4 @@ private:
     NotOwnedPtr <GLFWwindow> m_window;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

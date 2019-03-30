@@ -51,4 +51,4 @@ protected:
     ComponentsContainer m_components;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

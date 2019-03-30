@@ -160,4 +160,4 @@ void GameRenderer::render()
     m_drawCalls.clear();
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

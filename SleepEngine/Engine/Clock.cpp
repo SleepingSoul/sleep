@@ -70,4 +70,4 @@ void Clock::updateTimers()
     }
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

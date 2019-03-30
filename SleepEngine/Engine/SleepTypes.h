@@ -11,4 +11,4 @@ using Layer = unsigned;
 using Callback = std::function <void()>;
 using TypeID = unsigned;
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -45,4 +45,4 @@ private:
     bool m_restrictFPS;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

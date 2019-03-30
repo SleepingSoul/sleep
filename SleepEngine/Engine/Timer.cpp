@@ -40,4 +40,4 @@ void Timer::update(float dt)
     }
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

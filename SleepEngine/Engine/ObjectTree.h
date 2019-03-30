@@ -16,4 +16,4 @@ protected:
     ObjectsContainer m_objects;
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP
