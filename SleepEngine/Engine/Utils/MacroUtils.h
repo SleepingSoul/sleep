@@ -30,7 +30,7 @@ FORBID_MOVE(classname)
 rtype getterName() { return member; }
 
 #define __CONST_GETTER_IMPL(rtype, getterName, member)\
-rtype const getterName() const { return member; }
+rtype getterName() const { return member; }
 
 #define __SETTER_IMPL(paramType, setterName, member)\
 void setterName(paramType value) { member = value; }

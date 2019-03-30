@@ -20,10 +20,12 @@ public:
     // also sleeps if m_restrictFPS is set and
     // the frame was to short to sustain desired fps has passed since last frame
     void frameEnd();
-    float getDT() const { return m_amortizedDT; }
+
+    GETTER(getDT, m_amortizedDT)
 
     void setFPS(float fps) { m_desiredFrameTime = 1.f / fps; }
-    void setRestrictFPS(bool restrictFPS) { m_restrictFPS = restrictFPS; }
+
+    SETTER(bool, setRestrictFPS, m_restrictFPS)
 
     float calculateFPS() const;
 

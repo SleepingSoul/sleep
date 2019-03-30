@@ -12,14 +12,17 @@ public:
     Texture(char const* path) noexcept(true);
     ~Texture();
 
-    TextureIDType getID() const { return m_id; }
-    size_t getWidth() const { return m_width; }
-    size_t getHeight() const { return m_height; }
-    size_t getChannelsNumber() const { return m_channelsNumber; }
+    GETTER(getID, m_id)
+    GETTER(getWidth, m_width)
+    GETTER(getHeight, m_height)
+    GETTER(getChannelsNumber, m_channelsNumber)
+
     glm::vec2 getSize() const { return { m_width, m_height }; }
+
     void loadToGPU();
     void unloadFromGPU();
     bool isInGPU() const { return m_isInGPU; }
+
     std::string_view getPath() const { return m_path; }
 
 private:

@@ -23,9 +23,6 @@ public:
     }
     void render();
 
-    void SetGPUMemoryBufferSize(size_t size) { m_gpuMemoryBufferSize = size; }
-    size_t GetGPUMemoryBufferSize() const { return m_gpuMemoryBufferSize; }
-
 private:
     Shader m_shader;
     DrawCallsContainer m_drawCalls;
