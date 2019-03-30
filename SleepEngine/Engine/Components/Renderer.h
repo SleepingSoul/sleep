@@ -13,7 +13,7 @@ public:
 
     void update(float dt) override;
 
-    GET_SET(Color, getColor, setColor, m_color)
+    REF_GET_SET(Color, getColor, setColor, m_color)
     GET_SET(glm::vec2, getTopLeftUV, setTopLeftUV, m_topLeftUV)
     GET_SET(glm::vec2, getDownRightUV, setDownRightUV, m_downRightUV)
     GET_SET(Texture*, getTexture, setTexture, m_texture)

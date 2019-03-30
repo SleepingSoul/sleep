@@ -23,6 +23,8 @@ public:
     }
     void render();
 
+    REF_GET_SET(Color, getBackgroundColor, setBackgroundColor, m_backgroundColor)
+
 private:
     Shader m_shader;
     DrawCallsContainer m_drawCalls;
@@ -31,8 +33,7 @@ private:
     unsigned m_uvVBO;
     unsigned m_VAO;
 
-    size_t m_gpuMemoryBufferSize;
-    size_t m_usedGPUMemory;
+    Color m_backgroundColor;
 };
 
 END_NAMESPACE_SLEEP
