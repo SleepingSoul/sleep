@@ -8,3 +8,4 @@ Requires (all of this packages can be installed with [vcpkg](https://github.com/
 - glad
 - stb
 - spdlog
+- nlohmann-json

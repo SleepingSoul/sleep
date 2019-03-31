@@ -41,6 +41,9 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
+// json
+#include <nlohmann/json.hpp>
+
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
 #include <Engine/Utils/Utils.h>
@@ -49,7 +52,6 @@
 #include <Engine/Transform2DData.h>
 #include <Engine/Render/DrawCall.h>
 #include <Engine/Render/GameRenderer.h>
-#include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>

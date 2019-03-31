@@ -9,7 +9,7 @@ setup(
     author='Tihran Katolikian',
     entry_points={
         'console_scripts': [
-            'generate_images_enum_definition=sleep_generator:generate_images_enum_definition'
+            'generate_textures_enum_definition=sleep_generator:generate_textures_enum_definition'
         ]
     },
     project_urls={

@@ -198,7 +198,10 @@
     <ClCompile Include="Engine\Render\GameRenderer.cpp" />
     <ClCompile Include="Engine\Render\Texture.cpp" />
     <ClCompile Include="Engine\Components\Transform2D.cpp" />
-    <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp" />
+    <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Transform2DData.cpp" />
     <ClCompile Include="main.cpp" />

@@ -1,4 +1,6 @@
 #include <stdafx.h>
+#include <Engine/Generated/all_images.hpp>
+#include <Engine/ResourceManagement/ResourceManager.h>
 
 // settings
 namespace
@@ -25,13 +27,13 @@ int main()
         auto* const renderer = background->getComponent <slp::Renderer>();
         auto* const transform2D = background->getComponent <slp::Transform2D>();
 
-        renderer->setTexture(game.getResourceManager().getTexture("Data/orphea.jpg"));
+        renderer->setTexture(game.getResourceManager().getTexture(slp::Textures::Orphea));
         transform2D->getData().setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
         transform2D->getData().setLayer(0);
 
         scene.addToRoot(std::move(background));
 
-        auto ciriTexture = game.getResourceManager().getTexture("Data/cirilla.png");
+        auto ciriTexture = game.getResourceManager().getTexture(slp::Textures::Cirilla);
 
         for (int i = 0; i < 200; i++)
         {
@@ -49,6 +51,8 @@ int main()
             scene.addToRoot(std::move(ciri));
         }
     };
+
+    game.getResourceManager().preload();
 
     game.addScene(initMainScene);
 
