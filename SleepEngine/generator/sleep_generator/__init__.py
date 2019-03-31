@@ -20,6 +20,7 @@ def generate_textures_enum_definition():
     config = get_config_section(TEXTURES_SECTION_NAME)
 
     if config is None:
+        print(f'Cannot find section "{TEXTURES_SECTION_NAME}" in config. Terminating...')
         return
 
     generated_file_path = f"{config['TargetFolder']}/{config['TargetName']}"
