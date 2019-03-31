@@ -1,10 +1,10 @@
 // copyright 2019 Taras Martyniuk, Tihran Katolikian
+
 #pragma once
-class GameWindow;
-class Clock;
-class Camera;
 
 BEGIN_NAMESPACE_SLEEP
+
+class ResourceManager;
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components
@@ -27,7 +27,7 @@ public:
 
     REF_GETTERS(getClock, m_clock)
     REF_GETTERS(getRenderer, *m_renderer)
-    REF_GETTERS(getResourceManager, m_resourceManager)
+    REF_GETTERS(getResourceManager, *m_resourceManager)
     REF_GETTERS(getCamera, m_camera)
 
     SceneIDType addScene(SceneIniter initer);
@@ -47,8 +47,9 @@ private:
     GameWindow m_window;
     Clock m_clock;
     Camera m_camera;
+
     std::unique_ptr <GameRenderer> m_renderer;
-    ResourceManager m_resourceManager;
+    std::unique_ptr <ResourceManager> m_resourceManager;
 
     SceneIDType m_nextSceneID;
     ScenesContainer m_scenes;

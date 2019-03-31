@@ -15,4 +15,9 @@ static glm::vec2 const PrimaryWindowSize(1024.f, 1024.f);
 static auto EngineLogger = "engine_logger";
 static auto EngineLoggerPath = "Logs/engine_logger.log";
 
+namespace Resources
+{
+    static auto ImagesTablePath = "Engine/Generated/textures_table.json";
+}
+
 END_NAMESPACE_SLEEP

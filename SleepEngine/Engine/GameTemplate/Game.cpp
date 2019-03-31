@@ -1,9 +1,11 @@
 // copyright 2019 Taras Martyniuk
+
 #include "stdafx.h"
-#include "Game.h"
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
+#include <Engine/ResourceManagement/ResourceManager.h>
+
 
 BEGIN_NAMESPACE_SLEEP
 
@@ -17,6 +19,7 @@ Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of the storm")
+    , m_resourceManager(std::make_unique <ResourceManager>())
     , m_nextSceneID(0)
 {
     m_currentScene = m_scenes.end();
