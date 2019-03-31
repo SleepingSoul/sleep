@@ -19,6 +19,8 @@ Game::Game(size_t width, size_t height)
     , m_window(width, height, "Heroes of the storm")
     , m_nextSceneID(0)
 {
+    m_currentScene = m_scenes.end();
+
     setupLogger();
 
     if (m_instance)
@@ -47,14 +49,14 @@ Game::SceneIDType Game::addScene(SceneIniter initer)
 
 Game::Scene* Game::findScene(SceneIDType id)
 {
-    return const_cast <Game*>(this)->findScene(id);
+    auto it = m_scenes.find(id);
+
+    return it != m_scenes.end() ? &it->second.first : nullptr;
 }
 
 Game::Scene const* Game::findScene(SceneIDType id) const
 {
-    auto it = m_scenes.find(id);
-
-    return it != m_scenes.cend() ? &it->second.first : nullptr;
+    return const_cast <Game*>(this)->findScene(id);
 }
 
 bool Game::tryRemoveScene(SceneIDType id)
@@ -98,7 +100,7 @@ void Game::runFrame()
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
-    if (m_currentScene != ScenesContainer::iterator())
+    if (m_currentScene != m_scenes.end())
     {
         m_currentScene->second.first.update(m_clock.getDT());
         m_renderer->render();
