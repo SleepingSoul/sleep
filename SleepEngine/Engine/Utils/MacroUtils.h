@@ -60,7 +60,7 @@ SETTER(type, setterName, member)
 
 #define REF_GET_SET(type, getterName, setterName, member)\
 CONST_REF_GETTER(getterName, member)\
-CONST_REF_SETTER(type const&, setterName, member)
+CONST_REF_SETTER(type, setterName, member)
 
 #pragma endregion
 

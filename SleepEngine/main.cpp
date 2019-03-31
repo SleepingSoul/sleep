@@ -26,8 +26,8 @@ int main()
         auto* const transform2D = background->getComponent <slp::Transform2D>();
 
         renderer->setTexture(game.getResourceManager().getTexture("Data/orphea.jpg"));
-        transform2D->getData().size = slp::pixelsToMeters(game.getCamera().getScreenSize());
-        transform2D->getData().layer = 0;
+        transform2D->getData().setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
+        transform2D->getData().setLayer(0);
 
         scene.addToRoot(std::move(background));
 
@@ -41,10 +41,11 @@ int main()
             auto* const transform2D = ciri->getComponent <slp::Transform2D>();
 
             renderer->setTexture(ciriTexture);
-            transform2D->getData().layer = 1;
-            transform2D->getData().rotation = static_cast <float>(i) * 4.4f;
-            transform2D->getData().size = slp::pixelsToMeters(ciriTexture->getSize());
-            transform2D->getData().position = { -slp::pixelsToMeters(game.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f };
+            auto& transformData = transform2D->getData();
+            transformData.setLayer(1);
+            transformData.setRotation(static_cast <float>(i) * 4.4f);
+            transformData.setSize(slp::pixelsToMeters(ciriTexture->getSize()));
+            transformData.setPosition({ -slp::pixelsToMeters(game.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
             scene.addToRoot(std::move(ciri));
         }
     };

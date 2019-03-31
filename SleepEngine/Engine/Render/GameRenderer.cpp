@@ -15,15 +15,13 @@ namespace
     // Far distance define the max number of Layers
     float const NearDistance = -1.f;
     float const FarDistance = slp::MaxLayer + 1;
-	slp::Color WindowBgColor(0.003f, 0.007f, 0.298f, 1.f);
 }
 
 BEGIN_NAMESPACE_SLEEP
 
 GameRenderer::GameRenderer()
     : m_shader("Engine/Render/Shaders/shader.vs", "Engine/Render/Shaders/shader.fs")
-    , m_gpuMemoryBufferSize(1000)
-    , m_usedGPUMemory(0)
+    , m_backgroundColor(0.f, 0.f, 0.f, 0.f)
 {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -60,7 +58,7 @@ void GameRenderer::render()
 {
     EASY_FUNCTION(profiler::colors::Red);
 
-    glClearColor(WindowBgColor.r, WindowBgColor.g, WindowBgColor.b, WindowBgColor.a);
+    glClearColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -68,7 +66,7 @@ void GameRenderer::render()
     std::sort(m_drawCalls.begin(), m_drawCalls.end());
     EASY_END_BLOCK;
 
-    float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().layer);
+    float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().getLayer());
     float nextLayerOffset = 0.f;
 
     for (auto const& drawCall : m_drawCalls)
@@ -77,24 +75,24 @@ void GameRenderer::render()
         
         auto const& transform = drawCall.getTransform();
 
-        if (transform.layer != lastLayer)
+        if (transform.getLayer() != lastLayer)
         {
-            lastLayer = static_cast <float>(transform.layer);
+            lastLayer = static_cast <float>(transform.getLayer());
             nextLayerOffset = 0.f;
         }
 
         auto& camera = Game::instance().getCamera();
 
-        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(transform.position);
+        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(transform.getPosition());
 
-        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(transform.size);
+        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(transform.getSize());
 
         glm::vec2 const topLeftUV = drawCall.getTopLeftUV();
         glm::vec2 const downRightUV = drawCall.getDownRightUV();
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = MaxLayer - (static_cast <float>(transform.layer) + nextLayerOffset);
+        float const layer = MaxLayer - (static_cast <float>(transform.getLayer()) + nextLayerOffset);
         nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
@@ -128,8 +126,8 @@ void GameRenderer::render()
         EASY_BLOCK("MVP matrices load to GPU");
         glm::mat4 modelview(1.f);
         modelview = glm::translate(modelview, glm::vec3(normalizedPos, -layer));
-        modelview = glm::rotate(modelview, glm::radians(transform.rotation), glm::vec3(0.f, 0.f, 1.f));
-        auto resultingScale = glm::vec3(transform.scale * normalizedSize, 1.f);
+        modelview = glm::rotate(modelview, glm::radians(transform.getRotation()), glm::vec3(0.f, 0.f, 1.f));
+        auto resultingScale = glm::vec3(transform.getScale() * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
 
         float const scaleX = camera.getScreenWidth() / PrimaryWindowSize.x;
