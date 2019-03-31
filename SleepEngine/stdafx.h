@@ -19,6 +19,7 @@
 #include <mutex>
 #include <numeric>
 #include <future>
+#include <optional>
 #pragma endregion
 
 #pragma region Render

@@ -11,23 +11,35 @@ BEGIN_NAMESPACE_SLEEP
 // only one instance exists, can be accessed globally
 // use scene initer to define start state of your world
 // usage: Game(sceneIniter).run(); // in your game's entry point
-class Game: public ObjectTree
+class Game
 {
 public:
     using Base = ObjectTree;
-    using SceneIniter = std::function<void(Game&)>;
+    using Scene = ObjectTree;
+    using SceneIniter = std::function <void(Scene&)>;
+    using SceneAndInitter = std::pair <Scene, SceneIniter>;
+    using SceneIDType = unsigned;
+    using ScenesContainer = std::unordered_map <SceneIDType, SceneAndInitter>;
 
     static Game& instance() { return *m_instance; }
 
-    Game(SceneIniter sceneIniter, size_t width, size_t height);
+    Game(size_t width, size_t height);
 
     REF_GETTERS(getClock, m_clock)
     REF_GETTERS(getRenderer, *m_renderer)
     REF_GETTERS(getResourceManager, m_resourceManager)
     REF_GETTERS(getCamera, m_camera)
 
-    void run();
+    SceneIDType addScene(SceneIniter initer);
 
+    Scene* findScene(SceneIDType id);
+    Scene const* findScene(SceneIDType id) const;
+
+    bool tryRemoveScene(SceneIDType id);
+
+    void changeScene(SceneIDType id);
+
+    void run();
 
 private:
     inline static NotOwnedPtr <Game> m_instance = nullptr;
@@ -38,8 +50,14 @@ private:
     std::unique_ptr <GameRenderer> m_renderer;
     ResourceManager m_resourceManager;
 
+    SceneIDType m_nextSceneID;
+    ScenesContainer m_scenes;
+    ScenesContainer::iterator m_currentScene;
+
     void runFrame();
     void setupLogger();
+
+    void initCurrentScene();
 };
 
 END_NAMESPACE_SLEEP
