@@ -6,18 +6,18 @@ from .utils import *
 from .file_generate_helper import FileGenerateHelper, IndentIncreaser, Commenter, Block
 
 
-IMAGES_SECTION_NAME = 'ImageEnum'
+TEXTURES_SECTION_NAME = 'TexturesEnum'
 COPYRIGHT_HEADER = '//-------------------------------------------------------\n\
-                    //---- Copyright 2019 Tihran Katolikian -----------------\n\
-                    //-------------------------------------------------------\n\n\n'
+//---- Copyright 2019 Tihran Katolikian -----------------\n\
+//-------------------------------------------------------\n\n\n'
 
-def generate_images_enum_definition():
+def generate_textures_enum_definition():
     '''
     Generates a C++ file with enumeration for each of images in Images folder.
     '''
     read_all_config()
 
-    config = get_config_section(IMAGES_SECTION_NAME)
+    config = get_config_section(TEXTURES_SECTION_NAME)
 
     if config is None:
         return
@@ -40,7 +40,7 @@ def generate_images_enum_definition():
 
             with IndentIncreaser(helper) as namespace_slp:
 
-                helper.put(f"enum class Images : {config['UnderlyingType']}\n")
+                helper.put(f"enum class {config['EnumName']} : {config['UnderlyingType']}\n")
 
                 with Block(helper, '{\n', '};\n'):
 
@@ -50,9 +50,9 @@ def generate_images_enum_definition():
 
                         enum_value = 0
 
-                        direct_data_path = config['ImagesFolder'][3:]
+                        direct_data_path = config['TexturesFolder'][3:]
 
-                        for filename in os.listdir(config['ImagesFolder']):
+                        for filename in os.listdir(config['TexturesFolder']):
 
                             img_name, img_format = filename.split('.')
 
@@ -76,17 +76,17 @@ def generate_images_enum_definition():
 
     print(f'Success: file {generated_file_path} was generated.')
 
-    generate_images_adress_table(config, image_address_table)
+    generate_textures_adress_table(config, image_address_table)
 
     print('-------------------------------------------')
 
-def generate_images_adress_table(config, table):
+def generate_textures_adress_table(config, table):
     '''
     Generates a file that contains pairs: enum underlying type value -> image path.
     It is used for image preloading in C++.
     '''
 
-    print('Generating image address table...')
+    print('Generating textures address table...')
 
     table_file_path = f"{config['TargetFolder']}/{config['TableFileName']}"
 

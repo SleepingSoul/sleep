@@ -1,22 +1,27 @@
 // Copyright 2019 Tihran Katolikian
+// do not include this file to stdafx, because it will change every time used adds any data.
 
 #pragma once
+
+#include <Engine/Generated/all_textures.hpp>
 
 BEGIN_NAMESPACE_SLEEP
 
 class ResourceManager
 {
 public:
-    using TexturesContainerType = std::unordered_map <std::string, std::unique_ptr <Texture>>;
+    using TexturesContainerType = std::unordered_map <Textures, std::unique_ptr <Texture>>;
     using FutureType = std::future <bool>;
 
-    // can't use string_view because .find not works
-    Texture* getTexture(std::string const& path);
-    FutureType preloadFromDirectory(std::string_view path, bool recursive = false);
+    Texture* getTexture(Textures texture);
+    void preload();
 
 private:
+    void loadResourceTable();
+
     mutable std::mutex m_mutex;
     TexturesContainerType m_textures;
+    nlohmann::json m_resourceTable;
 };
 
 END_NAMESPACE_SLEEP

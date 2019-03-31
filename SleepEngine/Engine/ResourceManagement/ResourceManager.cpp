@@ -1,57 +1,36 @@
 #include "stdafx.h"
 #include "ResourceManager.h"
 
-
 BEGIN_NAMESPACE_SLEEP
 
-Texture* ResourceManager::getTexture(std::string const& path)
+Texture* ResourceManager::getTexture(Textures texture)
 {
     std::lock_guard lk(m_mutex);
-    auto it = m_textures.find(path);
+    auto it = m_textures.find(texture);
     if (it == m_textures.cend())
     {
-        return m_textures.emplace(path, std::make_unique <Texture>(path.c_str())).first->second.get();
+        logAndAssertError(false, "No texture found. Maybe you forgot to call preload()?");
+        return nullptr;
     }
     return it->second.get();
 }
 
-ResourceManager::FutureType ResourceManager::preloadFromDirectory(std::string_view const path, bool const recursive)
+void ResourceManager::preload()
 {
-    auto preload = [this, path, recursive]
+    loadResourceTable();
+
+    for (auto const& item : m_resourceTable.items())
     {
-        if (!std::filesystem::exists(path))
-        {
-            logAndAssertError(false, "Directory not exists");
-            return false;
-        }
+        std::lock_guard lk(m_mutex);
+        m_textures.emplace(static_cast <Textures>(std::stoi(item.key())),
+            std::make_unique <Texture>(item.value().get <std::string>().c_str()));
+    }
+}
 
-        if (!recursive)
-        {
-            auto dir = std::filesystem::directory_iterator(path);
-            for (auto const& entry : dir)
-            {
-                std::lock_guard lk(m_mutex);
-                auto path = entry.path().string();
-
-                m_textures.emplace(path, std::make_unique <Texture>(path.c_str()));
-            }
-        }
-        else
-        {
-            auto dir = std::filesystem::recursive_directory_iterator(path);
-            for (auto const& entry : dir)
-            {
-                std::lock_guard lk(m_mutex);
-                auto path = entry.path().string();
-
-                m_textures.emplace(path, std::make_unique <Texture>(path.c_str()));
-            }
-        }
-
-        return true;
-    };
-
-    return std::async(std::launch::async, preload);
+void ResourceManager::loadResourceTable()
+{
+    std::ifstream file(Resources::ImagesTablePath);
+    file >> m_resourceTable;
 }
 
 END_NAMESPACE_SLEEP

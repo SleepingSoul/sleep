@@ -7,7 +7,7 @@
 
 namespace slp
 {
-    enum class Images : unsigned
+    enum class Textures : unsigned
     {
           Cirilla = 0
         , DBHWallpaper

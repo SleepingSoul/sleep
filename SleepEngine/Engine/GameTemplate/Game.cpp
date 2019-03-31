@@ -1,9 +1,11 @@
 // copyright 2019 Taras Martyniuk
+
 #include "stdafx.h"
-#include "Game.h"
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
+#include <Engine/ResourceManagement/ResourceManager.h>
+
 
 BEGIN_NAMESPACE_SLEEP
 
@@ -17,6 +19,7 @@ Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of the storm")
+    , m_resourceManager(std::make_unique <ResourceManager>())
     , m_nextSceneID(0)
 {
     setupLogger();
@@ -47,14 +50,14 @@ Game::SceneIDType Game::addScene(SceneIniter initer)
 
 Game::Scene* Game::findScene(SceneIDType id)
 {
-    return const_cast <Game*>(this)->findScene(id);
+    auto it = m_scenes.find(id);
+
+    return it != m_scenes.end() ? &it->second.first : nullptr;
 }
 
 Game::Scene const* Game::findScene(SceneIDType id) const
 {
-    auto it = m_scenes.find(id);
-
-    return it != m_scenes.cend() ? &it->second.first : nullptr;
+    return const_cast <Game*>(this)->findScene(id);
 }
 
 bool Game::tryRemoveScene(SceneIDType id)
