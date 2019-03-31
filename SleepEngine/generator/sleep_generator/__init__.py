@@ -31,9 +31,7 @@ def generate_textures_enum_definition():
         image_address_table = {}
 
         helper.put(COPYRIGHT_HEADER)
-        
-        helper.put('\n\n')
-
+        helper.put('#pragma once\n\n')
         helper.put('namespace slp\n')
 
         with Block(helper, '{\n', '}\n'):

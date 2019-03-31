@@ -1,5 +1,4 @@
 #include <stdafx.h>
-#include <Engine/Generated/all_images.hpp>
 #include <Engine/ResourceManagement/ResourceManager.h>
 
 // settings
