@@ -1,0 +1,25 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "3e62eea2b1cec0734e74966e2792e909c3f2aee896359b7b0fcb4efee6b035a8"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.6"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "sleep-generator": {
+            "editable": true,
+            "path": "."
+        }
+    },
+    "develop": {}
+}

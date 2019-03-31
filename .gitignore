@@ -27,3 +27,5 @@ bld/
 
 # profiles
 *.prof
+
+.vscode
