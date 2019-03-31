@@ -1,17 +1,20 @@
 # Copyright 2019 Tihran Katolikian
 
 import os
+import json
 from .utils import *
 from .file_generate_helper import FileGenerateHelper, IndentIncreaser, Commenter, Block
 
 
 IMAGES_SECTION_NAME = 'ImageEnum'
+COPYRIGHT_HEADER = '//-------------------------------------------------------\n\
+                    //---- Copyright 2019 Tihran Katolikian -----------------\n\
+                    //-------------------------------------------------------\n\n\n'
 
 def generate_images_enum_definition():
     '''
     Generates a C++ file with enumeration for each of images in Images folder.
     '''
-
     read_all_config()
 
     config = get_config_section(IMAGES_SECTION_NAME)
@@ -25,10 +28,9 @@ def generate_images_enum_definition():
 
         helper = FileGenerateHelper(file=target_file, tab_string='    ', comment_string='//')
 
-        with Commenter(helper):
-            helper.put('-------------------------------------------------------\n')
-            helper.put('---- Copyright 2019 Tihran Katolikian -----------------\n')
-            helper.put('-------------------------------------------------------\n')
+        image_address_table = {}
+
+        helper.put(COPYRIGHT_HEADER)
         
         helper.put('\n\n')
 
@@ -38,7 +40,7 @@ def generate_images_enum_definition():
 
             with IndentIncreaser(helper) as namespace_slp:
 
-                helper.put('enum class Images\n')
+                helper.put(f"enum class Images : {config['UnderlyingType']}\n")
 
                 with Block(helper, '{\n', '};\n'):
 
@@ -46,7 +48,9 @@ def generate_images_enum_definition():
 
                     with IndentIncreaser(helper) as enumImages:
 
-                        is_first = True
+                        enum_value = 0
+
+                        direct_data_path = config['ImagesFolder'][3:]
 
                         for filename in os.listdir(config['ImagesFolder']):
 
@@ -54,11 +58,14 @@ def generate_images_enum_definition():
 
                             if img_format not in image_formats:
                                 continue
-                            if is_first:
-                                helper.put(f'  {img_name}\n')
-                                is_first = False
+                            if enum_value == 0:
+                                helper.put(f'  {img_name} = 0\n')
                             else:
                                 helper.put(f', {img_name}\n')
+
+                            image_address_table[enum_value] = f'{direct_data_path}/{filename}'
+
+                            enum_value += 1
             
         
 
@@ -68,4 +75,27 @@ def generate_images_enum_definition():
         helper.put('\n')
 
     print(f'Success: file {generated_file_path} was generated.')
+
+    generate_images_adress_table(config, image_address_table)
+
     print('-------------------------------------------')
+
+def generate_images_adress_table(config, table):
+    '''
+    Generates a file that contains pairs: enum underlying type value -> image path.
+    It is used for image preloading in C++.
+    '''
+
+    print('Generating image address table...')
+
+    table_file_path = f"{config['TargetFolder']}/{config['TableFileName']}"
+
+    try:
+        with open(table_file_path, 'w') as table_file:
+
+            json.dump(table, table_file)
+    except Exception as e:
+        print(f'Failure: {e}')
+        print('-------------------------------------------')
+    else:
+        print(f'Success: file {table_file_path} was generated.')
