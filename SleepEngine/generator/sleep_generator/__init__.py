@@ -76,11 +76,11 @@ def generate_textures_enum_definition():
 
     print(f'Success: file {generated_file_path} was generated.')
 
-    generate_textures_adress_table(config, image_address_table)
+    generate_textures_address_table(config, image_address_table)
 
     print('-------------------------------------------')
 
-def generate_textures_adress_table(config, table):
+def generate_textures_address_table(config, table):
     '''
     Generates a file that contains pairs: enum underlying type value -> image path.
     It is used for image preloading in C++.
