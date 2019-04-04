@@ -90,6 +90,11 @@ void Game::changeScene(SceneIDType id)
     initCurrentScene();
 }
 
+void Game::addSystem(SystemsContainer::value_type&& system)
+{
+    m_systems.emplace_back(std::move(system));
+}
+
 void Game::run()
 {
     while (!m_window.shouldClose())
@@ -105,8 +110,17 @@ void Game::runFrame()
 
     if (m_currentScene != m_scenes.end())
     {
+        auto const dt = m_clock.getDT();
+
+        EASY_BLOCK("Update systems");
+        for (auto& system : m_systems)
+        {
+            system->update(dt);
+        }
+        EASY_END_BLOCK;
+
         EASY_BLOCK("Current scene update", profiler::colors::Amber100);
-        m_currentScene->second.first.update(m_clock.getDT());
+        m_currentScene->second.first.update(dt);
         EASY_END_BLOCK;
 
         m_renderer->render();
