@@ -2,9 +2,13 @@
 
 #pragma once
 
+#include <Engine/Systems/System.h>
+
+
 BEGIN_NAMESPACE_SLEEP
 
 class ResourceManager;
+class ISystem;
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components
@@ -20,6 +24,7 @@ public:
     using SceneAndInitter = std::pair <Scene, SceneIniter>;
     using SceneIDType = unsigned;
     using ScenesContainer = std::unordered_map <SceneIDType, SceneAndInitter>;
+    using SystemsContainer = std::vector <std::unique_ptr <ISystem>>;
 
     static Game& instance() { return *m_instance; }
 
@@ -39,6 +44,8 @@ public:
 
     void changeScene(SceneIDType id);
 
+    void addSystem(SystemsContainer::value_type&& system);
+
     void run();
 
 private:
@@ -54,6 +61,8 @@ private:
     SceneIDType m_nextSceneID;
     ScenesContainer m_scenes;
     ScenesContainer::iterator m_currentScene;
+
+    SystemsContainer m_systems;
 
     void runFrame();
     void setupLogger();

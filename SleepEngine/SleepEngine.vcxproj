@@ -202,6 +202,7 @@
     <ClCompile Include="Engine\Clock.cpp" />
     <ClCompile Include="Engine\Components\Component.cpp" />
     <ClCompile Include="Engine\Components\Renderer.cpp" />
+    <ClCompile Include="Engine\Components\RigidBody.cpp" />
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
@@ -214,6 +215,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Engine\Systems\ConcreteSystem.cpp" />
+    <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Engine\Systems\System.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Transform2DData.cpp" />
     <ClCompile Include="main.cpp" />
@@ -224,6 +228,7 @@
     <ClInclude Include="Engine\Clock.h" />
     <ClInclude Include="Engine\Components\Component.h" />
     <ClInclude Include="Engine\Components\Renderer.h" />
+    <ClInclude Include="Engine\Components\RigidBody.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
     <ClInclude Include="Engine\GameWindow.h" />
@@ -236,6 +241,9 @@
     <ClInclude Include="Engine\Components\Transform2D.h" />
     <ClInclude Include="Engine\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Engine\SleepTypes.h" />
+    <ClInclude Include="Engine\Systems\ConcreteSystem.h" />
+    <ClInclude Include="Engine\Systems\PhysicsSystem.h" />
+    <ClInclude Include="Engine\Systems\System.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Transform2DData.h" />
     <ClInclude Include="Engine\Utils\FactoryUtils.h" />
