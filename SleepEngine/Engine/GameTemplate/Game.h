@@ -8,7 +8,7 @@
 BEGIN_NAMESPACE_SLEEP
 
 class ResourceManager;
-class System;
+class ISystem;
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components
@@ -24,7 +24,7 @@ public:
     using SceneAndInitter = std::pair <Scene, SceneIniter>;
     using SceneIDType = unsigned;
     using ScenesContainer = std::unordered_map <SceneIDType, SceneAndInitter>;
-    using SystemsContainer = std::vector <std::unique_ptr <System>>;
+    using SystemsContainer = std::vector <std::unique_ptr <ISystem>>;
 
     static Game& instance() { return *m_instance; }
 

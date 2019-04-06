@@ -5,7 +5,7 @@
 BEGIN_NAMESPACE_SLEEP
 
 template <class TComponent>
-class ConcreteSystem : public System
+class ConcreteSystem : public ISystem
 {
     FORBID_COPY_AND_MOVE(ConcreteSystem)
 public:

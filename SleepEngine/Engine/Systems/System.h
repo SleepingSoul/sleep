@@ -8,7 +8,7 @@ class Component;
 
 // System shouldn't have state, it should have a logic
 
-class System
+class ISystem
 {
 public:
     virtual void update(float dt) = 0;
