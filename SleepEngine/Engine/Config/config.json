@@ -1,0 +1,8 @@
+{
+  "max_layer": 99,
+  "meter_length_in_pixels": 100,
+  "primary_window_size": {
+    "x": 1024,
+    "y": 1024
+  }
+}

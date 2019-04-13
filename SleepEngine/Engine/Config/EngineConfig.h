@@ -1,23 +1,23 @@
-// Copyright 2019, Tihran Katolikian
-
+// Copyright 2019 Taras Martyniuk
 #pragma once
-
-#include <glm/glm.hpp>
-#include <Engine/Utils/MacroUtils.h>
-#include <Engine/SleepTypes.h>
+#include <Engine/Config/EngineConfigData.h>
 
 BEGIN_NAMESPACE_SLEEP
 
-static Layer const MaxLayer = 99;
-static size_t const MeterLengthInPixels = 100;
-static glm::vec2 const PrimaryWindowSize(1024.f, 1024.f);
-
-static auto EngineLogger = "engine_logger";
-static auto EngineLoggerPath = "Logs/engine_logger.log";
-
-namespace Resources
+// loads config data from a file and stores it
+class EngineConfig
 {
-    static auto ImagesTablePath = "Engine/Generated/textures_table.json";
-}
+public:
+	SINGLETON_GETTER(EngineConfig)
+
+	// parses config file
+    void Load();
+	CONST_REF_GETTER(GetData, m_data)
+
+private:
+	EngineConfigData m_data;
+
+    EngineConfig() = default;
+};
 
 END_NAMESPACE_SLEEP

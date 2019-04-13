@@ -5,6 +5,7 @@
 #include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
+#include <Engine/Config/EngineConfig.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -25,6 +26,7 @@ Game::Game(size_t width, size_t height)
     m_currentScene = m_scenes.end();
 
     setupLogger();
+	EngineConfig::Instance().Load();
 
     if (m_instance)
     {

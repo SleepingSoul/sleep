@@ -17,7 +17,8 @@ void Camera::setScreenSize(size_t const screenWidth, size_t const screenHeight)
 
 glm::vec2 Camera::virtualPositionToNormalized(glm::vec2 const position) const
 {
-    return position / PrimaryWindowSize * static_cast <float>(MeterLengthInPixels);;
+	EngineConfigData const& config = EngineConfig::Instance().GetData();
+    return position / config.PrimaryWindowSize * static_cast <float>(config.MeterLengthInPixels);;
 }
 
 glm::vec2 Camera::virtualSizeToNormalized(glm::vec2 const size) const

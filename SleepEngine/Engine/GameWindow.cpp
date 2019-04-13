@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameWindow.h"
-#include <Engine/EngineConfig.h>
+#include <Engine/Utils/MacroUtils.h>
 #include <Engine/GameTemplate/Game.h>
 
 BEGIN_NAMESPACE_SLEEP
