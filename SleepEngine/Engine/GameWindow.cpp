@@ -3,7 +3,7 @@
 #include <Engine/EngineConfig.h>
 #include <Engine/GameTemplate/Game.h>
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 namespace
 {
@@ -70,8 +70,12 @@ bool GameWindow::shouldClose() const
 void GameWindow::runFrame()
 {
     EASY_FUNCTION(profiler::colors::Orange);
+    EASY_BLOCK("GLFW: swap buffers", profiler::colors::DarkMagenta);
     glfwSwapBuffers(m_window);
+    EASY_END_BLOCK;
+    EASY_BLOCK("GLFW: poll events", profiler::colors::DarkRed);
     glfwPollEvents();
+    EASY_END_BLOCK;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

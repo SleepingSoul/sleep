@@ -1,10 +1,14 @@
-// copyright 2019 Taras Martyniuk
-#pragma once
-class GameWindow;
-class Clock;
-class Camera;
+// copyright 2019 Taras Martyniuk, Tihran Katolikian
 
-BeginNamespaceSleep
+#pragma once
+
+#include <Engine/Systems/System.h>
+
+
+BEGIN_NAMESPACE_SLEEP
+
+class ResourceManager;
+class ISystem;
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components
@@ -14,33 +18,56 @@ BeginNamespaceSleep
 class Game
 {
 public:
-    using SceneIniter = std::function<void(Game&)>;
+    using Base = ObjectTree;
+    using Scene = ObjectTree;
+    using SceneIniter = std::function <void(Scene&)>;
+    using SceneAndInitter = std::pair <Scene, SceneIniter>;
+    using SceneIDType = unsigned;
+    using ScenesContainer = std::unordered_map <SceneIDType, SceneAndInitter>;
+    using SystemsContainer = std::vector <std::unique_ptr <ISystem>>;
 
     static Game& instance() { return *m_instance; }
 
-    Game(SceneIniter sceneIniter, size_t width, size_t height);
+    Game(size_t width, size_t height);
 
     REF_GETTERS(getClock, m_clock)
-    REF_GETTERS(getRenderer, *m_renderer);
-    REF_GETTERS(getResourceManager, m_resourceManager)
+    REF_GETTERS(getRenderer, *m_renderer)
+    REF_GETTERS(getResourceManager, *m_resourceManager)
     REF_GETTERS(getCamera, m_camera)
 
-    void addToRoot(Object* object);
-    void run();
+    SceneIDType addScene(SceneIniter initer);
 
+    Scene* findScene(SceneIDType id);
+    Scene const* findScene(SceneIDType id) const;
+
+    bool tryRemoveScene(SceneIDType id);
+
+    void changeScene(SceneIDType id);
+
+    void addSystem(SystemsContainer::value_type&& system);
+
+    void run();
 
 private:
     inline static NotOwnedPtr <Game> m_instance = nullptr;
 
     GameWindow m_window;
-    Updator m_objectTree;
     Clock m_clock;
     Camera m_camera;
-    std::unique_ptr <Renderer> m_renderer;
-    ResourceManager m_resourceManager;
+
+    std::unique_ptr <GameRenderer> m_renderer;
+    std::unique_ptr <ResourceManager> m_resourceManager;
+
+    SceneIDType m_nextSceneID;
+    ScenesContainer m_scenes;
+    ScenesContainer::iterator m_currentScene;
+
+    SystemsContainer m_systems;
 
     void runFrame();
     void setupLogger();
+
+    void initCurrentScene();
 };
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

@@ -1,11 +1,13 @@
 // copyright 2019 Taras Martyniuk
+
 #include "stdafx.h"
-#include "Game.h"
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
 #include <Engine/GameWindow.h>
+#include <Engine/ResourceManagement/ResourceManager.h>
 
-BeginNamespaceSleep
+
+BEGIN_NAMESPACE_SLEEP
 
 namespace
 {
@@ -13,11 +15,15 @@ namespace
     float const FPS = 60.f;
 }
 
-Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
+Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of the storm")
+    , m_resourceManager(std::make_unique <ResourceManager>())
+    , m_nextSceneID(0)
 {
+    m_currentScene = m_scenes.end();
+
     setupLogger();
 
     if (m_instance)
@@ -26,19 +32,67 @@ Game::Game(SceneIniter sceneIniter, size_t width, size_t height)
 	    return;
     }
     m_instance = this;
-    m_renderer = std::make_unique <Renderer>();
-
-    if (!sceneIniter)
-    {
-	    logAndAssertError(false, "sceneIniter is null");
-	    return;
-    }
-    sceneIniter(*this);
+    m_renderer = std::make_unique <GameRenderer>();
 }
 
-void Game::addToRoot(Object* object)
+Game::SceneIDType Game::addScene(SceneIniter initer)
 {
-    m_objectTree.addChild(object);
+    auto sceneAndIniter = std::make_pair(Scene(), initer);
+    auto [it, wasInserted] = m_scenes.insert({ m_nextSceneID++, std::move(sceneAndIniter) });
+    assertion(wasInserted, "nextSceneID overflow");
+
+    if (m_scenes.size() == 1)
+    {
+        m_currentScene = it;
+        initCurrentScene();
+    }
+
+    return it->first;
+}
+
+Game::Scene* Game::findScene(SceneIDType id)
+{
+    auto it = m_scenes.find(id);
+
+    return it != m_scenes.end() ? &it->second.first : nullptr;
+}
+
+Game::Scene const* Game::findScene(SceneIDType id) const
+{
+    return const_cast <Game*>(this)->findScene(id);
+}
+
+bool Game::tryRemoveScene(SceneIDType id)
+{
+    auto it = m_scenes.find(id);
+
+    if (it == m_scenes.end())
+    {
+        return false;
+    }
+
+    m_scenes.erase(it);
+    return true;
+}
+
+void Game::changeScene(SceneIDType id)
+{
+    auto it = m_scenes.find(id);
+
+    if (it == m_currentScene)
+    {
+        return;
+    }
+
+    m_currentScene->second.first.clear();
+    m_currentScene = it;
+
+    initCurrentScene();
+}
+
+void Game::addSystem(SystemsContainer::value_type&& system)
+{
+    m_systems.emplace_back(std::move(system));
 }
 
 void Game::run()
@@ -54,9 +108,23 @@ void Game::runFrame()
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
-    m_objectTree.update();
-    m_objectTree.render();
-    m_renderer->render();
+    if (m_currentScene != m_scenes.end())
+    {
+        auto const dt = m_clock.getDT();
+
+        EASY_BLOCK("Update systems");
+        for (auto& system : m_systems)
+        {
+            system->update(dt);
+        }
+        EASY_END_BLOCK;
+
+        EASY_BLOCK("Current scene update", profiler::colors::Amber100);
+        m_currentScene->second.first.update(dt);
+        EASY_END_BLOCK;
+
+        m_renderer->render();
+    }
 
     m_window.runFrame();
 
@@ -76,5 +144,11 @@ void Game::setupLogger()
     engineLogger->set_level(spdlog::level::debug);
 }
 
-EndNamespaceSleep
+void Game::initCurrentScene()
+{
+    auto& [scene, initer] = m_currentScene->second;
+    initer(scene);
+}
+
+END_NAMESPACE_SLEEP
 

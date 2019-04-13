@@ -1,5 +1,5 @@
 #include <stdafx.h>
-#include <Engine/GameTemplate/Game.h>
+#include <Engine/ResourceManagement/ResourceManager.h>
 
 // settings
 namespace
@@ -12,34 +12,48 @@ int main()
 {
     EASY_PROFILER_ENABLE;
 
-	// right now the heap allocated objects leak because Updator does not own them, fixed in Updator re-do by tihran
-    auto initScene = [](slp::Game& game)
-    {
-        auto* background = new slp::Object();
-        background->setTexture(game.getResourceManager().getTexture("Data/orphea.jpg"));
-        background->setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
-        background->setLayer(0);
-        game.addToRoot(background);
+	slp::Game game(WindowWidth, WindowHeight);
 
-        auto ciriTexture = game.getResourceManager().getTexture("Data/cirilla.png");
+    game.getClock().setFPS(60.f);
+    game.getClock().setRestrictFPS(true);
+
+    auto initMainScene = [](slp::Game::Scene& scene)
+    {
+        auto& game = slp::Game::instance();
+
+        auto background = slp::createRenderableObject();
+
+        auto* const renderer = background->getComponent <slp::Renderer>();
+        auto* const transform2D = background->getComponent <slp::Transform2D>();
+
+        renderer->setTexture(game.getResourceManager().getTexture(slp::Textures::Orphea));
+        transform2D->getData().setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
+        transform2D->getData().setLayer(0);
+
+        scene.addToRoot(std::move(background));
+
+        auto ciriTexture = game.getResourceManager().getTexture(slp::Textures::Cirilla);
 
         for (int i = 0; i < 200; i++)
         {
-	        auto* ciri = new slp::Object();
+            auto ciri = slp::createRenderableObject();
 
-	        ciri->setTexture(ciriTexture);
-	        ciri->setLayer(1);
-	        ciri->setRotation(static_cast <float>(i) * 4.4f);
-	        ciri->setSize(slp::pixelsToMeters(ciriTexture->getSize()));
-	        ciri->setPosition({ -slp::pixelsToMeters(game.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
-	        game.addToRoot(ciri);
+            auto* const renderer = ciri->getComponent <slp::Renderer>();
+            auto* const transform2D = ciri->getComponent <slp::Transform2D>();
+
+            renderer->setTexture(ciriTexture);
+            auto& transformData = transform2D->getData();
+            transformData.setLayer(1);
+            transformData.setRotation(static_cast <float>(i) * 4.4f);
+            transformData.setSize(slp::pixelsToMeters(ciriTexture->getSize()));
+            transformData.setPosition({ -slp::pixelsToMeters(game.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
+            scene.addToRoot(std::move(ciri));
         }
     };
 
-	slp::Game game(initScene, WindowWidth, WindowHeight);
+    game.getResourceManager().preload();
 
-    game.getClock().setFPS(60.f);
-	game.getClock().setRestrictFPS(true);
+    game.addScene(initMainScene);
 
 	game.run();
 

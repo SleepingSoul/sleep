@@ -4,7 +4,7 @@
 #include <stb_image.h>
 
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 Texture::Texture(char const* path) noexcept(true)
     : m_isInGPU(false)
@@ -74,4 +74,4 @@ GLenum Texture::channelsNumberToFormat(int const channelsNumber) const
     return result;
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP

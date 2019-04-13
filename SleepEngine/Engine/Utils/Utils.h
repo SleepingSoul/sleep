@@ -2,7 +2,7 @@
 #include <Engine/EngineConfig.h>
 #pragma once
 
-BeginNamespaceSleep
+BEGIN_NAMESPACE_SLEEP
 
 template <class T>
 using NotOwnedPtr = T*;
@@ -27,4 +27,4 @@ inline glm::vec2 pixelsToMeters(glm::vec2 sizeInPixels)
     return sizeInPixels * 2.f / static_cast <float>(MeterLengthInPixels);
 }
 
-EndNamespaceSleep
+END_NAMESPACE_SLEEP
