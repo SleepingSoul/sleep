@@ -9,15 +9,16 @@ BEGIN_NAMESPACE_SLEEP
 
 void EngineConfig::Load()
 {
-    std::optional<std::string> configFileText = readFile(ConfigFile);
+    std::ifstream file(ConfigFile);
+    nlohmann::json configJson;
+    file >> configJson;
 
-    if (!configFileText.has_value())
+    if (configJson.is_null())
     {
-        LOG_AND_ASSERT_ERROR("config file missing");
+        LOG_AND_ASSERT_ERROR("could not parse config file");
         return;
     }
 
-    nlohmann::json configJson = nlohmann::json::parse(configFileText.value());
     from_json(configJson, m_data);
 }
 

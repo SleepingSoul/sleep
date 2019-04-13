@@ -10,7 +10,7 @@ BEGIN_NAMESPACE_SLEEP
 // but all data that can be retrieved dynamically should be in EngineConfig isntead
 static auto EngineLogger = "engine_logger";
 static auto EngineLoggerPath = "Logs/engine_logger.log";
-static auto ConfigFile = "Config/config.json";
+static auto ConfigFile = "Engine/Config/config.json";
 
 namespace Resources
 {

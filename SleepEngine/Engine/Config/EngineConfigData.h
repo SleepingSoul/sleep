@@ -18,7 +18,7 @@ static void from_json(nlohmann::json const& json, EngineConfigData& configData)
         configData.MeterLengthInPixels = json.at("meter_length_in_pixels");
         from_json(json.at("primary_window_size"), configData.PrimaryWindowSize);
     }
-    catch (nlohmann::json::exception const& e)
+    catch (nlohmann::json::exception const&)
     {
         LOG_AND_ASSERT_ERROR("Error parsing config data json");
     }
