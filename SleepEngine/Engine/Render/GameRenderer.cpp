@@ -130,7 +130,7 @@ void GameRenderer::render()
         auto resultingScale = glm::vec3(transform.getScale() * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
 
-		glm::vec2 windowSize = EngineConfig::Instance().GetData().PrimaryWindowSize;
+        glm::vec2 windowSize = EngineConfig::Instance().GetData().PrimaryWindowSize;
         float const scaleX = camera.getScreenWidth() / windowSize.x;
         float const scaleY = camera.getScreenHeight() / windowSize.y;
 

@@ -11,7 +11,7 @@ assert((message, condition))
 #define logAndAssertError(condition, message)\
 if (!condition)\
 {\
-	LOG_ERROR(message)\
+    _ERROR(message)\
     assertion(condition, message);\
 }
 

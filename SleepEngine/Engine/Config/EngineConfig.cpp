@@ -9,7 +9,7 @@ BEGIN_NAMESPACE_SLEEP
 
 void EngineConfig::Load()
 {
-	std::optional<std::string> configFileText = readFile(ConfigFile);
+    std::optional<std::string> configFileText = readFile(ConfigFile);
 
     if (!configFileText.has_value())
     {
@@ -18,7 +18,7 @@ void EngineConfig::Load()
     }
 
     nlohmann::json configJson = nlohmann::json::parse(configFileText.value());
-	from_json(configJson, m_data);
+    from_json(configJson, m_data);
 }
 
 END_NAMESPACE_SLEEP

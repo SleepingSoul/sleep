@@ -8,14 +8,14 @@ BEGIN_NAMESPACE_SLEEP
 class EngineConfig
 {
 public:
-	SINGLETON_GETTER(EngineConfig)
+    SINGLETON_GETTER(EngineConfig)
 
-	// parses config file
+    // parses config file
     void Load();
-	CONST_REF_GETTER(GetData, m_data)
+    CONST_REF_GETTER(GetData, m_data)
 
 private:
-	EngineConfigData m_data;
+    EngineConfigData m_data;
 
     EngineConfig() = default;
 };
