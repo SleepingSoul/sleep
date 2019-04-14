@@ -55,7 +55,7 @@ int main()
     };
 
     game.getResourceManager().preload();
-    game.addScene(initMainScene);
+    game.addScene(initBubbleDemoScene);
 	game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");

@@ -2,10 +2,12 @@
 #include "bubbles_demo.h"
 #include <Demos/Bubbles/Entities/BubbleGun.h>
 
-void initScene(slp::Game::Scene & scene)
+void initBubbleDemoScene(slp::Game::Scene & scene)
 {
-    std::unique_ptr<slp::Object> bubbleGun = createBubbleGunObject();
-    bubbleGun->getTransform().getData().setPosition({ 0.f, 0.f });
+    auto bubbleGun = createBubbleGunObject();
+    auto& transform = bubbleGun->getTransform().getData();
+    transform.setPosition({ 0.f, 0.f });\
+    transform.setRotation(45.f);
 
     scene.addToRoot(std::move(bubbleGun));
 }
