@@ -198,6 +198,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Demos\Bubbles\bubbles_demo.cpp" />
+    <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Clock.cpp" />
     <ClCompile Include="Engine\Components\Component.cpp" />
@@ -228,6 +230,9 @@
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Demos\Bubbles\bubbles_demo.h" />
+    <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
+    <ClInclude Include="Demos\Bubbles\Header.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Clock.h" />
     <ClInclude Include="Engine\Components\Component.h" />

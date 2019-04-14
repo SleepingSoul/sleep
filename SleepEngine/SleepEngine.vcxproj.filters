@@ -84,10 +84,10 @@
     <ClCompile Include="Engine\Config\EngineConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Config\ConfigManager.cpp">
+    <ClCompile Include="Demos\Bubbles\bubbles_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Config\JsonConfig.cpp">
+    <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Render\DrawCall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utils\MacroUtils.h">
@@ -182,25 +185,13 @@
     <ClInclude Include="Engine\Utils\json_serialize_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Config\ConfigManager.h">
+    <ClInclude Include="Demos\Bubbles\bubbles_demo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\GameTemplate\global_shortcuts.h">
+    <ClInclude Include="Demos\Bubbles\Header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utils\unit_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\aliases.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\Loadable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\JsonConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\BaseConfig.h">
+    <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

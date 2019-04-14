@@ -2,6 +2,7 @@
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Utils/unit_utils.h>
 #include <Engine/Utils/stl_utils.h>
+#include <Demos/Bubbles/bubbles_demo.h>
 
 // settings
 namespace
@@ -54,10 +55,8 @@ int main()
     };
 
     game.getResourceManager().preload();
-
     game.addScene(initMainScene);
-
-    game.run();
+	game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;
