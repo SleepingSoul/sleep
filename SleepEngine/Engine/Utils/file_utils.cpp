@@ -8,14 +8,18 @@ std::optional<std::string> readFile(std::filesystem::path path)
         return std::nullopt;
     }
 
-    int bytes = static_cast<int>(std::filesystem::file_size(path));
-
-    std::string data(bytes, '#');
+    std::uintmax_t bytesCount = std::filesystem::file_size(path);
+    std::string data(bytesCount, '#');
     std::ifstream fstream;
 
-    assertion(!fstream.is_open(), "stats file already open");
+    if (fstream.is_open())
+    {
+        LOG_AND_ASSERT_ERROR("file already open");
+        return std::nullopt;
+    }
+
     fstream.open(path, std::fstream::in | std::fstream::binary);
-    fstream.read(data.data(), bytes);
+    fstream.read(data.data(), bytesCount);
     fstream.close();
 
     return data;
