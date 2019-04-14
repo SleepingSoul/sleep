@@ -15,7 +15,7 @@ void EngineConfig::Load()
 
     if (configJson.is_null())
     {
-        LOG_AND_ASSERT_ERROR("could not parse config file");
+        LOG_AND_FAIL_ERROR("could not parse config file");
         return;
     }
 
@@ -27,7 +27,7 @@ EngineConfigData const& EngineConfig::GetData() const
 {
     if (!m_isLoaded)
     {
-        LOG_AND_ASSERT_ERROR("config data not loaded");
+        LOG_AND_FAIL_ERROR("config data not loaded");
     }
     return m_data;
 }

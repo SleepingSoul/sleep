@@ -9,7 +9,7 @@ Texture* ResourceManager::getTexture(Textures texture)
     auto it = m_textures.find(texture);
     if (it == m_textures.cend())
     {
-        logAndAssertError(false, "No texture found. Maybe you forgot to call preload()?");
+        LOG_AND_ASSERT_ERROR(false, "No texture found. Maybe you forgot to call preload()?");
         return nullptr;
     }
     return it->second.get();

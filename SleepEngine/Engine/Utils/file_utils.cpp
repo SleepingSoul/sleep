@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "file_utils.h"
+#include <fmt/ostream.h>
 
 std::optional<std::string> readFile(std::filesystem::path path)
 {
@@ -14,7 +15,7 @@ std::optional<std::string> readFile(std::filesystem::path path)
 
     if (fstream.is_open())
     {
-        LOG_AND_ASSERT_ERROR("file already open");
+        LOG_AND_FAIL_ERROR("file already open : {}", path);
         return std::nullopt;
     }
 

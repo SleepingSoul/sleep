@@ -24,7 +24,7 @@ public:
         
         if (it == m_components.cend())
         {
-            logAndAssertError(false, "Attempt to exit from component that is not a part of this system.");
+            LOG_AND_ASSERT_ERROR(false, "Attempt to exit from component that is not a part of this system.");
             return;
         }
 

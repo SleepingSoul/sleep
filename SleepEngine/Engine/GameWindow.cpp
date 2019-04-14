@@ -30,7 +30,7 @@ GameWindow::GameWindow(size_t width, size_t height, std::string_view title)
     m_window = glfwCreateWindow(width, height, title.data(), NULL, NULL);
     if (!m_window)
     {
-        logAndAssertError(false, "Window wasn't created!");
+        LOG_AND_ASSERT_ERROR(false, "Window wasn't created!");
         return;
     }
     glfwMakeContextCurrent(m_window);
@@ -38,7 +38,7 @@ GameWindow::GameWindow(size_t width, size_t height, std::string_view title)
 
     if (!gladLoadGLLoader(reinterpret_cast <GLADloadproc>(glfwGetProcAddress)))
     {
-        logAndAssertError(false, "Failed to initialize GLAD");
+        LOG_AND_ASSERT_ERROR(false, "Failed to initialize GLAD");
         return;
     }
 }
