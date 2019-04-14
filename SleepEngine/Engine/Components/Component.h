@@ -11,7 +11,7 @@ public:
     Component(TypeID id)
         : m_typeID(id)
     {}
-    virtual ~Component() = 0;
+    virtual ~Component() {}
 
     virtual void update(float dt) {}
     virtual void setParent(Object* parent) { m_parent = parent; }

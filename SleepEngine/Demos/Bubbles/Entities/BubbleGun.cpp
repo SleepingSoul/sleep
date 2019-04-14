@@ -7,6 +7,10 @@ BubbleGun::BubbleGun(BubbleGunSettings settings)
     , m_settings(settings)
 {}
 
+void BubbleGun::update(float dt)
+{
+}
+
 slp::Object* CreateBubbleGunObject()
 {
     auto* bubbleGunObject = new slp::Object();
@@ -21,6 +25,7 @@ slp::Object* CreateBubbleGunObject()
 
     auto& game = slp::Game::instance();
 
-    renderer->setTexture(game.getResourceManager().getTexture(slp::Textures::Orphea));
+    renderer->setTexture(game.getResourceManager().getTexture(slp::Textures::Spaceship));
     
+    return bubbleGunObject;
 }

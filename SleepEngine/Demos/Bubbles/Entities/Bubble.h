@@ -15,5 +15,5 @@ public:
     void update(float dt) override;
 
 private:
-    BubbleSettings m_settings
+    BubbleSettings m_settings;
 };

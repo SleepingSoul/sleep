@@ -19,7 +19,7 @@ public:
         static_assert(std::is_default_constructible_v <TComponent>, "TComponent is not default constructible. Please, "
             "create an instance of this class and use non-templated 'addComponent' method.");
         Component* handle = addComponent(std::make_unique <TComponent>());
-        return static_cast<TComponent>(handle);
+        return static_cast<TComponent*>(handle);
     }
     
     template <class TComponent>
