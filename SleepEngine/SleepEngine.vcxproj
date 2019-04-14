@@ -203,6 +203,7 @@
     <ClCompile Include="Engine\Components\Component.cpp" />
     <ClCompile Include="Engine\Components\Renderer.cpp" />
     <ClCompile Include="Engine\Components\RigidBody.cpp" />
+    <ClCompile Include="Engine\Config\ConfigManager.cpp" />
     <ClCompile Include="Engine\Config\EngineConfig.cpp" />
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
@@ -231,11 +232,15 @@
     <ClInclude Include="Engine\Components\Component.h" />
     <ClInclude Include="Engine\Components\Renderer.h" />
     <ClInclude Include="Engine\Components\RigidBody.h" />
+    <ClInclude Include="Engine\Config\BaseConfigLoader.h" />
+    <ClInclude Include="Engine\Config\ConfigManager.h" />
     <ClInclude Include="Engine\Config\EngineConfigData.h" />
     <ClInclude Include="Engine\Config\config.h" />
     <ClInclude Include="Engine\Config\EngineConfig.h" />
+    <ClInclude Include="Engine\Config\ILoadable.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
+    <ClInclude Include="Engine\GameTemplate\global_shortcuts.h" />
     <ClInclude Include="Engine\GameWindow.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\ObjectTree.h" />
@@ -251,11 +256,12 @@
     <ClInclude Include="Engine\Systems\System.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Transform2DData.h" />
+    <ClInclude Include="Engine\Utils\aliases.h" />
     <ClInclude Include="Engine\Utils\FactoryUtils.h" />
     <ClInclude Include="Engine\Utils\file_utils.h" />
     <ClInclude Include="Engine\Utils\json_serialize_utils.h" />
     <ClInclude Include="Engine\Utils\MacroUtils.h" />
-    <ClInclude Include="Engine\Utils\Utils.h" />
+    <ClInclude Include="Engine\Utils\unit_utils.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

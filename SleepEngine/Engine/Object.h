@@ -17,7 +17,7 @@ public:
     void addComponent()
     {
         static_assert(std::is_default_constructible_v <TComponent>, "TComponent is not default constructible. Please, "
-            "create an instance of this class and use non-templated 'addConponent' method.");
+            "create an instance of this class and use non-templated 'addComponent' method.");
         addComponent(std::make_unique <TComponent>());
     }
     

@@ -26,7 +26,9 @@ Game::Game(size_t width, size_t height)
     m_currentScene = m_scenes.end();
 
     setupLogger();
-    EngineConfig::Instance().Load();
+
+    globalConfigManager().addConfig<EngineConfig>();
+    globalConfigManager().loadAllConfigs();
 
     if (m_instance)
     {
