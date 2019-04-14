@@ -14,7 +14,7 @@ void ConfigManager::loadAllConfigs()
     }
 }
 
-void ConfigManager::addConfig(std::unique_ptr<BaseConfig> config)
+void ConfigManager::addConfig(std::unique_ptr<BaseConfig>&& config)
 {
     m_configs.emplace_back(std::move(config));
 }

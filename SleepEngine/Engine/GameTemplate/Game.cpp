@@ -27,8 +27,8 @@ Game::Game(size_t width, size_t height)
 
     setupLogger();
 
-    globalConfigManager().addConfig<EngineConfig>();
-    globalConfigManager().loadAllConfigs();
+    m_configManager.addConfig<EngineConfig>();
+    m_configManager.loadAllConfigs();
 
     if (m_instance)
     {

@@ -13,7 +13,7 @@ public:
     // does not reload if they are already loaded
     void loadAllConfigs();
 
-    void addConfig(std::unique_ptr<BaseConfig> config);
+    void addConfig(std::unique_ptr<BaseConfig>&& config);
 
     template <class TConfig>
     void addConfig()
