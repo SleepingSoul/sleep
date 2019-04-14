@@ -4,10 +4,13 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+// has Transform2D by default
 class Object
 {
 public:
     using ComponentsContainer = std::vector <std::unique_ptr <Component>>;
+
+    Object();
 
     virtual void update(float dt);
 
@@ -47,6 +50,9 @@ public:
     {
         return const_cast <TComponent*>(static_cast <Object const*>(this)->getComponent <TComponent>());
     }
+
+    Transform2D& getTransform();
+    Transform2D const& getTransform() const;
 
 protected:
     ComponentsContainer m_components;

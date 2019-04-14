@@ -27,4 +27,4 @@ private:
     void fireBubble();
 };
 
-slp::Object* CreateBubbleGunObject();
+std::unique_ptr<slp::Object> createBubbleGunObject();

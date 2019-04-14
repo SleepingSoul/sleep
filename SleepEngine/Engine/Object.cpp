@@ -12,6 +12,21 @@ Component* Object::addComponent(ComponentsContainer::value_type&& component)
     return handle;
 }
 
+Transform2D& Object::getTransform()
+{
+    return *getComponent<Transform2D>();
+}
+
+Transform2D const & Object::getTransform() const
+{
+    return *getComponent<Transform2D>();
+}
+
+Object::Object()
+{
+    addComponent<Transform2D>();
+}
+
 void Object::update(float dt)
 {
     for (auto& component : m_components)

@@ -60,9 +60,9 @@
 #include <Engine/GameTemplate/Game.h>
 #include <Engine/Components/Component.h>
 #include <Engine/Systems/System.h>
+#include <Engine/Components/Transform2D.h>
 #include <Engine/Object.h>
 #include <Engine/Components/Renderer.h>
-#include <Engine/Components/Transform2D.h>
 #include <Engine/Components/RigidBody.h>
 #include <Engine/Utils/FactoryUtils.h>
 #include <Engine/Systems/ConcreteSystem.h>

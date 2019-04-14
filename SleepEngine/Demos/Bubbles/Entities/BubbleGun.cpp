@@ -11,9 +11,9 @@ void BubbleGun::update(float dt)
 {
 }
 
-slp::Object* CreateBubbleGunObject()
+std::unique_ptr<slp::Object> createBubbleGunObject()
 {
-    auto* bubbleGunObject = new slp::Object();
+    auto bubbleGunObject = std::make_unique<slp::Object>();
 
     BubbleGunSettings const settings
     {
