@@ -12,10 +12,11 @@ public:
 
     // parses config file
     void Load();
-    CONST_REF_GETTER(GetData, m_data)
+    EngineConfigData const& GetData() const;
 
 private:
     EngineConfigData m_data;
+    bool m_isLoaded = false;
 
     EngineConfig() = default;
 };

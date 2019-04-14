@@ -20,6 +20,16 @@ void EngineConfig::Load()
     }
 
     from_json(configJson, m_data);
+    m_isLoaded = true;
+}
+
+EngineConfigData const& EngineConfig::GetData() const
+{
+    if (!m_isLoaded)
+    {
+        LOG_AND_ASSERT_ERROR("config data not loaded");
+    }
+    return m_data;
 }
 
 END_NAMESPACE_SLEEP

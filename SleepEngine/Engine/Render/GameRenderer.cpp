@@ -14,7 +14,6 @@ namespace
     // Near and Far distances for our ortho view matrix.
     // Far distance define the max number of Layers
     float const NearDistance = -1.f;
-    float const FarDistance = slp::EngineConfig::Instance().GetData().MaxLayer + 1;
 }
 
 BEGIN_NAMESPACE_SLEEP
@@ -134,13 +133,15 @@ void GameRenderer::render()
         float const scaleX = camera.getScreenWidth() / windowSize.x;
         float const scaleY = camera.getScreenHeight() / windowSize.y;
 
+        float const farDistance = slp::EngineConfig::Instance().GetData().MaxLayer + 1;
+
         glm::mat4 projection = glm::ortho(
             -scaleX,
              scaleX,
             -scaleY,
              scaleY,
              NearDistance,
-             FarDistance
+             farDistance
         );
 
         m_shader.setMat4("modelview", modelview);
