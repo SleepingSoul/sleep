@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameRenderer.h"
-#include <Engine/EngineConfig.h>
+#include <Engine/Config/EngineConfig.h>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 #include <Engine/GameTemplate/Game.h>
@@ -14,7 +14,6 @@ namespace
     // Near and Far distances for our ortho view matrix.
     // Far distance define the max number of Layers
     float const NearDistance = -1.f;
-    float const FarDistance = slp::MaxLayer + 1;
 }
 
 BEGIN_NAMESPACE_SLEEP
@@ -92,7 +91,7 @@ void GameRenderer::render()
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = MaxLayer - (static_cast <float>(transform.getLayer()) + nextLayerOffset);
+        float const layer = EngineConfig::Instance().GetData().MaxLayer - (static_cast <float>(transform.getLayer()) + nextLayerOffset);
         nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
@@ -130,8 +129,11 @@ void GameRenderer::render()
         auto resultingScale = glm::vec3(transform.getScale() * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
 
-        float const scaleX = camera.getScreenWidth() / PrimaryWindowSize.x;
-        float const scaleY = camera.getScreenHeight() / PrimaryWindowSize.y;
+        glm::vec2 windowSize = EngineConfig::Instance().GetData().PrimaryWindowSize;
+        float const scaleX = camera.getScreenWidth() / windowSize.x;
+        float const scaleY = camera.getScreenHeight() / windowSize.y;
+
+        float const farDistance = slp::EngineConfig::Instance().GetData().MaxLayer + 1;
 
         glm::mat4 projection = glm::ortho(
             -scaleX,
@@ -139,7 +141,7 @@ void GameRenderer::render()
             -scaleY,
              scaleY,
              NearDistance,
-             FarDistance
+             farDistance
         );
 
         m_shader.setMat4("modelview", modelview);

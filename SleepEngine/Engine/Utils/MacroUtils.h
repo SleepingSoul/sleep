@@ -1,16 +1,23 @@
 // Copyright 2019 Tihran Katolikian
-
+#include <Engine/Config/config.h>
 #pragma once
 
+#pragma region LogAssert
 #define assertion(condition, message)\
 assert((message, condition))
 
-#define logAndAssertError(condition, message)\
+#define LOG_ERROR(message, ...) spdlog::get(slp::EngineLogger)->error(message, __VA_ARGS__);\
+
+#define LOG_AND_ASSERT_ERROR(condition, message, ...)\
 if (!condition)\
 {\
-    spdlog::get(slp::EngineLogger)->error(message);\
+    LOG_ERROR(message, __VA_ARGS__)\
     assertion(condition, message);\
 }
+
+#define LOG_AND_FAIL_ERROR(message, ...) LOG_AND_ASSERT_ERROR(false, message, __VA_ARGS__);
+
+#pragma endregion
 
 #define FORBID_COPY(classname)\
 classname(classname const&) = delete;\
@@ -23,6 +30,13 @@ classname& operator =(classname&&) = delete;
 #define FORBID_COPY_AND_MOVE(classname)\
 FORBID_COPY(classname)\
 FORBID_MOVE(classname)
+
+#define SINGLETON_GETTER(class_)\
+static class_& Instance()\
+{\
+	static class_ instance;\
+	return instance;\
+}\
 
 #pragma region GettersSetters
 
