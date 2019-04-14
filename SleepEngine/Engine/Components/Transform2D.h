@@ -12,8 +12,8 @@ public:
     Transform2D() noexcept(true);
 
     REF_GETTERS(getData, m_data)
-
-    void update(float dt) override {}
+    void translate(glm::vec2 translation);
+    void rotate(float rotation);
 
 private:
     Transform2DData m_data;

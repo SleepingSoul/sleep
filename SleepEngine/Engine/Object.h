@@ -11,14 +11,15 @@ public:
 
     virtual void update(float dt);
 
-    void addComponent(ComponentsContainer::value_type&& component);
+    Component* addComponent(ComponentsContainer::value_type&& component);
 
     template <class TComponent>
-    void addComponent()
+    TComponent* addComponent()
     {
         static_assert(std::is_default_constructible_v <TComponent>, "TComponent is not default constructible. Please, "
             "create an instance of this class and use non-templated 'addComponent' method.");
-        addComponent(std::make_unique <TComponent>());
+        Component* handle = addComponent(std::make_unique <TComponent>());
+        return static_cast<TComponent>(handle);
     }
     
     template <class TComponent>

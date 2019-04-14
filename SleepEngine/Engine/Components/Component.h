@@ -11,8 +11,9 @@ public:
     Component(TypeID id)
         : m_typeID(id)
     {}
+    virtual ~Component() = 0;
 
-    virtual void update(float dt) = 0;
+    virtual void update(float dt) {}
     virtual void setParent(Object* parent) { m_parent = parent; }
     TypeID getComponentTypeID() const { return m_typeID; }
 
