@@ -1,6 +1,6 @@
 // Copyright 2019 Taras Martyniuk
 #pragma once
-#include <Engine/Config/BaseConfigLoader.h>
+#include <Engine/Config/BaseConfig.h>
 
 BEGIN_NAMESPACE_SLEEP
 
