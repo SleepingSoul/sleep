@@ -4,7 +4,7 @@
 class Loadable
 {
 public:
-    virtual ~Loadable() {}
+    virtual ~Loadable() = default;
 
     GETTER(isLoaded, m_isLoaded);
 
