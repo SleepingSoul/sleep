@@ -7,7 +7,11 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-void EngineConfig::Load()
+EngineConfig::EngineConfig()
+    : Base(Base::getConfigTypeID<EngineConfig>())
+{}
+
+bool EngineConfig::doLoad()
 {
     std::ifstream file(ConfigFile);
     nlohmann::json configJson;
@@ -16,16 +20,16 @@ void EngineConfig::Load()
     if (configJson.is_null())
     {
         LOG_AND_FAIL_ERROR("could not parse config file");
-        return;
+        return false;
     }
 
     from_json(configJson, m_data);
-    m_isLoaded = true;
+    return true;
 }
 
-EngineConfigData const& EngineConfig::GetData() const
+EngineConfigData const& EngineConfig::getData() const
 {
-    if (!m_isLoaded)
+    if (!isLoaded())
     {
         LOG_AND_FAIL_ERROR("config data not loaded");
     }

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DE4774CF-D98B-4D53-B16E-875A7CCD77B1}</ProjectGuid>
     <RootNamespace>SleepEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -203,7 +203,9 @@
     <ClCompile Include="Engine\Components\Component.cpp" />
     <ClCompile Include="Engine\Components\Renderer.cpp" />
     <ClCompile Include="Engine\Components\RigidBody.cpp" />
+    <ClCompile Include="Engine\Config\ConfigManager.cpp" />
     <ClCompile Include="Engine\Config\EngineConfig.cpp" />
+    <ClCompile Include="Engine\Config\JsonConfig.cpp" />
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
@@ -231,11 +233,16 @@
     <ClInclude Include="Engine\Components\Component.h" />
     <ClInclude Include="Engine\Components\Renderer.h" />
     <ClInclude Include="Engine\Components\RigidBody.h" />
+    <ClInclude Include="Engine\Config\BaseConfig.h" />
+    <ClInclude Include="Engine\Config\ConfigManager.h" />
     <ClInclude Include="Engine\Config\EngineConfigData.h" />
     <ClInclude Include="Engine\Config\config.h" />
     <ClInclude Include="Engine\Config\EngineConfig.h" />
+    <ClInclude Include="Engine\Config\JsonConfig.h" />
+    <ClInclude Include="Engine\Config\Loadable.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
+    <ClInclude Include="Engine\GameTemplate\global_shortcuts.h" />
     <ClInclude Include="Engine\GameWindow.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\ObjectTree.h" />
@@ -251,11 +258,12 @@
     <ClInclude Include="Engine\Systems\System.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Transform2DData.h" />
+    <ClInclude Include="Engine\Utils\aliases.h" />
     <ClInclude Include="Engine\Utils\FactoryUtils.h" />
     <ClInclude Include="Engine\Utils\file_utils.h" />
     <ClInclude Include="Engine\Utils\json_serialize_utils.h" />
     <ClInclude Include="Engine\Utils\MacroUtils.h" />
-    <ClInclude Include="Engine\Utils\Utils.h" />
+    <ClInclude Include="Engine\Utils\unit_utils.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

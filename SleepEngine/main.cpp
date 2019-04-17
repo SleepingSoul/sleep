@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
+#include <Engine/Utils/unit_utils.h>
 
 // settings
 namespace

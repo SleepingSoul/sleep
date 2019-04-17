@@ -91,7 +91,7 @@ void GameRenderer::render()
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = EngineConfig::Instance().GetData().MaxLayer - (static_cast <float>(transform.getLayer()) + nextLayerOffset);
+        float const layer = globalEngineConfig()->getData().MaxLayer - (static_cast <float>(transform.getLayer()) + nextLayerOffset);
         nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
@@ -129,11 +129,11 @@ void GameRenderer::render()
         auto resultingScale = glm::vec3(transform.getScale() * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
 
-        glm::vec2 windowSize = EngineConfig::Instance().GetData().PrimaryWindowSize;
+        glm::vec2 windowSize = globalEngineConfig()->getData().PrimaryWindowSize;
         float const scaleX = camera.getScreenWidth() / windowSize.x;
         float const scaleY = camera.getScreenHeight() / windowSize.y;
 
-        float const farDistance = slp::EngineConfig::Instance().GetData().MaxLayer + 1;
+        float const farDistance = globalEngineConfig()->getData().MaxLayer + 1;
 
         glm::mat4 projection = glm::ortho(
             -scaleX,

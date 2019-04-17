@@ -1,24 +1,24 @@
 // Copyright 2019 Taras Martyniuk
 #pragma once
 #include <Engine/Config/EngineConfigData.h>
+#include <Engine/Config/BaseConfig.h>
 
 BEGIN_NAMESPACE_SLEEP
 
 // loads config data from a file and stores it
-class EngineConfig
+// TODO: make generic deserialize to struct config
+class EngineConfig : public BaseConfig
 {
+    using Base = BaseConfig;
 public:
-    SINGLETON_GETTER(EngineConfig)
+    EngineConfig();
+    EngineConfigData const& getData() const;
 
-    // parses config file
-    void Load();
-    EngineConfigData const& GetData() const;
+protected:
+    bool doLoad() override;
 
 private:
     EngineConfigData m_data;
-    bool m_isLoaded = false;
-
-    EngineConfig() = default;
 };
 
 END_NAMESPACE_SLEEP

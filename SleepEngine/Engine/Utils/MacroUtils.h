@@ -6,6 +6,8 @@
 #define assertion(condition, message)\
 assert((message, condition))
 
+#define FAIL_ASSERT(message) assertion(false, message)
+
 #define LOG_ERROR(message, ...) spdlog::get(slp::EngineLogger)->error(message, __VA_ARGS__);\
 
 #define LOG_AND_ASSERT_ERROR(condition, message, ...)\
@@ -32,7 +34,7 @@ FORBID_COPY(classname)\
 FORBID_MOVE(classname)
 
 #define SINGLETON_GETTER(class_)\
-static class_& Instance()\
+static class_& instance()\
 {\
 	static class_ instance;\
 	return instance;\

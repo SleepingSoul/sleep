@@ -1,3 +1,4 @@
+// Copyright 2019 Taras Martyniuk
 #pragma once
 #include <Engine/Utils/json_serialize_utils.h>
 
