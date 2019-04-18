@@ -29,3 +29,6 @@ bld/
 *.prof
 
 .vscode
+Pipfile
+Pipfile.lock
+*egg-info*
