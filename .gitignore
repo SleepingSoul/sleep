@@ -29,3 +29,5 @@ bld/
 *.prof
 
 .vscode
+Pipfile
+Pipfile.lock
