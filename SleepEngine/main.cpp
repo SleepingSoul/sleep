@@ -13,7 +13,7 @@ int main()
 {
     EASY_PROFILER_ENABLE;
 
-	slp::Game game(WindowWidth, WindowHeight);
+    slp::Game game(WindowWidth, WindowHeight);
 
     game.getClock().setFPS(60.f);
     game.getClock().setRestrictFPS(true);
@@ -56,7 +56,7 @@ int main()
 
     game.addScene(initMainScene);
 
-	game.run();
+    game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;
