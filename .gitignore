@@ -31,3 +31,4 @@ bld/
 .vscode
 Pipfile
 Pipfile.lock
+*egg-info*
