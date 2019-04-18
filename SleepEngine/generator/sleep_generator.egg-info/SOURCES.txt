@@ -1,6 +1,0 @@
-setup.py
-sleep_generator.egg-info/PKG-INFO
-sleep_generator.egg-info/SOURCES.txt
-sleep_generator.egg-info/dependency_links.txt
-sleep_generator.egg-info/entry_points.txt
-sleep_generator.egg-info/top_level.txt

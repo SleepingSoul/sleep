@@ -1,3 +1,0 @@
-[console_scripts]
-generate_textures_enum_definition = sleep_generator:generate_textures_enum_definition
-
