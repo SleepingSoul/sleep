@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "transform2D.h"
 
-
 BEGIN_NAMESPACE_SLEEP
 
 Transform2D::Transform2D() noexcept(true)

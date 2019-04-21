@@ -80,5 +80,26 @@ CONST_REF_SETTER(type, setterName, member)
 
 #pragma endregion
 
+#define COMPONENT_SHORTCUTS(componentType, shortcutName)\
+inline componentType& shortcutName(Object* obj) \
+{   \
+    return *obj->getComponent<componentType>();  \
+}   \
+    \
+inline componentType* shortcutName##Ptr(Object* obj)  \
+{   \
+    return obj->getComponent<componentType>();  \
+}   \
+    \
+inline componentType& shortcutName(Object& obj)  \
+{   \
+    return *obj.getComponent<componentType>();  \
+}   \
+    \
+inline componentType* shortcutName##Ptr(Object& obj)  \
+{   \
+    return obj.getComponent<componentType>();  \
+}   \
+
 #define BEGIN_NAMESPACE_SLEEP namespace slp{
 #define END_NAMESPACE_SLEEP }

@@ -22,12 +22,8 @@ public:
     void setParent(Object* parent) 
     { 
         m_object = parent; 
-        onAddedAsParent();
+        onAddedToObject();
     }
-
-
-    Transform2D& getTransform();
-    Transform2D const& getTransform() const;
 
     TypeID getComponentTypeID() const { return m_typeID; }
 
@@ -41,7 +37,7 @@ public:
 protected:
     NotOwnedPtr <Object> m_object{ nullptr };
 
-    virtual void onAddedAsParent() {}
+    virtual void onAddedToObject() {}
 
 private:
     TypeID m_typeID;

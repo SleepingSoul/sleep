@@ -21,15 +21,15 @@ void BubbleGun::update(float dt)
 
 void BubbleGun::fireBubble()
 {
-    float const rotation = m_parent->getTransform().getRotation();
+    float const rotation = slp::getTransform(m_object).getRotation();
     glm::vec2 lookDir = slp::directionFromRotation(rotation);
 
     auto bubble = createBubbleObject(m_settings.BubbleSettings);
-    bubble->getTransform().setRotation(rotation);
+    slp::getTransform(m_object).setRotation(rotation);
     float const size = globalBubbleConfig().at("bubble_gun").at("bubble").at("size");
-    bubble->getTransform().setSize({size, size});
+    slp::getTransform(*bubble).setSize({size, size});
 
-    m_parent->addChild(std::move(bubble));
+    m_object->addChild(std::move(bubble));
 }
 
 std::unique_ptr<slp::Object> createBubbleGunObject()

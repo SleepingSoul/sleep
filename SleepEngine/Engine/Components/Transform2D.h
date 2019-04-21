@@ -26,4 +26,6 @@ private:
     Transform2DData m_data;
 };
 
+COMPONENT_SHORTCUTS(Transform2D, getTransform)
+
 END_NAMESPACE_SLEEP

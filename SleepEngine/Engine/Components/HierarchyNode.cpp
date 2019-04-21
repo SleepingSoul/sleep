@@ -43,8 +43,17 @@ void HierarchyNode::detachFromParent()
         return;
     }
 
-    m_object->removeChild(this);
+    auto* parentNode = m_object->getComponent<HierarchyNode>();
+    parentNode->removeChild(m_object);
     m_object = nullptr;
 }
 
+void HierarchyNode::update(float dt)
+{
+    Base::update(dt);
+    for(auto& childNodeObject : m_children)
+    {
+        childNodeObject->update(dt);
+    }
+}
 END_NAMESPACE_SLEEP
