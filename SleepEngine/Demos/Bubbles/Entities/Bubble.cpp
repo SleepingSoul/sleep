@@ -7,6 +7,11 @@ Bubble::Bubble(float speed)
     , m_speed(speed)
 {}
 
+void Bubble::launch(glm::vec2 direction)
+{
+    //getTransform().setRotation()
+}
+
 void Bubble::update(float dt)
 {
     glm::vec2 direction = slp::directionFromRotation(getTransform().getData().getRotation());

@@ -6,6 +6,7 @@ class Bubble : public slp::Component
 public:
     Bubble(float speed);
 
+    void launch(glm::vec2 direction);
     void update(float dt) override;
 
 private:

@@ -28,6 +28,9 @@ void BubbleGun::fireBubble()
     glm::vec2 lookDir = slp::directionFromRotation(rotation);
 
     auto bubble = createBubbleObject(globalBubbleConfig().at("bubble_gun").at("bubble_speed"));
+    bubble->getTransform().getData().setRotation(rotation);
+
+    m_parent->addChild(std::move(bubble));
 }
 
 std::unique_ptr<slp::Object> createBubbleGunObject()

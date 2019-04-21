@@ -9,16 +9,16 @@ class Object
 {
 public:
     using ComponentsContainer = std::vector <std::unique_ptr <Component>>;
-    using ChildrenContainer = std::vector<std::unique_ptr<Object>>;
 
     Object();
 
-    SETTER(Object*, setParent, m_parent)
+    GET_SET(Object*, getParent, setParent, m_parent)
 
     virtual void update(float dt);
 
-    Object* addChild(ChildrenContainer::value_type&& child);
+    Object* addChild(std::unique_ptr<Object>&& child);
     void removeChild(Object* child);
+    void detachFromParent();
 
     Component* addComponent(ComponentsContainer::value_type&& component);
 
@@ -64,7 +64,7 @@ protected:
     NotOwnedPtr<Object> m_parent = nullptr;
 
     ComponentsContainer m_components;
-    ChildrenContainer m_children;
+    std::vector<std::unique_ptr<Object>> m_children;
 };
 
 END_NAMESPACE_SLEEP

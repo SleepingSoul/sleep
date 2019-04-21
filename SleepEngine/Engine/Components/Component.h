@@ -4,6 +4,9 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+class Transform2D;
+class Object;
+
 class Component
 {
     FORBID_COPY_AND_MOVE(Component)
@@ -20,8 +23,8 @@ public:
         onAddedAsParent();
     }
 
-    Transform2D& getTransform() { return m_parent->getTransform(); }
-    Transform2D const& getTransform() const { return m_parent->getTransform(); }
+    Transform2D& getTransform();
+    Transform2D const& getTransform() const;
 
     TypeID getComponentTypeID() const { return m_typeID; }
 

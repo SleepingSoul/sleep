@@ -11,9 +11,8 @@ public:
     JsonConfig(std::string_view filename);
     // so that child classes can init base config with their class id
     JsonConfig(std::string_view filename, TypeID typeId);
-    //nlohmann::json::value_type const& get(std::string_view propertyName);
-    auto const& get(std::string const& propertyName) const { return m_jsonConfig.at(propertyName); }
-    //CONST_REF_GETTER(getData, m_jsonConfig);
+
+    auto const& at(std::string const& propertyName) const { return m_jsonConfig.at(propertyName); }
 
 protected:
     // parses config file
