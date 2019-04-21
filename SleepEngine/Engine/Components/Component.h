@@ -17,11 +17,14 @@ public:
     virtual ~Component() {}
 
     virtual void update(float dt) {}
+
+    GETTER(getParent, m_object)
     void setParent(Object* parent) 
     { 
-        m_parent = parent; 
+        m_object = parent; 
         onAddedAsParent();
     }
+
 
     Transform2D& getTransform();
     Transform2D const& getTransform() const;
@@ -36,7 +39,7 @@ public:
     }
 
 protected:
-    NotOwnedPtr <Object> m_parent{ nullptr };
+    NotOwnedPtr <Object> m_object{ nullptr };
 
     virtual void onAddedAsParent() {}
 

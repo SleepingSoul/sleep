@@ -14,11 +14,7 @@ public:
 
     GET_SET(Object*, getParent, setParent, m_parent)
 
-    virtual void update(float dt);
-
-    Object* addChild(std::unique_ptr<Object>&& child);
-    void removeChild(Object* child);
-    void detachFromParent();
+    void update(float dt);
 
     Component* addComponent(ComponentsContainer::value_type&& component);
 
@@ -61,10 +57,8 @@ public:
     Transform2D const& getTransform() const;
 
 protected:
-    NotOwnedPtr<Object> m_parent = nullptr;
 
     ComponentsContainer m_components;
-    std::vector<std::unique_ptr<Object>> m_children;
 };
 
 END_NAMESPACE_SLEEP
