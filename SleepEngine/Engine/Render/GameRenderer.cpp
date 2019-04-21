@@ -133,7 +133,7 @@ void GameRenderer::render()
         float const scaleX = camera.getScreenWidth() / windowSize.x;
         float const scaleY = camera.getScreenHeight() / windowSize.y;
 
-		float const farDistance = static_cast <float>(globalEngineConfig()->getData().MaxLayer + 1);
+        float const farDistance = static_cast <float>(globalEngineConfig()->getData().MaxLayer + 1);
 
         glm::mat4 projection = glm::ortho(
             -scaleX,
