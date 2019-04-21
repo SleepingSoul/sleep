@@ -20,6 +20,7 @@ void Timer::every(float time, Callback callback)
 {
     m_interval = time;
     m_callback = std::move(callback);
+    start();
 }
 
 void Timer::update(float dt)

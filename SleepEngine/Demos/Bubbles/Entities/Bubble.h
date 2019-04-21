@@ -1,16 +1,23 @@
 #pragma once
 
+struct BubbleSettings
+{
+    float Speed = 0.f;
+    float FlightDistance = 0.f;
+};
+
 class Bubble : public slp::Component
 {
     using Base = slp::Component;
 public:
-    Bubble(float speed);
+    Bubble(BubbleSettings settings);
 
     void launch(glm::vec2 direction);
     void update(float dt) override;
 
 private:
-    float m_speed;
+    BubbleSettings m_settings;
+    glm::vec2 m_startPosition;
 };
 
-std::unique_ptr<slp::Object> createBubbleObject(float speed);
+std::unique_ptr<slp::Object> createBubbleObject(BubbleSettings settings);

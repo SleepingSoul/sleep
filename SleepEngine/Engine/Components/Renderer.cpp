@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Renderer.h"
-#include <Engine/Components/Transform2D.h>
+#include <Engine/Components/transform2D.h>
 
 
 BEGIN_NAMESPACE_SLEEP

@@ -4,13 +4,10 @@
 #include <Demos/Bubbles/Config/BubbleConfig.h>
 #include <Engine/Utils/math.h>
 
-
 BubbleGun::BubbleGun(BubbleGunSettings settings)
     :  Base(getComponentTypeID <BubbleGun>())
     , m_settings(settings)
-{
-
-}
+{}
 
 void BubbleGun::startFiring()
 {
@@ -19,16 +16,18 @@ void BubbleGun::startFiring()
 
 void BubbleGun::update(float dt)
 {
-    fireBubble();
+    Base::update(dt);
 }
 
 void BubbleGun::fireBubble()
 {
-    float const rotation = m_parent->getTransform().getData().getRotation();
+    float const rotation = m_parent->getTransform().getRotation();
     glm::vec2 lookDir = slp::directionFromRotation(rotation);
 
-    auto bubble = createBubbleObject(globalBubbleConfig().at("bubble_gun").at("bubble_speed"));
-    bubble->getTransform().getData().setRotation(rotation);
+    auto bubble = createBubbleObject(m_settings.BubbleSettings);
+    bubble->getTransform().setRotation(rotation);
+    float const size = globalBubbleConfig().at("bubble_gun").at("bubble").at("size");
+    bubble->getTransform().setSize({size, size});
 
     m_parent->addChild(std::move(bubble));
 }
@@ -39,10 +38,14 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
     auto bubbleGunObject = std::make_unique<slp::Object>();
 
     float size = config.at("size");
-    bubbleGunObject->getTransform().getData().setSize({size, size});
+    bubbleGunObject->getTransform().setSize({size, size});
 
     BubbleGunSettings const settings
     {
+        {
+            config.at("bubble").at("speed"),
+            config.at("bubble").at("flight_distance"),
+        },
         config.at("fire_rate")
     };
     bubbleGunObject->addComponent(std::make_unique<BubbleGun>(settings));
@@ -50,7 +53,7 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
 
     auto& game = slp::Game::instance();
 
-    renderer->setTexture(game.getResourceManager().getTexture(slp::Textures::Spaceship));
+    renderer->setTexture(slp::globalResourcemanager().getTexture(slp::Textures::Spaceship));
     
     return bubbleGunObject;
 }

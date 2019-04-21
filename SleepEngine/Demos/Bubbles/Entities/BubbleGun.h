@@ -3,7 +3,7 @@
 
 struct BubbleGunSettings
 {
-    float BubbleSpeed = 0.f;
+    BubbleSettings BubbleSettings;
     float FireRate = 0.f;
     // how much to the left and right will the gun rotate
     //float FieldOfView = 0.f;

@@ -28,7 +28,7 @@ private:
 
 inline bool operator <(DrawCall const& left, DrawCall const& right)
 {
-    return left.getTransform().getLayer() < right.getTransform().getLayer();
+    return left.getTransform().Layer < right.getTransform().Layer;
 }
 
 END_NAMESPACE_SLEEP

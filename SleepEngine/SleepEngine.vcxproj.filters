@@ -60,9 +60,6 @@
     <ClCompile Include="Engine\Components\Transform2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Transform2DData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\ObjectTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

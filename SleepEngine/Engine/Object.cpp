@@ -69,6 +69,11 @@ void Object::update(float dt)
     {
         component->update(dt);
     }
+
+    for (auto& child : m_children)
+    {
+        child->update(dt);
+    }
 }
 
 END_NAMESPACE_SLEEP

@@ -14,4 +14,9 @@ inline EngineConfig const* globalEngineConfig()
     return globalConfigManager().getConfig<EngineConfig>();
 }
 
+inline ResourceManager& globalResourcemanager()
+{
+    return Game::instance().getResourceManager();
+}
+
 END_NAMESPACE_SLEEP

@@ -1,7 +1,11 @@
 {
     "bubble_gun":  {
-        "size":  2.0,
-        "fire_rate": 1.0 ,
-        "bubble_speed": 4.0
+        "size":  6.0,
+        "fire_rate": 2.5,
+        "bubble":  {
+            "speed":  6.0,
+            "size":  3.0,
+            "flight_distance":  5.0
+        }
     }
 }
