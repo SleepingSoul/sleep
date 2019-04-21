@@ -1,3 +1,4 @@
+
 #pragma once
 // Copyright 2019 Taras Martyniuk
 
@@ -91,7 +92,7 @@ void removeIf(TContainer& container, TPred pred)
 
 // transforms toMap container to another by applying mapFunction to each element of toMap container
 // mapFunc signature: TOut(typename InContainer::const_reference)
-template <class TOut, class InContainer, TMapFunc>
+template <class TOut, class InContainer, class TMapFunc>
 std::vector<TOut> map(InContainer const& toMap, TMapFunc mapFunc)
 {
     std::vector<TOut> res;
@@ -104,7 +105,7 @@ std::vector<TOut> map(InContainer const& toMap, TMapFunc mapFunc)
 }
 
 // filter signature: bool(typename TContainer::const_reference)
-template <class TContainer, TFilter>
+template <class TContainer, class TFilter>
 TContainer filter(TContainer const& orig, TFilter filter)
 {
     TContainer filtered;
