@@ -12,6 +12,15 @@ Component* Object::addComponent(ComponentsContainer::value_type&& component)
     return handle;
 }
 
+Object * Object::addChild(ChildrenContainer::value_type && child)
+{
+    return nullptr;
+}
+
+void Object::removeChild(Object* child)
+{
+}
+
 Transform2D& Object::getTransform()
 {
     return *getComponent<Transform2D>();

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DE4774CF-D98B-4D53-B16E-875A7CCD77B1}</ProjectGuid>
     <RootNamespace>SleepEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demos\Bubbles\bubbles_demo.h" />
+    <ClInclude Include="Demos\Bubbles\Config\BubbleConfig.h" />
     <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
     <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -269,10 +270,12 @@
     <ClInclude Include="Engine\Utils\file_utils.h" />
     <ClInclude Include="Engine\Utils\json_serialize_utils.h" />
     <ClInclude Include="Engine\Utils\MacroUtils.h" />
+    <ClInclude Include="Engine\Utils\math.h" />
     <ClInclude Include="Engine\Utils\unit_utils.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Demos\Bubbles\Config\bubble_config.json" />
     <None Include="Engine\Config\config.json" />
     <None Include="Engine\Render\Shaders\shader.fs" />
     <None Include="Engine\Render\Shaders\shader.vs" />

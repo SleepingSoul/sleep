@@ -1,0 +1,7 @@
+{
+    "bubble_gun":  {
+        "size":  2.0,
+        "fire_rate": 1.0 ,
+        "bubble_speed": 4.0
+    }
+}

@@ -14,6 +14,7 @@
 #include <string_view>
 #include <functional>
 #include <chrono>
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <thread>
 #include <mutex>

@@ -4,13 +4,17 @@
 BEGIN_NAMESPACE_SLEEP
 
 JsonConfig::JsonConfig(std::string_view filename)
-    : Base(Base::getConfigTypeID<JsonConfig>())
+    : JsonConfig(filename, Base::getConfigTypeID<JsonConfig>())
+{}
+
+JsonConfig::JsonConfig(std::string_view filename, TypeID typeId)
+    : Base(typeId)
     , m_filename(filename)
 {}
 
 bool JsonConfig::doLoad()
 {
-    std::ifstream file(ConfigFile);
+    std::ifstream file(m_filename);
     file >> m_jsonConfig;
 
     if (m_jsonConfig.is_null())

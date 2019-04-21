@@ -3,8 +3,8 @@
 
 struct BubbleGunSettings
 {
-    glm::vec2 ShootDirection;
-    float BubbleSpeed;
+    float BubbleSpeed = 0.f;
+    float FireRate = 0.f;
     // how much to the left and right will the gun rotate
     //float FieldOfView = 0.f;
 };

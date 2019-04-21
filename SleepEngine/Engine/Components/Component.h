@@ -14,7 +14,15 @@ public:
     virtual ~Component() {}
 
     virtual void update(float dt) {}
-    virtual void setParent(Object* parent) { m_parent = parent; }
+    void setParent(Object* parent) 
+    { 
+        m_parent = parent; 
+        onAddedAsParent();
+    }
+
+    Transform2D& getTransform() { return m_parent->getTransform(); }
+    Transform2D const& getTransform() const { return m_parent->getTransform(); }
+
     TypeID getComponentTypeID() const { return m_typeID; }
 
     template <class TComponent>
@@ -26,6 +34,8 @@ public:
 
 protected:
     NotOwnedPtr <Object> m_parent{ nullptr };
+
+    virtual void onAddedAsParent() {}
 
 private:
     TypeID m_typeID;
