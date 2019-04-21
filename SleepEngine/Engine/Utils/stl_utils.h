@@ -3,7 +3,7 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-#pragma region Check Find
+#pragma region Non changing
 
 template <class TContainer>
 bool contains(TContainer const& container, typename TContainer::const_reference value)
@@ -59,7 +59,7 @@ bool areUnique(TContainer container)
 
 #pragma endregion
 
-#pragma region Transform map
+#pragma region Changing
 
 // complexity: N + NLogN + 2*(N)-1 where N = len v1 + len v2
 template <class T>
