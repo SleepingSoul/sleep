@@ -33,7 +33,7 @@ void Object::removeChild(Object* child)
     {
         return element.get() == child;
     };
-    RemoveIf(m_children, pred);
+    removeIf(m_children, pred);
 }
 
 void Object::detachFromParent()
