@@ -15,7 +15,6 @@ void Transform2D::translate(glm::vec2 translation)
 
 void Transform2D::rotate(float rotation)
 {
-    // TODO: do smth smarter
     setRotation(getRotation() + rotation);
 }
 
