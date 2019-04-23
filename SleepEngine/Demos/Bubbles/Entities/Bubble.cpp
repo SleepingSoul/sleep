@@ -9,8 +9,9 @@ Bubble::Bubble(BubbleSettings settings)
     , m_settings(settings)
 {}
 
-void Bubble::launch(glm::vec2 direction)
+void Bubble::launch(float rotation)
 {
+    slp::getTransform(m_object).setRotation(rotation);
     m_startPosition = slp::getTransform(m_object).getPosition();
 }
 

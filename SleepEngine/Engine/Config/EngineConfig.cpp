@@ -19,7 +19,7 @@ bool EngineConfig::doLoad()
 
     if (configJson.is_null())
     {
-        LOG_AND_FAIL_ERROR("could not parse config file");
+        LOG_AND_FAIL("could not parse config file");
         return false;
     }
 
@@ -31,7 +31,7 @@ EngineConfigData const& EngineConfig::getData() const
 {
     if (!isLoaded())
     {
-        LOG_AND_FAIL_ERROR("config data not loaded");
+        LOG_AND_FAIL("config data not loaded");
     }
     return m_data;
 }

@@ -21,7 +21,7 @@ static void from_json(nlohmann::json const& json, EngineConfigData& configData)
     }
     catch (nlohmann::json::exception const&)
     {
-        LOG_AND_FAIL_ERROR("Error parsing config data json");
+        LOG_AND_FAIL("Error parsing config data json");
     }
 }
 

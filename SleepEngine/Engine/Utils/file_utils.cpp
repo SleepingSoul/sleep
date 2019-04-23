@@ -9,7 +9,7 @@ std::optional<std::string> readFile(std::filesystem::path path)
 
     if (!stream.is_open())
     {
-        LOG_AND_FAIL_ERROR("Cannot open file '{}'", path);
+        LOG_AND_FAIL("file already open : {}", path);
         return std::nullopt;
     }
     

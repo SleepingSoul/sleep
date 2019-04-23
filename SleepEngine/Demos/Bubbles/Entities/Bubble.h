@@ -12,7 +12,7 @@ class Bubble : public slp::Component
 public:
     Bubble(BubbleSettings settings);
 
-    void launch(glm::vec2 direction);
+    void launch(float rotation);
     void update(float dt) override;
 
 private:

@@ -8,12 +8,12 @@ void initBubbleDemoScene(slp::Game::Scene& scene)
     slp::globalConfigManager().addConfig<BubbleConfig>();
     slp::globalConfigManager().loadAllConfigs();
 
-    auto bubbleGun = createBubbleGunObject();
-    auto& transform = slp::getTransform(*bubbleGun);
-    transform.setPosition({ 0.f, 0.f });
-    transform.setRotation(45.f);
+    auto bubbleGunObject = createBubbleGunObject();
+    auto& transform = slp::getTransform(*bubbleGunObject);
+    
+    auto* bubbleGun = bubbleGunObject->getComponent<BubbleGun>();
+    bubbleGun->setCenterRotation(45.f);
+    bubbleGun->startFiring();
 
-    bubbleGun->getComponent<BubbleGun>()->startFiring();
-
-    scene.addToRoot(std::move(bubbleGun));
+    scene.addToRoot(std::move(bubbleGunObject));
 }

@@ -11,13 +11,13 @@ assert((message, condition))
 #define LOG_ERROR(message, ...) spdlog::get(slp::EngineLogger)->error(message, __VA_ARGS__);\
 
 #define LOG_AND_ASSERT_ERROR(condition, message, ...)\
-if (!condition)\
+if (!(condition))\
 {\
     LOG_ERROR(message, __VA_ARGS__)\
     assertion(condition, message);\
 }
 
-#define LOG_AND_FAIL_ERROR(message, ...) LOG_AND_ASSERT_ERROR(false, message, __VA_ARGS__);
+#define LOG_AND_FAIL(message, ...) LOG_AND_ASSERT_ERROR(false, message, __VA_ARGS__);
 
 #pragma endregion
 

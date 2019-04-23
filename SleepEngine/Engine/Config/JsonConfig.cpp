@@ -19,7 +19,7 @@ bool JsonConfig::doLoad()
 
     if (m_jsonConfig.is_null())
     {
-        LOG_AND_FAIL_ERROR("could not parse config file: {}", m_filename);
+        LOG_AND_FAIL("could not parse config file: {}", m_filename);
         return false;
     }
 

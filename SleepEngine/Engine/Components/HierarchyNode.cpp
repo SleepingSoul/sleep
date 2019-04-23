@@ -43,7 +43,7 @@ void HierarchyNode::detachFromParent()
 {
     if (!m_object)
     {
-        LOG_AND_FAIL_ERROR("parent is null");
+        LOG_AND_FAIL("parent is null");
         return;
     }
 
