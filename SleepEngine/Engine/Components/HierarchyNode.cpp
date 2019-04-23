@@ -31,12 +31,12 @@ Object* HierarchyNode::addChild(std::unique_ptr<Object>&& child)
 
 void HierarchyNode::removeChild(Object* child)
 {
-    // TODO assert
-    auto pred = [child] (std::unique_ptr<Object> const& element)
+    auto isChildToDelete = [child] (std::unique_ptr<Object> const& element)
     {
         return element.get() == child;
     };
-    removeIf(m_children, pred);
+    LOG_AND_ASSERT_ERROR(containsIf(m_children, isChildToDelete), "not my child!");
+    removeIf(m_children, isChildToDelete);
 }
 
 void HierarchyNode::detachFromParent()
