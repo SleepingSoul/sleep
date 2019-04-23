@@ -4,9 +4,19 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-inline std::unique_ptr <Object> createRenderableObject()
+inline std::unique_ptr<Object> createRenderableObject()
 {
-    auto object = std::make_unique <Object>();
+    auto object = std::make_unique<Object>();
+
+    object->addComponent <Renderer>();
+    object->addComponent <Transform2D>();
+
+    return object;
+}
+
+inline std::unique_ptr<Object> createRenderableObject()
+{
+    auto object = std::make_unique<Object>();
 
     object->addComponent <Renderer>();
     object->addComponent <Transform2D>();
