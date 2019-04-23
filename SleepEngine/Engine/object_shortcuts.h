@@ -14,13 +14,12 @@ inline std::unique_ptr<Object> createRenderableObject()
     return object;
 }
 
-inline std::unique_ptr<Object> createRenderableObject()
+inline std::unique_ptr<Object> createGameObject()
 {
     auto object = std::make_unique<Object>();
 
-    object->addComponent <Renderer>();
+    object->addComponent <HierarchyNode>();
     object->addComponent <Transform2D>();
-
     return object;
 }
 

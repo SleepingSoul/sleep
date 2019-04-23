@@ -7,6 +7,8 @@ class HierarchyNode : public Component
 {
     using Base = Component;
 public:
+    HierarchyNode();
+
     GET_SET(Object*, getParent, setParent, m_object)
 
     Object* addChild(std::unique_ptr<Object>&& child);

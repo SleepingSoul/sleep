@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bubble.h"
 #include <Engine/Utils/math.h>
+#include <Engine/object_shortcuts.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
 
 Bubble::Bubble(BubbleSettings settings)
@@ -10,25 +11,27 @@ Bubble::Bubble(BubbleSettings settings)
 
 void Bubble::launch(glm::vec2 direction)
 {
-    m_startPosition = getTransform().getPosition();
+    m_startPosition = slp::getTransform(m_object).getPosition();
 }
 
 void Bubble::update(float dt)
 {
-    float const distanceFlown = (getTransform().getPosition() - m_startPosition).length();
+    auto& transform = slp::getTransform(m_object);
+
+    float const distanceFlown = (transform.getPosition() - m_startPosition).length();
     if (distanceFlown >= m_settings.FlightDistance)
     {
         // TODO: destroy object
     }
 
-    glm::vec2 const direction = slp::directionFromRotation(getTransform().getRotation());
-    getTransform().translate(direction * m_settings.Speed * dt);
+    glm::vec2 const direction = slp::directionFromRotation(transform.getRotation());
+    transform.translate(direction * m_settings.Speed * dt);
     Base::update(dt);
 }
 
 std::unique_ptr<slp::Object> createBubbleObject(BubbleSettings settings)
 {
-    auto bubble = std::make_unique<slp::Object>();
+    auto bubble = slp::createGameObject();
     bubble->addComponent(std::make_unique<Bubble>(settings));
     auto* renderer = bubble->addComponent<slp::Renderer>();
     renderer->setTexture(slp::globalResourcemanager().getTexture(slp::Textures::BubbleSimple));

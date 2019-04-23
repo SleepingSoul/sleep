@@ -5,6 +5,10 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+HierarchyNode::HierarchyNode()
+    : Base(Component::getComponentTypeID<HierarchyNode>())
+{}
+
 Object* HierarchyNode::addChild(std::unique_ptr<Object>&& child)
 {
     auto* childNode = child->getComponent<HierarchyNode>();

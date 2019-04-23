@@ -203,7 +203,7 @@
     <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Clock.cpp" />
-    <ClCompile Include="Engine\Components\Component.cpp" />
+    <ClCompile Include="Engine\Components\HierarchyNode.cpp" />
     <ClCompile Include="Engine\Components\Renderer.cpp" />
     <ClCompile Include="Engine\Components\RigidBody.cpp" />
     <ClCompile Include="Engine\Config\ConfigManager.cpp" />
@@ -237,6 +237,7 @@
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Clock.h" />
     <ClInclude Include="Engine\Components\Component.h" />
+    <ClInclude Include="Engine\Components\HierarchyNode.h" />
     <ClInclude Include="Engine\Components\Renderer.h" />
     <ClInclude Include="Engine\Components\RigidBody.h" />
     <ClInclude Include="Engine\Config\BaseConfig.h" />
@@ -270,6 +271,7 @@
     <ClInclude Include="Engine\Utils\json_serialize_utils.h" />
     <ClInclude Include="Engine\Utils\MacroUtils.h" />
     <ClInclude Include="Engine\Utils\math.h" />
+    <ClInclude Include="Engine\object_shortcuts.h" />
     <ClInclude Include="Engine\Utils\stl_utils.h" />
     <ClInclude Include="Engine\Utils\unit_utils.h" />
     <ClInclude Include="stdafx.h" />
