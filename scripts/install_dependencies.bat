@@ -5,6 +5,18 @@ set SCRIPTS_PATH=%cd%
 
 cd ..\vcpkg
 
+
+@echo on
+@echo Installing vcpkg...
+@echo off
+
+call bootstrap-vcpkg.bat
+
+@echo on
+@echo Done.
+@echo Installing dependencies...
+@echo off
+
 vcpkg.exe install opengl glfw3 glm glad stb spdlog nlohmann-json
 
 @echo on
