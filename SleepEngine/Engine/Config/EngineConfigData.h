@@ -6,7 +6,7 @@ BEGIN_NAMESPACE_SLEEP
 
 struct EngineConfigData
 {
-    Layer MaxLayer = 0;
+    LayerT MaxLayer = 0;
     size_t MeterLengthInPixels = 0;
     glm::vec2 PrimaryWindowSize;
 };

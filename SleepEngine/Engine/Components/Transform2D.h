@@ -14,7 +14,7 @@ public:
     GET_SET(glm::vec2, getScale, setScale, m_data.Scale)
     GET_SET(glm::vec2, getPosition, setPosition, m_data.Position)
     GET_SET(glm::vec2, getSize, setSize, m_data.Size)
-    GET_SET(Layer, getLayer, setLayer, m_data.Layer)
+    GET_SET(LayerT, getLayer, setLayer, m_data.Layer)
     GET_SET(float, getRotation, setRotation, m_data.Rotation)
 
     CONST_REF_GETTER(getData, m_data)
