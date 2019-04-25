@@ -1,0 +1,14 @@
+
+<package>
+    <metadata>
+        <id>sleep_dependencies</id>
+        <version>1.0.0</version>
+        <authors>vcpkg</authors>
+        <description>
+            sleep dependencies
+        </description>
+    </metadata>
+    <files>
+        <file src="vcpkg.nuget.targets" target="build\native\sleep_dependencies.targets" />
+    </files>
+</package>
