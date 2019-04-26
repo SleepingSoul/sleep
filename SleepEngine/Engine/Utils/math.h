@@ -2,6 +2,8 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+constexpr float FloatPrecisionError = 0.0001;
+
 inline glm::vec2 directionFromRotation(float rotationDeg)
 {
     float const rotation = glm::radians(rotationDeg);
@@ -28,21 +30,19 @@ inline float lerp(float from, float to, float time)
     return from + ((to - from) * time);
 }
 
-constexpr float FloatPrecisionError = 0.0001;
-
-inline bool approximatelyEqual(float a, float b)
+inline bool approximatelyEqual(float a, float b, float error = FloatPrecisionError)
 {
-    return std::abs(a - b) <= FloatPrecisionError;
+    return std::abs(a - b) <= error;
 }
 
-inline bool approximatelyGreaterEqual(float a, float b)
+inline bool approximatelyGreaterEqual(float a, float b, float error = FloatPrecisionError)
 {
-    return std::abs(a - b) - FloatPrecisionError <= 0.f;
+    return std::abs(a - b) - error <= 0.f;
 }
 
-inline bool approximatelyLessEqual(float a, float b, float error = 0.0001)
+inline bool approximatelyLessEqual(float a, float b, float error = FloatPrecisionError)
 {
-    return std::abs(b - a) - FloatPrecisionError <= 0.f;
+    return std::abs(b - a) - error <= 0.f;
 }
 
 END_NAMESPACE_SLEEP
