@@ -32,3 +32,5 @@ bld/
 Pipfile
 Pipfile.lock
 *egg-info*
+packages.config
+packages
