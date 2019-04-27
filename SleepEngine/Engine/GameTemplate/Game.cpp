@@ -123,7 +123,7 @@ void Game::runFrame()
         }
         EASY_END_BLOCK;
 
-        EASY_BLOCK("Current scene update", profiler::colors::Amber100);
+        EASY_BLOCK("Scene update", profiler::colors::Amber100);
         m_currentScene->second.first.update(dt);
         EASY_END_BLOCK;
 

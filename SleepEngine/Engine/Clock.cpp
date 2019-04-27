@@ -27,9 +27,12 @@ void Clock::frameEnd()
 
     if (m_restrictFPS && frameTime < m_desiredFrameTime)
     {
+        EASY_BLOCK("Sleeping to sync FPS", profiler::colors::Amber);
+
         auto const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
         std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
         frameTime = m_desiredFrameTime;
+        EASY_END_BLOCK;
     }
 
     *m_lastDT = frameTime;
