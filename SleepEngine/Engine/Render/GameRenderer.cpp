@@ -65,7 +65,7 @@ void GameRenderer::render()
     std::sort(m_drawCalls.begin(), m_drawCalls.end());
     EASY_END_BLOCK;
 
-    float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().getLayer());
+    float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().Layer);
     float nextLayerOffset = 0.f;
 
     for (auto const& drawCall : m_drawCalls)
@@ -74,24 +74,24 @@ void GameRenderer::render()
         
         auto const& transform = drawCall.getTransform();
 
-        if (transform.getLayer() != lastLayer)
+        if (transform.Layer != lastLayer)
         {
-            lastLayer = static_cast <float>(transform.getLayer());
+            lastLayer = static_cast <float>(transform.Layer);
             nextLayerOffset = 0.f;
         }
 
         auto& camera = Game::instance().getCamera();
 
-        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(transform.getPosition());
+        glm::vec2 const normalizedPos = camera.virtualPositionToNormalized(transform.Position);
 
-        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(transform.getSize());
+        glm::vec2 const normalizedSize = camera.virtualSizeToNormalized(transform.Size);
 
         glm::vec2 const topLeftUV = drawCall.getTopLeftUV();
         glm::vec2 const downRightUV = drawCall.getDownRightUV();
         glm::vec2 const topRightUV(downRightUV.x, topLeftUV.y);
         glm::vec2 const downLeftUV(topLeftUV.x, downRightUV.y);
 
-        float const layer = globalEngineConfig()->getData().MaxLayer - (static_cast <float>(transform.getLayer()) + nextLayerOffset);
+        float const layer = globalEngineConfig()->getData().MaxLayer - (static_cast <float>(transform.Layer) + nextLayerOffset);
         nextLayerOffset += OffsetBetweenLayers;
 
         float uv[] = {
@@ -125,8 +125,8 @@ void GameRenderer::render()
         EASY_BLOCK("MVP matrices load to GPU");
         glm::mat4 modelview(1.f);
         modelview = glm::translate(modelview, glm::vec3(normalizedPos, -layer));
-        modelview = glm::rotate(modelview, glm::radians(transform.getRotation()), glm::vec3(0.f, 0.f, 1.f));
-        auto resultingScale = glm::vec3(transform.getScale() * normalizedSize, 1.f);
+        modelview = glm::rotate(modelview, glm::radians(transform.Rotation), glm::vec3(0.f, 0.f, 1.f));
+        auto resultingScale = glm::vec3(transform.Scale * normalizedSize, 1.f);
         modelview = glm::scale(modelview, resultingScale);
 
         glm::vec2 windowSize = globalEngineConfig()->getData().PrimaryWindowSize;

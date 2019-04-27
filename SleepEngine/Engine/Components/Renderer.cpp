@@ -15,7 +15,7 @@ Renderer::Renderer() noexcept(true)
 
 void Renderer::update(float dt)
 {
-    auto* const transform = m_parent->getComponent <Transform2D>();
+    auto* const transform = m_object->getComponent <Transform2D>();
     
     if (!transform)
     {

@@ -6,7 +6,7 @@ BEGIN_NAMESPACE_SLEEP
 
 struct EngineConfigData
 {
-    Layer MaxLayer = 0;
+    LayerT MaxLayer = 0;
     size_t MeterLengthInPixels = 0;
     glm::vec2 PrimaryWindowSize;
 };
@@ -21,7 +21,7 @@ static void from_json(nlohmann::json const& json, EngineConfigData& configData)
     }
     catch (nlohmann::json::exception const&)
     {
-        LOG_AND_FAIL_ERROR("Error parsing config data json");
+        LOG_AND_FAIL("Error parsing config data json");
     }
 }
 

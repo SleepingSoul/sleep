@@ -9,7 +9,10 @@ class JsonConfig : public BaseConfig
     using Base = BaseConfig;
 public:
     JsonConfig(std::string_view filename);
-    CONST_REF_GETTER(getData, m_jsonConfig);
+    // so that child classes can init base config with their class id
+    JsonConfig(std::string_view filename, TypeID typeId);
+
+    auto const& at(std::string const& propertyName) const { return m_jsonConfig.at(propertyName); }
 
 protected:
     // parses config file

@@ -4,6 +4,9 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+class Transform2D;
+class Object;
+
 class Component
 {
     FORBID_COPY_AND_MOVE(Component)
@@ -11,9 +14,17 @@ public:
     Component(TypeID id)
         : m_typeID(id)
     {}
+    virtual ~Component() {}
 
-    virtual void update(float dt) = 0;
-    virtual void setParent(Object* parent) { m_parent = parent; }
+    virtual void update(float dt) {}
+
+    GETTER(getParent, m_object)
+    void setParent(Object* parent) 
+    { 
+        m_object = parent; 
+        onAddedToObject();
+    }
+
     TypeID getComponentTypeID() const { return m_typeID; }
 
     template <class TComponent>
@@ -24,7 +35,9 @@ public:
     }
 
 protected:
-    NotOwnedPtr <Object> m_parent{ nullptr };
+    NotOwnedPtr <Object> m_object{ nullptr };
+
+    virtual void onAddedToObject() {}
 
 private:
     TypeID m_typeID;

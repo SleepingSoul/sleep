@@ -11,13 +11,13 @@ assert((message, condition))
 #define LOG_ERROR(message, ...) spdlog::get(slp::EngineLogger)->error(message, __VA_ARGS__);\
 
 #define LOG_AND_ASSERT_ERROR(condition, message, ...)\
-if (!condition)\
+if (!(condition))\
 {\
     LOG_ERROR(message, __VA_ARGS__)\
     assertion(condition, message);\
 }
 
-#define LOG_AND_FAIL_ERROR(message, ...) LOG_AND_ASSERT_ERROR(false, message, __VA_ARGS__);
+#define LOG_AND_FAIL(message, ...) LOG_AND_ASSERT_ERROR(false, message, __VA_ARGS__);
 
 #pragma endregion
 
@@ -79,6 +79,52 @@ CONST_REF_GETTER(getterName, member)\
 CONST_REF_SETTER(type, setterName, member)
 
 #pragma endregion
+
+#define COMPONENT_SHORTCUTS(componentType, shortcutName)\
+inline componentType* shortcutName##Ptr(Object* obj)  \
+{   \
+    return obj->getComponent<componentType>();  \
+}   \
+    \
+inline componentType* shortcutName##Ptr(Object& obj)  \
+{   \
+    return shortcutName##Ptr(&obj);  \
+}   \
+    \
+inline componentType& shortcutName(Object* obj) \
+{   \
+    return *shortcutName##Ptr(obj);  \
+}   \
+    \
+inline componentType& shortcutName(Object& obj)  \
+{   \
+    return shortcutName(&obj);  \
+}   \
+    \
+    \
+    \
+inline componentType const* shortcutName##Ptr(Object const* obj)  \
+{   \
+    return shortcutName##Ptr(obj);  \
+}   \
+    \
+inline componentType const* shortcutName##Ptr(Object const& obj)  \
+{   \
+    return shortcutName##Ptr(obj);  \
+}   \
+    \
+inline componentType const& shortcutName(Object const& obj)  \
+{   \
+    return shortcutName(obj);\
+}   \
+    \
+inline componentType const& shortcutName(Object const* obj) \
+{   \
+    return shortcutName(obj);  \
+}   \
+    \
+
+
 
 #define BEGIN_NAMESPACE_SLEEP namespace slp{
 #define END_NAMESPACE_SLEEP }

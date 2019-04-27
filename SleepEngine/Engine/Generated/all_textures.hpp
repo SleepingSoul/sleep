@@ -9,11 +9,13 @@ namespace slp
 {
     enum class Textures : unsigned
     {
-          Cirilla = 0
+          BubbleSimple = 0
+        , Cirilla
         , DBHWallpaper
         , LiMing
         , Orphea
         , Red
+        , Spaceship
     };
 }
 

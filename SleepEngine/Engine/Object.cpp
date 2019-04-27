@@ -4,10 +4,12 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-void Object::addComponent(ComponentsContainer::value_type&& component)
+Component* Object::addComponent(ComponentsContainer::value_type&& component)
 {
     component->setParent(this);
+    Component* const handle = component.get();
     m_components.emplace_back(std::move(component));
+    return handle;
 }
 
 void Object::update(float dt)

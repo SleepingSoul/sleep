@@ -14,6 +14,7 @@
 #include <string_view>
 #include <functional>
 #include <chrono>
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <thread>
 #include <mutex>
@@ -52,18 +53,22 @@
 #include <Engine/Transform2DData.h>
 #include <Engine/Render/DrawCall.h>
 #include <Engine/Render/GameRenderer.h>
+
 #include <Engine/Camera.h>
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
 #include <Engine/ObjectTree.h>
 #include <Engine/GameTemplate/Game.h>
+
 #include <Engine/Components/Component.h>
-#include <Engine/Systems/System.h>
 #include <Engine/Object.h>
-#include <Engine/Components/Renderer.h>
+#include <Engine/Systems/System.h>
+
 #include <Engine/Components/Transform2D.h>
+#include <Engine/Components/Renderer.h>
+#include <Engine/Components/HierarchyNode.h>
 #include <Engine/Components/RigidBody.h>
-#include <Engine/Utils/FactoryUtils.h>
+
 #include <Engine/Systems/ConcreteSystem.h>
 #include <Engine/Systems/PhysicsSystem.h>

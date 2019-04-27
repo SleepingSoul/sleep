@@ -7,7 +7,7 @@
 BEGIN_NAMESPACE_SLEEP
 
 using Color = glm::vec4;
-using Layer = unsigned;
+using LayerT = unsigned;
 using Callback = std::function <void()>;
 using TypeID = unsigned;
 

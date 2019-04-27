@@ -1,6 +1,5 @@
-
-#pragma once
 // Copyright 2019 Taras Martyniuk
+#pragma once
 
 BEGIN_NAMESPACE_SLEEP
 
