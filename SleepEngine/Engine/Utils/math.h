@@ -2,7 +2,7 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-constexpr float FloatPrecisionError = 0.0001;
+constexpr float FloatPrecisionError = 0.0001f;
 
 inline glm::vec2 directionFromRotation(float rotationDeg)
 {

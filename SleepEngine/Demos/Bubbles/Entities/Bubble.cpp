@@ -19,7 +19,7 @@ void Bubble::update(float dt)
 {
     auto& transform = slp::getTransform(m_object);
 
-    float const distanceFlown = (transform.getPosition() - m_startPosition).length();
+    float const distanceFlown = static_cast <float>((transform.getPosition() - m_startPosition).length());
     if (distanceFlown >= m_settings.FlightDistance)
     {
         // TODO: destroy object
@@ -33,8 +33,8 @@ void Bubble::update(float dt)
 std::unique_ptr<slp::Object> createBubbleObject(BubbleSettings settings)
 {
     auto bubble = slp::createGameObject();
-    bubble->addComponent(std::make_unique<Bubble>(settings));
-    auto* renderer = bubble->addComponent<slp::Renderer>();
+    bubble->addComponent<Bubble>(settings);
+    auto* const renderer = bubble->addComponent<slp::Renderer>();
     renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::BubbleSimple));
     return bubble;
 }
