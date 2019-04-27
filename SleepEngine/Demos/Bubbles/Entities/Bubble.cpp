@@ -35,6 +35,6 @@ std::unique_ptr<slp::Object> createBubbleObject(BubbleSettings settings)
     auto bubble = slp::createGameObject();
     bubble->addComponent(std::make_unique<Bubble>(settings));
     auto* renderer = bubble->addComponent<slp::Renderer>();
-    renderer->setTexture(slp::globalResourcemanager().getTexture(slp::Textures::BubbleSimple));
+    renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::BubbleSimple));
     return bubble;
 }

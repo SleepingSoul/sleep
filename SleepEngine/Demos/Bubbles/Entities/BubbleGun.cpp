@@ -86,7 +86,7 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
 
     auto& game = slp::Game::instance();
 
-    renderer->setTexture(slp::globalResourcemanager().getTexture(slp::Textures::Spaceship));
+    renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::Spaceship));
     
     return bubbleGunObject;
 }
