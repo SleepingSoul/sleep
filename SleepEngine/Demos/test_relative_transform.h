@@ -38,7 +38,6 @@ private:
     std::unique_ptr <slp::Object> createCirilla() const
     {
         auto ciri = slp::createRenderableObject();
-
         slp::getRenderer(*ciri).setTexture(slp::globalResourceManager().getTexture(slp::Textures::Cirilla));
 
         auto* const transform = ciri->getComponent<slp::Transform2D>();
