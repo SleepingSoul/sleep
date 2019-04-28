@@ -245,6 +245,9 @@
     <ClInclude Include="Engine\Components\RelativeTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Demos\Bubbles\dummy_work.h">
+          <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Render\Shaders\shader.vs" />

@@ -1,13 +1,14 @@
 {
     "bubble_gun": {
-        "size": 6.0,
-        "fire_rate": 2.5,
+        "size": 3.0,
+        "fire_rate": 0.3,
         "field_of_view": 45.0,
         "rotation_speed": 25.0,
         "bubble": {
             "speed": 6.0,
-            "size": 3.0,
-            "flight_distance": 5.0
+            "size": 1.0,
+            "flight_distance": 5.0,
+            "work_count":  100000
         }
     }
 }

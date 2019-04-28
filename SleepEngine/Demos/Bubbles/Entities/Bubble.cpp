@@ -3,6 +3,7 @@
 #include <Engine/Utils/math.h>
 #include <Engine/object_shortcuts.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
+#include <Demos/Bubbles/dummy_work.h>
 
 Bubble::Bubble(BubbleSettings settings)
     : Base(getComponentTypeID <Bubble>())
@@ -27,6 +28,12 @@ void Bubble::update(float dt)
 
     glm::vec2 const direction = slp::directionFromRotation(transform.getRotation());
     transform.translate(direction * m_settings.Speed * dt);
+
+    for (int i = 0; i < m_settings.WorkCount; i++)
+    {
+        DummyCounter++;
+    }
+
     Base::update(dt);
 }
 

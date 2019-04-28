@@ -92,7 +92,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <CustomBuildStep>
@@ -244,6 +244,7 @@
     <ClInclude Include="Demos\Bubbles\Config\BubbleConfig.h" />
     <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
     <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
+    <ClInclude Include="Demos\Bubbles\dummy_work.h" />
     <ClInclude Include="Demos\ciri.h" />
     <ClInclude Include="Demos\test_relative_transform.h" />
     <ClInclude Include="Engine\Camera.h" />

@@ -4,6 +4,7 @@ struct BubbleSettings
 {
     float Speed = 0.f;
     float FlightDistance = 0.f;
+    int WorkCount = 0;
 };
 
 class Bubble : public slp::Component

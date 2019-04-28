@@ -19,4 +19,9 @@ inline ResourceManager& globalResourceManager()
     return Game::instance().getResourceManager();
 }
 
+inline Camera& globalCamera()
+{
+    return Game::instance().getCamera();
+}
+
 END_NAMESPACE_SLEEP

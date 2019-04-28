@@ -55,6 +55,9 @@ void BubbleGun::update(float dt)
 void BubbleGun::fireBubble()
 {
     auto bubble = createBubbleObject(m_settings.BubbleSettings);
+    // hack before we implement local space
+    slp::getTransform(*bubble).setPosition(slp::getTransform(m_object).getPosition());
+
     bubble->getComponent<Bubble>()->launch(slp::getTransform(m_object).getRotation());
     float const size = globalBubbleConfig().at("bubble_gun").at("bubble").at("size");
     slp::getTransform(*bubble).setSize({size, size});
@@ -71,11 +74,13 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
     float size = config.at("size");
     slp::getTransform(*bubbleGunObject).setSize({size, size});
 
+    auto& bubbleConfig = config.at("bubble");
     BubbleGunSettings const settings
     {
         {
-            config.at("bubble").at("speed"),
-            config.at("bubble").at("flight_distance"),
+            bubbleConfig.at("speed"),
+            bubbleConfig.at("flight_distance"),
+            bubbleConfig.at("work_count")
         },
         config.at("fire_rate"),
         config.at("field_of_view"),
@@ -86,7 +91,7 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
 
     auto& game = slp::Game::instance();
 
-    renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::Spaceship));
+    renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::spaceship));
     
     return bubbleGunObject;
 }
