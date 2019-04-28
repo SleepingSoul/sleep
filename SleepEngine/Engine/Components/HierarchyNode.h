@@ -6,8 +6,8 @@ BEGIN_NAMESPACE_SLEEP
 class HierarchyNode : public Component
 {
 public:
-	using Base = Component;
-	using ChildrenContainer = std::vector<std::unique_ptr<Object>>;
+    using Base = Component;
+    using ChildrenContainer = std::vector<std::unique_ptr<Object>>;
 
     HierarchyNode();
 
@@ -20,7 +20,7 @@ public:
     void update(float dt) override;
 
 private:
-	void setUpChild(Object& child) const;
+    void setUpChild(Object& child) const;
 
     NotOwnedPtr<Object> m_parent;
     ChildrenContainer m_children;

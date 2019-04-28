@@ -9,47 +9,47 @@ Transform2D::Transform2D() noexcept(true)
 
 Transform2DData Transform2D::getGlobalData() const
 {
-	auto data = m_data;
+    auto data = m_data;
 
-	auto const relativeTransform = getRelativeTransform();
+    auto const relativeTransform = getRelativeTransform();
 
-	data.Position += relativeTransform.Position;
-	data.Rotation += relativeTransform.Rotation;
+    data.Position += relativeTransform.Position;
+    data.Rotation += relativeTransform.Rotation;
 
-	return data;
+    return data;
 }
 
 Transform2D::RelativeTransform Transform2D::getRelativeTransform() const
 {
-	RelativeTransform transform;
+    RelativeTransform transform;
 
-	auto const* const hierarchyNode = m_object->getComponent<HierarchyNode>();
+    auto const* const hierarchyNode = m_object->getComponent<HierarchyNode>();
 
-	if (!hierarchyNode)
-	{
-		return transform;
-	}
+    if (!hierarchyNode)
+    {
+        return transform;
+    }
 
-	auto const* parent = hierarchyNode->getParent();
+    auto const* parent = hierarchyNode->getParent();
 
-	while (parent)
-	{
-		auto const* const parentsTransform2D = parent->getComponent<Transform2D>();
+    while (parent)
+    {
+        auto const* const parentsTransform2D = parent->getComponent<Transform2D>();
 
-		if (!parentsTransform2D)
-		{
-			break;
-		}
+        if (!parentsTransform2D)
+        {
+            break;
+        }
 
-		transform.Position += parentsTransform2D->getPosition();
-		transform.Rotation += parentsTransform2D->getRotation();
+        transform.Position += parentsTransform2D->getPosition();
+        transform.Rotation += parentsTransform2D->getRotation();
 
-		auto const* const parentsHierarchyNode = parent->getComponent<HierarchyNode>();
+        auto const* const parentsHierarchyNode = parent->getComponent<HierarchyNode>();
 
-		parent = parentsHierarchyNode->getParent();
-	}
+        parent = parentsHierarchyNode->getParent();
+    }
 
-	return transform;
+    return transform;
 }
 
 void Transform2D::translate(glm::vec2 translation)
