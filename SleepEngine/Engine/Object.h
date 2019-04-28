@@ -13,13 +13,12 @@ public:
 
     Component* addComponent(ComponentsContainer::value_type&& component);
 
-    template <class TComponent>
-    TComponent* addComponent()
+    template <class TComponent, class ...Args>
+    TComponent* addComponent(Args&&... constructorArgs)
     {
-        static_assert(std::is_default_constructible_v <TComponent>, "TComponent is not default constructible. Please, "
-            "create an instance of this class and use non-templated 'addComponent' method.");
-        Component* handle = addComponent(std::make_unique <TComponent>());
-        return static_cast<TComponent*>(handle);
+		static_assert(std::is_base_of_v <Component, TComponent>, "TComponent should be a heir of slp::Component class!");
+        auto* const addedComponent = addComponent(std::make_unique <TComponent>(std::forward <Args>(constructorArgs)...));
+        return static_cast<TComponent*>(addedComponent);
     }
     
     template <class TComponent>
@@ -49,7 +48,6 @@ public:
     }
 
 protected:
-
     ComponentsContainer m_components;
 };
 
