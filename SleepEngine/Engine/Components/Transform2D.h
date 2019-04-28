@@ -8,6 +8,11 @@ class Transform2D : public Component
 {
 public:
     using Base = Component;
+	struct RelativeTransform
+	{
+		glm::vec2 Position{ 0.f, 0.f };
+		float Rotation{ 0.f };
+	};
 
     Transform2D() noexcept(true);
 
@@ -17,12 +22,14 @@ public:
     GET_SET(LayerT, getLayer, setLayer, m_data.Layer)
     GET_SET(float, getRotation, setRotation, m_data.Rotation)
 
-    CONST_REF_GETTER(getData, m_data)
+	Transform2DData getGlobalData() const;
 
     void translate(glm::vec2 translation);
     void rotate(float rotation);
 
 private:
+	RelativeTransform getRelativeTransform() const;
+
     Transform2DData m_data;
 };
 

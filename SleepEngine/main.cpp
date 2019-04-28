@@ -3,6 +3,7 @@
 #include <Engine/Utils/unit_utils.h>
 #include <Engine/object_shortcuts.h>
 #include <Demos/Bubbles/bubbles_demo.h>
+#include <Demos/test_relative_transform.h>
 
 // settings
 namespace
@@ -21,7 +22,7 @@ int main()
     game.getClock().setRestrictFPS(true);
 
     game.getResourceManager().preload();
-    game.addScene(initBubbleDemoScene);
+    game.addScene(TestRelativeSceneIniter());
 	game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");

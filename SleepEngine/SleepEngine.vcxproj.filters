@@ -239,6 +239,9 @@
     <ClInclude Include="Demos\ciri.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Demos\test_relative_transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Render\Shaders\shader.vs" />
