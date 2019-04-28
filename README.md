@@ -17,7 +17,7 @@ This is quite easy to to. You just should do the following things:
 *git clone --recursive https://github.com/SleepingSoul/sleep*.\
 If you already cloned it without submodules, you should run\
 *git submodule update --init --recursive*
-- Go to *SleepEngine\scripts* and run *install_dependencies.bat*. It will install all project dependencies and create a package. To read more what do we use for it, read [this page]() in our Wiki.
+- Go to *scripts* and run *install_dependencies.bat*. It will install all project dependencies and create a package. To read more what do we use for it, read [this page]() in our Wiki.
 - In the end of this script there will be this instruction:\
 *Install-Package sleep_dependencies -Source "..."* with your native path output in console. You should copy it, go to\
 *Visual Studio -> Tools -> Nuget -> Management Console*\
