@@ -20,9 +20,7 @@ public:
     void update(float dt) override;
 
 private:
-    void setUpChild(Object& child) const;
-
-    NotOwnedPtr<Object> m_parent;
+    NotOwnedPtr<Object> m_parent{ nullptr };
     ChildrenContainer m_children;
 };
 

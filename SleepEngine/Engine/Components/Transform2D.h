@@ -2,17 +2,14 @@
 
 #pragma once
 
+#include <Engine/Components/RelativeTransform.h>
+
 BEGIN_NAMESPACE_SLEEP
 
 class Transform2D : public Component
 {
 public:
     using Base = Component;
-    struct RelativeTransform
-    {
-        glm::vec2 Position{ 0.f, 0.f };
-        float Rotation{ 0.f };
-    };
 
     Transform2D() noexcept(true);
 
@@ -21,6 +18,10 @@ public:
     GET_SET(glm::vec2, getSize, setSize, m_data.Size)
     GET_SET(LayerT, getLayer, setLayer, m_data.Layer)
     GET_SET(float, getRotation, setRotation, m_data.Rotation)
+
+    // TODO: implement cached transform global data and change this
+    GETTER(getGlobalPosition, getGlobalData().Position)
+    GETTER(getGlobalRotation, getGlobalData().Rotation)
 
     Transform2DData getGlobalData() const;
 

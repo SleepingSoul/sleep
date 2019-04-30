@@ -7,14 +7,25 @@ BEGIN_NAMESPACE_SLEEP
 
 HierarchyNode::HierarchyNode()
     : Base(Component::getComponentTypeID<HierarchyNode>())
-    , m_parent(nullptr)
 {}
 
 Object* HierarchyNode::addChild(std::unique_ptr<Object>&& child)
 {
     auto* const childHandle = child.get();
 
-    setUpChild(*childHandle);
+    auto* childNode = childHandle->getComponent<HierarchyNode>();
+
+    if (!childNode)
+    {
+        childNode = childHandle->addComponent<HierarchyNode>();
+    }
+
+    if (childNode->getParent())
+    {
+        childNode->detachFromParent();
+    }
+
+    childNode->setParent(m_object);
 
     m_children.emplace_back(std::move(child));
     return childHandle;
@@ -59,23 +70,6 @@ void HierarchyNode::update(float dt)
     {
         childNodeObject->update(dt);
     }
-}
-
-void HierarchyNode::setUpChild(Object& child) const
-{
-    auto* childNode = child.getComponent<HierarchyNode>();
-
-    if (!childNode)
-    {
-        childNode = child.addComponent<HierarchyNode>();
-    }
-
-    if (childNode->getParent())
-    {
-        childNode->detachFromParent();
-    }
-
-    childNode->setParent(m_object);
 }
 
 END_NAMESPACE_SLEEP

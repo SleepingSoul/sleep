@@ -19,7 +19,7 @@ Transform2DData Transform2D::getGlobalData() const
     return data;
 }
 
-Transform2D::RelativeTransform Transform2D::getRelativeTransform() const
+RelativeTransform Transform2D::getRelativeTransform() const
 {
     RelativeTransform transform;
 
