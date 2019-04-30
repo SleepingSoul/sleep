@@ -18,7 +18,7 @@ public:
     }
 
     void update(float dt);
-    void addToRoot(ObjectsContainer::value_type&& object);
+    void addToRoot(std::unique_ptr<Object>&& object);
     void clear();
 
 protected:

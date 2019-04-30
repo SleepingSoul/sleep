@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <Engine/Components/RelativeTransform.h>
+
 BEGIN_NAMESPACE_SLEEP
 
 class Transform2D : public Component
@@ -17,12 +19,18 @@ public:
     GET_SET(LayerT, getLayer, setLayer, m_data.Layer)
     GET_SET(float, getRotation, setRotation, m_data.Rotation)
 
-    CONST_REF_GETTER(getData, m_data)
+    // TODO: implement cached transform global data and change this
+    GETTER(getGlobalPosition, getGlobalData().Position)
+    GETTER(getGlobalRotation, getGlobalData().Rotation)
+
+    Transform2DData getGlobalData() const;
 
     void translate(glm::vec2 translation);
     void rotate(float rotation);
 
 private:
+    RelativeTransform getRelativeTransform() const;
+
     Transform2DData m_data;
 };
 

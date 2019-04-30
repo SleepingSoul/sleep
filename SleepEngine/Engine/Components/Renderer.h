@@ -22,7 +22,9 @@ private:
     Color m_color;
     glm::vec2 m_topLeftUV;
     glm::vec2 m_downRightUV;
-    NotOwnedPtr <Texture> m_texture;
+    NotOwnedPtr<Texture> m_texture;
 };
+
+COMPONENT_SHORTCUTS(Renderer, getRenderer)
 
 END_NAMESPACE_SLEEP

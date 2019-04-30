@@ -12,7 +12,7 @@ void ObjectTree::update(float dt)
     }
 }
 
-void ObjectTree::addToRoot(ObjectsContainer::value_type&& object)
+void ObjectTree::addToRoot(std::unique_ptr<Object>&& object)
 {
     m_objects.emplace_back(std::move(object));
 }

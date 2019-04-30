@@ -245,10 +245,12 @@
     <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
     <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
     <ClInclude Include="Demos\ciri.h" />
+    <ClInclude Include="Demos\test_relative_transform.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Clock.h" />
     <ClInclude Include="Engine\Components\Component.h" />
     <ClInclude Include="Engine\Components\HierarchyNode.h" />
+    <ClInclude Include="Engine\Components\RelativeTransform.h" />
     <ClInclude Include="Engine\Components\Renderer.h" />
     <ClInclude Include="Engine\Components\RigidBody.h" />
     <ClInclude Include="Engine\Config\BaseConfig.h" />

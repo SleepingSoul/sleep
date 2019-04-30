@@ -18,7 +18,7 @@ public:
 
     virtual void update(float dt) {}
 
-    GETTER(getParent, m_object)
+    GETTER(getObject, m_object)
     void setParent(Object* parent) 
     { 
         m_object = parent; 

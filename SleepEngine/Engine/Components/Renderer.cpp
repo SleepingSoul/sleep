@@ -15,7 +15,7 @@ Renderer::Renderer() noexcept(true)
 
 void Renderer::update(float dt)
 {
-    auto* const transform = m_object->getComponent <Transform2D>();
+    auto* const transform = m_object->getComponent<Transform2D>();
     
     if (!transform)
     {
@@ -23,7 +23,7 @@ void Renderer::update(float dt)
         return;
     }
 
-    Game::instance().getRenderer().emplaceDrawCall(transform->getData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
+    Game::instance().getRenderer().emplaceDrawCall(transform->getGlobalData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
 END_NAMESPACE_SLEEP
