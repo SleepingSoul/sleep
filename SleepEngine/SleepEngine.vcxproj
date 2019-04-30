@@ -214,6 +214,7 @@
     <ClCompile Include="Engine\Config\ConfigManager.cpp" />
     <ClCompile Include="Engine\Config\EngineConfig.cpp" />
     <ClCompile Include="Engine\Config\JsonConfig.cpp" />
+    <ClCompile Include="Engine\EntityManager.cpp" />
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Engine\Config\JsonConfig.h" />
     <ClInclude Include="Engine\Config\Loadable.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
+    <ClInclude Include="Engine\EntityManager.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
     <ClInclude Include="Engine\GameTemplate\global_shortcuts.h" />
     <ClInclude Include="Engine\GameWindow.h" />

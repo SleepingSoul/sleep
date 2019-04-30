@@ -17,6 +17,38 @@ bool containsIf(TContainer const& container, TPred pred)
     return findIf(container, pred) != container.cend();
 }
 
+template <class TContainer, class TValue>
+std::pair<bool, typename TContainer::const_iterator> find(TContainer const& container, TValue const& value)
+{
+    auto const cend = container.cend();
+    auto const it = std::find(container.cbegin(), cend, value);
+    return { it != cend, it };
+}
+
+template <class TContainer, class TValue>
+std::pair<bool, typename TContainer::iterator> find(TContainer& container, TValue const& value)
+{
+    auto const end = container.end();
+    auto const it = std::find(container.begin(), end, value);
+    return { it != end, it };
+}
+
+template <class TContainer, class TPred>
+std::pair<bool, typename TContainer::const_iterator> findIf(TContainer const& container, TPred pred)
+{
+    auto const cend = container.cend();
+    auto const it = std::find_if(container.cbegin(), cend, pred);
+    return { it != cend, it };
+}
+
+template <class TContainer, class TPred>
+std::pair<bool, typename TContainer::iterator> findIf(TContainer& container, TPred pred)
+{
+    auto const end = container.end();
+    auto const it = std::find_if(container.begin(), end, pred);
+    return { it != end, it };
+}
+
 template <class TContainer, class TPred>
 bool all(TContainer const& container, TPred pred)
 {
@@ -85,8 +117,8 @@ void append(TContainer& base, TContainerToAppend const& toAppend)
 template <class TContainer, class TPred>
 void removeIf(TContainer& container, TPred pred)
 {
-	auto it = std::remove_if(container.begin(), container.end(), pred);
-	container.erase(it, container.cend());
+    auto it = std::remove_if(container.begin(), container.end(), pred);
+    container.erase(it, container.cend());
 }
 
 // transforms toMap container to another by applying mapFunction to each element of toMap container
