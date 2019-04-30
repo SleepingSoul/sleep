@@ -8,27 +8,17 @@ void EntityManager::addObject(std::unique_ptr<Object>&& object)
     m_objects.emplace_back(std::move(object));
 }
 
-void EntityManager::removeObject(Object const* objectToRemove)
+void EntityManager::removeObjectLater(Object const* object)
 {
-    auto const isObjectToRemove = [objectToRemove](auto const& object)
+    if (!contains(m_removeLaterObjects, object))
     {
-        return objectToRemove == object.get();
-    };
-
-    auto const[found, it] = findIf(m_objects, isObjectToRemove);
-
-    if (!found)
-    {
-        LOG_AND_FAIL("EntityManager error: 'removeObject' called with invalid Object pointer.");
-        return;
+        m_removeLaterObjects.push_back(object);
     }
-
-    m_objects.erase(it);
 }
 
 void EntityManager::clear()
 {
-    m_objects.clear();
+    m_clearAll = true;
 }
 
 void EntityManager::update(float dt)
@@ -37,6 +27,40 @@ void EntityManager::update(float dt)
     {
         object->update(dt);
     }
+
+    postUpdate();
+}
+
+void EntityManager::postUpdate()
+{
+    // more effective implementation in case of full cleanup
+    if (m_clearAll)
+    {
+        m_clearAll = false;
+        m_objects.clear();
+        m_removeLaterObjects.clear();
+        return;
+    }
+
+    for (auto const* const objectToRemove : m_removeLaterObjects)
+    {
+        auto const isObjectToRemove = [objectToRemove](auto const& object)
+        {
+            return objectToRemove == object.get();
+        };
+
+        auto const[found, it] = findIf(m_objects, isObjectToRemove);
+
+        if (!found)
+        {
+            LOG_AND_FAIL("EntityManager error: invalid Object pointer.");
+            return;
+        }
+
+        m_objects.erase(it);
+    }
+
+    m_removeLaterObjects.clear();
 }
 
 END_NAMESPACE_SLEEP

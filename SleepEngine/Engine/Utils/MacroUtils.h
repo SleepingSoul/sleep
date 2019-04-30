@@ -36,8 +36,8 @@ FORBID_MOVE(classname)
 #define SINGLETON_GETTER(class_)\
 static class_& instance()\
 {\
-	static class_ instance;\
-	return instance;\
+    static class_ instance;\
+    return instance;\
 }\
 
 #pragma region GettersSetters
@@ -124,7 +124,8 @@ inline componentType const& shortcutName(Object const* obj) \
 }   \
     \
 
-
+#define All(container) std::begin(container), std::end(container)
+#define C_All(container) std::cbegin(container), std::cend(container)
 
 #define BEGIN_NAMESPACE_SLEEP namespace slp{
 #define END_NAMESPACE_SLEEP }
