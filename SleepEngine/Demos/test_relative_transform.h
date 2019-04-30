@@ -6,7 +6,7 @@
 class TestRelativeSceneIniter
 {
 public:
-    void operator ()(slp::Game::Scene& scene) const
+    void operator ()() const
     {
         auto background = slp::createRenderableObject();
         auto* const renderer = background->getComponent<slp::Renderer>();
@@ -29,8 +29,8 @@ public:
             prevCiri = slp::getHierarchy(*prevCiri).addChild(std::move(ciri));
         }
 
-        scene.addToRoot(std::move(background));
-        scene.addToRoot(std::move(initialCiri));
+        slp::globalEntityManager().addObject(std::move(background));
+        slp::globalEntityManager().addObject(std::move(initialCiri));
     };
 
 private:

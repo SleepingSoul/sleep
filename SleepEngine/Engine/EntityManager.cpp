@@ -26,6 +26,11 @@ void EntityManager::removeObject(Object const* objectToRemove)
     m_objects.erase(it);
 }
 
+void EntityManager::clear()
+{
+    m_objects.clear();
+}
+
 void EntityManager::update(float dt)
 {
     for (auto& object : m_objects)

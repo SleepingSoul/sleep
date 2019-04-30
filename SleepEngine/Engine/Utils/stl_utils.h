@@ -75,12 +75,6 @@ bool areDistinctFind(TContainer const& v1, TOtherContainer const& v2)
         });
 }
 
-template <class TContainer, class TPred>
-typename TContainer::const_iterator findIf(TContainer const& container, TPred pred)
-{
-    return std::find_if(container.cbegin(), container.cend(), pred);
-}
-
 template <class TContainer>
 bool areUnique(TContainer container)
 {

@@ -1,3 +1,5 @@
+// Copyright 2019 Tihran Katolikian
+
 #pragma once
 
 BEGIN_NAMESPACE_SLEEP
@@ -8,8 +10,11 @@ class EntityManager
 public:
     using EntitiesContainer = std::vector<std::unique_ptr<Object>>;
 
+    EntityManager() = default;
+
     void addObject(std::unique_ptr <Object>&& object);
     void removeObject(Object const* object);
+    void clear();
 
     void update(float dt);
 

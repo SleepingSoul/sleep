@@ -4,7 +4,7 @@
 #include <Engine/Utils/unit_utils.h>
 #include <Engine/object_shortcuts.h>
 
-void initCiriScene(slp::Game::Scene& scene)
+void initCiriScene()
 {
     auto& game = slp::Game::instance();
 
@@ -17,7 +17,7 @@ void initCiriScene(slp::Game::Scene& scene)
     transform2D->setSize(slp::pixelsToMeters(game.getCamera().getScreenSize()));
     transform2D->setLayer(0);
 
-    scene.addToRoot(std::move(background));
+    game.getEntityManager().addObject(std::move(background));
 
     auto ciriTexture = game.getResourceManager().getTexture(slp::Textures::Cirilla);
 
@@ -33,6 +33,6 @@ void initCiriScene(slp::Game::Scene& scene)
         transform2D->setRotation(static_cast <float>(i) * 4.4f);
         transform2D->setSize(slp::pixelsToMeters(ciriTexture->getSize()));
         transform2D->setPosition({ -slp::pixelsToMeters(game.getCamera().getScreenWidth() / 2.f) + i++ / 20.f, 0.f });
-        scene.addToRoot(std::move(ciri));
+        game.getEntityManager().addObject(std::move(ciri));
     }
 }

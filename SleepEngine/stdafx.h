@@ -59,7 +59,8 @@
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
-#include <Engine/ObjectTree.h>
+#include <Engine/EntityManager.h>
+#include <Engine/GameTemplate/Scene.h>
 #include <Engine/GameTemplate/Game.h>
 
 #include <Engine/Components/Component.h>

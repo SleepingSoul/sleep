@@ -1,3 +1,3 @@
 #pragma once
 
-void initBubbleDemoScene(slp::Game::Scene& scene);
+void initBubbleDemoScene();

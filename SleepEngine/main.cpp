@@ -22,7 +22,7 @@ int main()
     game.getClock().setRestrictFPS(true);
 
     game.getResourceManager().preload();
-    game.addScene(TestRelativeSceneIniter());
+    game.addScene(TestRelativeSceneIniter(), "test scene");
 	game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");

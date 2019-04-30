@@ -38,9 +38,9 @@ void HierarchyNode::removeChild(Object* child)
         return element.get() == child;
     };
 
-    auto const childToDelete = findIf(m_children, isChildToDelete);
+    auto const [found, childToDelete] = findIf(m_children, isChildToDelete);
 
-    if (childToDelete != m_children.cend())
+    if (!found)
     {
         LOG_AND_FAIL("'removeChild' called for object that is not out child");
         return;
