@@ -5,8 +5,8 @@ BEGIN_NAMESPACE_SLEEP
 
 #pragma region Non changing
 
-template <class TContainer>
-bool contains(TContainer const& container, typename TContainer::const_reference value)
+template <class TContainer, class TValue>
+bool contains(TContainer const& container, TValue const& value)
 {
     return std::find(container.cbegin(), container.cend(), value) != container.cend();
 }
@@ -85,8 +85,8 @@ void append(TContainer& base, TContainerToAppend const& toAppend)
 template <class TContainer, class TPred>
 void removeIf(TContainer& container, TPred pred)
 {
-	auto it = std::remove_if(container.begin(), container.end(), pred);
-	container.erase(it, container.cend());
+    auto it = std::remove_if(container.begin(), container.end(), pred);
+    container.erase(it, container.cend());
 }
 
 // transforms toMap container to another by applying mapFunction to each element of toMap container

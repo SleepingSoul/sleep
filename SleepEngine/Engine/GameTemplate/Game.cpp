@@ -32,8 +32,8 @@ Game::Game(size_t width, size_t height)
 
     if (m_instance)
     {
-	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game window! It is forbidden!");
-	    return;
+        LOG_AND_ASSERT_ERROR(false, "Attempt to create second game window! It is forbidden!");
+        return;
     }
     m_instance = this;
     m_renderer = std::make_unique <GameRenderer>();
@@ -99,11 +99,17 @@ void Game::addSystem(SystemsContainer::value_type&& system)
     m_systems.emplace_back(std::move(system));
 }
 
+Game::Scene const& Game::getCurrentScene() const
+{
+    LOG_AND_ASSERT_ERROR(m_currentScene != m_scenes.end(), "Current scene is nullptr. Probably you haven't added one to the slp::Game.");
+    return m_currentScene->second.first;
+}
+
 void Game::run()
 {
     while (!m_window.shouldClose())
     {
-	    runFrame();
+        runFrame();
     }
 }
 

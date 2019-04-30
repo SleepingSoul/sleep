@@ -19,4 +19,9 @@ inline ResourceManager& globalResourceManager()
     return Game::instance().getResourceManager();
 }
 
+inline Game::Scene& currentScene()
+{
+    return Game::instance().getCurrentScene();
+}
+
 END_NAMESPACE_SLEEP

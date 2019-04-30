@@ -4,11 +4,13 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+// Entity manager in ECS
 class ObjectTree
 {
     FORBID_COPY(ObjectTree)
 public:
-    using ObjectsContainer = std::vector <std::unique_ptr <Object>>;
+    using ObjectsContainer = std::vector<std::unique_ptr<Object>>;
+    using DeleteLaterObjectContainer = std::vector<Object const*>;
 
     ObjectTree() = default;
     ObjectTree(ObjectTree&&) = default;
@@ -18,11 +20,20 @@ public:
     }
 
     void update(float dt);
+    void postUpdate();
+
+    void removeLater(Object const* object);
+    void removeLater(Object const& object) { removeLater(&object); }
+
     void addToRoot(std::unique_ptr<Object>&& object);
     void clear();
 
 protected:
     ObjectsContainer m_objects;
+    DeleteLaterObjectContainer m_deleteLaterObjects;
+
+private:
+    void removeObjects();
 };
 
 END_NAMESPACE_SLEEP

@@ -45,9 +45,11 @@
 // json
 #include <nlohmann/json.hpp>
 
+// utils
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
 #include <Engine/Utils/aliases.h>
+#include <Engine/Utils/stl_utils.h>
 
 #include <Engine/Render/Texture.h>
 #include <Engine/Transform2DData.h>

@@ -19,7 +19,6 @@ class ISystem;
 class Game
 {
 public:
-    using Base = ObjectTree;
     using Scene = ObjectTree;
     using SceneIniter = std::function <void(Scene&)>;
     using SceneAndInitter = std::pair <Scene, SceneIniter>;
@@ -47,6 +46,8 @@ public:
     void changeScene(SceneIDType id);
 
     void addSystem(SystemsContainer::value_type&& system);
+
+    TWO_SAME_REF_GETTERS(Game, Scene, getCurrentScene)
 
     void run();
 

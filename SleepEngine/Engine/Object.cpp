@@ -4,7 +4,7 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-Component* Object::addComponent(ComponentsContainer::value_type&& component)
+Component* Object::addComponent(std::unique_ptr<Component>&& component)
 {
     component->setParent(this);
     Component* const handle = component.get();
