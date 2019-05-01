@@ -22,8 +22,6 @@ Game::Game(size_t width, size_t height)
     , m_window(width, height, "Heroes of the storm")
     , m_resourceManager(std::make_unique <ResourceManager>())
 {
-    m_currentScene = m_scenes.end();
-
     setupLogger();
 
     m_configManager.addConfig<EngineConfig>();
@@ -42,33 +40,27 @@ void Game::addScene(Scene::Initer initer, std::string_view id)
 {
     auto& scene = m_scenes.emplace_back(std::move(initer), id);
 
-    if (m_scenes.size() == 1)
+    if (m_currentSceneID.empty())
     {
-        // first scene
-        scene.init();
-        m_currentScene = m_scenes.begin();
+        m_currentSceneID = id;
     }
 }
 
-void Game::changeActiveSceneTo(std::string_view id)
+void Game::applyCurrentScene()
 {
-    auto const isSceneFound = [id](auto const& scene)
+    auto const isSceneFound = [this](auto const& scene)
     {
-        return scene.getID() == id;
+        return scene.getID() == m_currentSceneID;
     };
 
     auto const[found, it] = findIf(m_scenes, isSceneFound);
 
     if (!found)
     {
-        LOG_AND_FAIL("No scene found with id: {}", id);
+        LOG_AND_FAIL("Invalid current scene: {}", m_currentSceneID);
         return;
     }
 
-    spdlog::get(EngineLogger)->info("Changing scene '{}' to '{}'.", m_currentScene->getID(), id);
-
-    m_entityManager.clear();
-    
     it->init();
 }
 
@@ -79,6 +71,8 @@ void Game::addSystem(SystemsContainer::value_type&& system)
 
 void Game::run()
 {
+    applyCurrentScene();
+
     while (!m_window.shouldClose())
     {
         runFrame();
@@ -90,7 +84,7 @@ void Game::runFrame()
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
-    if (m_currentScene != m_scenes.end())
+    if (!m_currentSceneID.empty())
     {
         auto const dt = m_clock.getDT();
 

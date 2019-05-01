@@ -34,7 +34,11 @@ public:
     REF_GETTERS(getEntityManager, m_entityManager)
 
     void addScene(Scene::Initer initer, std::string_view id);
-    void changeActiveSceneTo(std::string_view id);
+    
+    SETTER(std::string_view, setCurrentScene, m_currentSceneID)
+    std::string_view getCurrentScene() const { return m_currentSceneID; }
+
+    void applyCurrentScene();
 
     void addSystem(SystemsContainer::value_type&& system);
 
@@ -52,7 +56,7 @@ private:
     std::unique_ptr <ResourceManager> m_resourceManager;
 
     ScenesContainer m_scenes;
-    ScenesContainer::iterator m_currentScene;
+    std::string m_currentSceneID;
 
     SystemsContainer m_systems;
 
