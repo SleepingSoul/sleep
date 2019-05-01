@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <vector>
 #include <array>
+#include <queue>
 #include <algorithm>
 #include <memory>
 #include <filesystem>
@@ -16,11 +17,13 @@
 #include <chrono>
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include <thread>
-#include <mutex>
 #include <numeric>
 #include <future>
 #include <optional>
+#include <thread>
+#include <mutex>
+#include <atomic>
+#include <condition_variable>
 #pragma endregion
 
 #pragma region Render
