@@ -64,7 +64,11 @@ void HierarchyNode::removeAllChildren()
 {
     for (auto* const child : m_children)
     {
-        slp::getHierarchy(*child).setParent(nullptr);
+        auto& childHierarchy = slp::getHierarchy(*child);
+
+        childHierarchy.setParent(nullptr);
+        childHierarchy.removeAllChildren();
+
         globalEntityManager().removeObjectLater(child);
     }
 
