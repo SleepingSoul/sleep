@@ -8,8 +8,6 @@ class EntityManager
 {
     FORBID_COPY_AND_MOVE(EntityManager)
 public:
-    using EntitiesContainer = std::vector<std::unique_ptr<Object>>;
-
     EntityManager() = default;
 
     void addObject(std::unique_ptr <Object>&& object, bool shouldUpdate = true);
@@ -24,7 +22,7 @@ private:
     void addObjects();
     void removeObjects();
 
-    EntitiesContainer m_objects;
+    std::vector<std::unique_ptr<Object>> m_objects;
     std::vector<Object*> m_objectsToUpdate;
     std::vector<Object const*> m_removeLaterObjects;
     std::vector<std::pair<std::unique_ptr<Object>, bool>> m_addLaterObjects;
