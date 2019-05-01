@@ -124,8 +124,9 @@ inline componentType const& shortcutName(Object const* obj) \
 }   \
     \
 
-#define All(container) std::begin(container), std::end(container)
-#define C_All(container) std::cbegin(container), std::cend(container)
+#define ALL(container) std::begin(container), std::end(container)
+#define C_ALL(container) std::cbegin(container), std::cend(container)
+#define MOVE_ALL(container) std::make_move_iterator(std::begin(container)), std::make_move_iterator(std::end(container))
 
 #define BEGIN_NAMESPACE_SLEEP namespace slp{
 #define END_NAMESPACE_SLEEP }

@@ -3,9 +3,9 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-void EntityManager::addObject(std::unique_ptr<Object>&& object)
+void EntityManager::addObject(std::unique_ptr<Object>&& object, bool shouldUpdate)
 {
-    m_objects.emplace_back(std::move(object));
+    m_addLaterObjects.emplace_back(std::move(object), shouldUpdate);
 }
 
 void EntityManager::removeObjectLater(Object const* object)
@@ -23,7 +23,7 @@ void EntityManager::clear()
 
 void EntityManager::update(float dt)
 {
-    for (auto& object : m_objects)
+    for (auto* const object : m_objectsToUpdate)
     {
         object->update(dt);
     }
@@ -33,12 +33,34 @@ void EntityManager::update(float dt)
 
 void EntityManager::postUpdate()
 {
+    addObjects();
+    removeObjects();
+}
+
+void EntityManager::addObjects()
+{
+    for (auto&& [object, shouldUpdate] : m_addLaterObjects)
+    {
+        if (shouldUpdate)
+        {
+            m_objectsToUpdate.push_back(object.get());
+        }
+
+        m_objects.emplace_back(std::move(object));
+    }
+
+    m_addLaterObjects.clear();
+}
+
+void EntityManager::removeObjects()
+{
     // more effective implementation in case of full cleanup
     if (m_clearAll)
     {
         m_clearAll = false;
         m_objects.clear();
         m_removeLaterObjects.clear();
+        m_addLaterObjects.clear();
         return;
     }
 
@@ -54,7 +76,7 @@ void EntityManager::postUpdate()
         if (!found)
         {
             LOG_AND_FAIL("EntityManager error: invalid Object pointer.");
-            return;
+            continue;
         }
 
         m_objects.erase(it);

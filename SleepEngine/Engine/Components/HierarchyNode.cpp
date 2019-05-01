@@ -9,15 +9,31 @@ HierarchyNode::HierarchyNode()
     : Base(Component::getComponentTypeID<HierarchyNode>())
 {}
 
+HierarchyNode::~HierarchyNode()
+{
+    // in ECS, there will be some 'reset' function instead. Now we have no pool
+    removeAllChildren();
+
+    if (m_parent)
+    {
+        detachFromParent();
+    }
+}
+
 Object* HierarchyNode::addChild(std::unique_ptr<Object>&& child)
 {
-    auto* const childHandle = child.get();
+    auto* const addedChild = child.get();
+    globalEntityManager().addObject(std::move(child), false);
+    return addChild(addedChild);
+}
 
-    auto* childNode = childHandle->getComponent<HierarchyNode>();
+Object* HierarchyNode::addChild(Object* child)
+{
+    auto* childNode = child->getComponent<HierarchyNode>();
 
     if (!childNode)
     {
-        childNode = childHandle->addComponent<HierarchyNode>();
+        childNode = child->addComponent<HierarchyNode>();
     }
 
     if (childNode->getParent())
@@ -27,26 +43,32 @@ Object* HierarchyNode::addChild(std::unique_ptr<Object>&& child)
 
     childNode->setParent(m_object);
 
-    m_children.emplace_back(std::move(child));
-    return childHandle;
+    m_children.emplace_back(child);
+    return child;
 }
 
-void HierarchyNode::removeChild(Object* child)
+void HierarchyNode::removeChild(Object const* child)
 {
-    auto const isChildToDelete = [child] (std::unique_ptr<Object> const& element)
-    {
-        return element.get() == child;
-    };
-
-    auto const [found, childToDelete] = findIf(m_children, isChildToDelete);
+    auto const [found, it] = find(m_children, child);
 
     if (!found)
     {
-        LOG_AND_FAIL("'removeChild' called for object that is not out child");
+        LOG_AND_FAIL("'removeChild' called for object that is not our child");
         return;
     }
 
-    m_children.erase(childToDelete);
+    m_children.erase(it);
+}
+
+void HierarchyNode::removeAllChildren()
+{
+    for (auto* const child : m_children)
+    {
+        slp::getHierarchy(*child).setParent(nullptr);
+        globalEntityManager().removeObjectLater(child);
+    }
+
+    m_children.clear();
 }
 
 void HierarchyNode::detachFromParent()
@@ -58,17 +80,15 @@ void HierarchyNode::detachFromParent()
     }
 
     auto* const parentNode = m_parent->getComponent<HierarchyNode>();
-    parentNode->removeChild(m_parent);
+    parentNode->removeChild(m_object);
     m_parent = nullptr;
 }
 
 void HierarchyNode::update(float dt)
 {
-    Base::update(dt);
-
-    for (auto& childNodeObject : m_children)
+    for (auto* const child : m_children)
     {
-        childNodeObject->update(dt);
+        child->update(dt);
     }
 }
 
