@@ -11,6 +11,9 @@ class JobSystem
 public:
     using JobQueue = ThreadSafeQueue<std::unique_ptr<Job>>;
 
+    JobSystem();
+    void schedule(std::unique_ptr<Job>&& job) {}
+
 private:
     std::vector<WorkerThread> m_workerThreads;
     JobQueue m_jobQueue;

@@ -6,6 +6,9 @@ class Event
 {
     using LockGuard = std::lock_guard<std::mutex>;
 public:
+    Event() = default;
+    Event(Event&&) = default;
+
     inline void waitAndReset()
     {
         std::unique_lock<std::mutex> lock(m_mutex);
@@ -15,13 +18,13 @@ public:
 
     inline void signal()
     {
-        ThreadSafeSet(true);
+        threadSafeSet(true);
         m_condition.notify_all();
     }
 	
     inline void reset()
     {
-        ThreadSafeSet(false);
+        threadSafeSet(false);
     }
 
     inline bool IsSet() const { return m_isSet; }
@@ -31,7 +34,7 @@ private:
     std::mutex m_mutex;
     std::condition_variable m_condition;
 
-    void ThreadSafeSet(bool value)
+    void threadSafeSet(bool value)
     {
         if (m_isSet == value)
         {

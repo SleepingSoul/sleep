@@ -24,4 +24,9 @@ inline Camera& globalCamera()
     return Game::instance().getCamera();
 }
 
+inline JobSystem& globalJobSystem()
+{
+    return Game::instance().getJobSystem();
+}
+
 END_NAMESPACE_SLEEP

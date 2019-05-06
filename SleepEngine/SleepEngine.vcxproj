@@ -216,6 +216,7 @@
     <ClCompile Include="Engine\Config\JsonConfig.cpp" />
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
+    <ClCompile Include="Engine\Jobs\JobSystem.cpp" />
     <ClCompile Include="Engine\Jobs\WorkerThread.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\ObjectTree.cpp" />

@@ -14,7 +14,11 @@ void WorkerThread::startWorking()
     {
         m_workAvailable.waitAndReset();
 
-        //while()
+        std::unique_ptr<Job> availableJob;
+        while(m_jobQueue.tryPop(availableJob))
+        {
+            //availableJob->execute();
+        }
     }
 }
 

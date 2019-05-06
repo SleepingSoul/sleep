@@ -4,6 +4,7 @@
 
 #include <Engine/Systems/System.h>
 #include <Engine/Config/ConfigManager.h>
+#include <Engine/Jobs/JobSystem.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -36,6 +37,7 @@ public:
     REF_GETTERS(getResourceManager, *m_resourceManager)
     REF_GETTERS(getCamera, m_camera)
     REF_GETTERS(getConfigManager, m_configManager)
+    REF_GETTERS(getJobSystem, m_jobSystem)
 
     SceneIDType addScene(SceneIniter initer);
 
@@ -57,6 +59,7 @@ private:
     Clock m_clock;
     Camera m_camera;
     ConfigManager m_configManager;
+    JobSystem m_jobSystem;
 
     std::unique_ptr <GameRenderer> m_renderer;
     std::unique_ptr <ResourceManager> m_resourceManager;
