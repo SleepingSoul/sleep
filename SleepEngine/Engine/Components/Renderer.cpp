@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <Engine/Components/Transform2D.h>
+#include <Engine/Render/UpdateRenderBridge.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -23,7 +24,8 @@ void Renderer::update(float dt)
         return;
     }
 
-    Game::instance().getRenderer().emplaceDrawCall(transform->getGlobalData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
+    //Game::instance().getRenderer().emplaceDrawCall(transform->getGlobalData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
+    Game::instance().getRenderBridge().emplaceUpdatedDrawCall(transform->getGlobalData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
 END_NAMESPACE_SLEEP

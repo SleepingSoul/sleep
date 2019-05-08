@@ -6,7 +6,7 @@
 #include <Engine/GameWindow.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Config/EngineConfig.h>
-#include <Engine/Jobs/JobSystem.h>
+#include <Engine/Render/UpdateRenderBridge.h>
 
 BEGIN_NAMESPACE_SLEEP
 
@@ -24,17 +24,6 @@ Game::Game(size_t width, size_t height)
     , m_nextSceneID(0)
 {
     m_currentScene = m_scenes.end();
-    JobSystem s;
-
-    JobSystem::JobQueue q;
-    q.push(std::make_unique<Job>());
-
-    //std::queue<std::unique_ptr<int>> sq;
-    //sq.emplace(std::make_unique<int>(42));
-    auto& ref = q.front();
-    std::unique_ptr<Job> out;
-    bool b = q.tryPop(out);
-    
 
     setupLogger();
 
@@ -43,7 +32,7 @@ Game::Game(size_t width, size_t height)
 
     if (m_instance)
     {
-	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game window! It is forbidden!");
+	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
 	    return;
     }
     m_instance = this;

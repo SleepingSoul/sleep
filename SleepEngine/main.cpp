@@ -4,10 +4,12 @@
 #include <Engine/object_shortcuts.h>
 #include <Demos/Bubbles/bubbles_demo.h>
 #include <Demos/test_relative_transform.h>
+#include <Engine/Render/UpdateRenderBridge.h>
 
 // settings
 namespace
 {
+    // todo move to config
 	size_t const WindowWidth = 1920;
 	size_t const WindowHeight = 1080;
 }

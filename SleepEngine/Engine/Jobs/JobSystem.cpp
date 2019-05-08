@@ -12,27 +12,6 @@ unsigned threadCount()
     return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
 }
 
-//struct E
-//{
-//    E() = default;
-//    E(E&&) = default;
-//
-//    bool m_isSet {false};
-//    std::mutex m_mutex;
-//    std::condition_variable m_condition;
-//};
-//
-//struct A
-//{
-//    A(JobSystem::JobQueue& r) : m_ref(r) {}
-//    A(const A&) = delete;
-//    A(A&&) = default;
-//
-//    std::thread m_thread;
-//    JobSystem::JobQueue& m_ref;
-//    E m_workAvailable;
-//};
-
 JobSystem::JobSystem()
     : m_jobAvailable(threadCount())
 {

@@ -6,6 +6,7 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+// Job threads are spawned for each hardware thread minus 1 - for the main thread
 class JobSystem
 {
 public:
