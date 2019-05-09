@@ -31,7 +31,7 @@ public:
         {
             return false;
         }
-        popped = std::move(front());
+        popped = std::move(m_queue.front());
         m_queue.pop();
         return true;
     }

@@ -11,8 +11,10 @@ public:
 
     inline void waitAndReset()
     {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        m_condition.wait(lock,[&]()->bool{ return m_isSet; });
+        std::unique_lock<std::mutex> lk(m_mutex);
+        assert(lk);
+        m_condition.wait(lk, [this] { return m_isSet; });
+        assert(lk);
         m_isSet = false;
     }
 
@@ -36,11 +38,11 @@ private:
 
     void threadSafeSet(bool value)
     {
+        LockGuard lk(m_mutex);
         if (m_isSet == value)
         {
             return;
         }
-        LockGuard lk(m_mutex);
         m_isSet = value;
     }
 };

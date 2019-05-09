@@ -217,7 +217,7 @@
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Jobs\JobSystem.cpp" />
-    <ClCompile Include="Engine\Jobs\WorkerThread.cpp" />
+    <ClCompile Include="Engine\Jobs\JobThread.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\ObjectTree.cpp" />
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
@@ -273,7 +273,7 @@
     <ClInclude Include="Engine\Jobs\JobAffinity.h" />
     <ClInclude Include="Engine\Jobs\JobSystem.h" />
     <ClInclude Include="Engine\Jobs\ThreadSafeQueue.h" />
-    <ClInclude Include="Engine\Jobs\WorkerThread.h" />
+    <ClInclude Include="Engine\Jobs\JobThread.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\ObjectTree.h" />
     <ClInclude Include="Engine\Render\DrawCall.h" />

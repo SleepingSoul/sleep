@@ -16,7 +16,9 @@ public:
     // atomic
     void renewLastUpdatedData()
     {
-        threadSafeSwap(m_updatedData, m_lastUpdatedData);
+        LockGuard lk(m_swapMutex);
+        m_updatedData.swap(m_lastUpdatedData);
+        m_updatedData.clear();
     }
     // swaps RND data with last UPD data
     // atomic

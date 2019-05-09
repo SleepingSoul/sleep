@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Jobs/WorkerThread.h>
+#include <Engine/Jobs/JobThread.h>
 #include <Engine/Jobs/Job.h>
 #include <Engine/Jobs/ThreadSafeQueue.h>
 #include <Engine/Jobs/Event.h>
@@ -14,12 +14,16 @@ public:
     using JobQueue = ThreadSafeQueue<std::unique_ptr<Job>>;
 
     JobSystem();
-    void schedule(std::unique_ptr<Job>&& job) {}
+    ~JobSystem();
+
+    void schedule(std::unique_ptr<Job>&& job);
+   
 
 private:
-    std::vector<WorkerThread> m_workerThreads;
     std::unordered_map<JobAffinity, JobQueue> m_affinityToQueues;
     std::vector<Event> m_jobAvailable;
+    std::vector<JobThread> m_jobThreads;
+    bool m_shutdownRequested = false;
 };
 
 END_NAMESPACE_SLEEP

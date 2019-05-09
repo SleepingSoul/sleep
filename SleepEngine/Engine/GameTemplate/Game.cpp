@@ -38,8 +38,10 @@ Game::Game(size_t width, size_t height)
 	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
 	    return;
     }
-    m_instance = this;
     m_renderer = std::make_unique <GameRenderer>();
+    m_jobSystem = std::make_unique<JobSystem>();
+
+    m_instance = this;
 }
 
 Game::SceneIDType Game::addScene(SceneIniter initer)
@@ -117,20 +119,28 @@ void Game::runFrame()
 
     if (m_currentScene != m_scenes.end())
     {
-        auto const dt = m_clock.getDT();
-
-        EASY_BLOCK("Update systems");
-        for (auto& system : m_systems)
+        auto update = [this] 
         {
-            system->update(dt);
-        }
-        EASY_END_BLOCK;
+            float const dt = m_clock.getDT();
 
-        EASY_BLOCK("Scene update", profiler::colors::Amber100);
-        m_currentScene->second.first.update(dt);
-        EASY_END_BLOCK;
+            EASY_BLOCK("Update systems");
+            for (auto& system : m_systems)
+            {
+                system->update(dt);
+            }
+            EASY_END_BLOCK;
+            
+            EASY_BLOCK("Scene update", profiler::colors::Amber100);
+            m_currentScene->second.first.update(dt);
+            EASY_END_BLOCK;
 
-        m_updateRenderBridge->renewLastUpdatedData();
+            m_updateRenderBridge->renewLastUpdatedData();
+        };
+
+        //auto updateJob = std::make_unique<DelegateJob>(update);
+        //m_jobSystem->schedule(std::move(updateJob));
+
+        update();
 
         m_renderer->render();
     }
