@@ -2,7 +2,6 @@
     "bubble_gun": {
         "size": 3.0,
         "fire_rate": 0.3,
-        "max_bubbles":  20,
         "field_of_view": 45.0,
         "rotation_speed": 25.0,
         "max_bubbles": 25,
