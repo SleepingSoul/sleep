@@ -20,8 +20,9 @@ Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of the storm")
-    , m_resourceManager(std::make_unique <ResourceManager>())
     , m_nextSceneID(0)
+    , m_resourceManager(std::make_unique<ResourceManager>())
+    , m_updateRenderBridge(std::make_unique<UpdateRenderBridge>())
 {
     m_currentScene = m_scenes.end();
 
@@ -126,6 +127,8 @@ void Game::runFrame()
         EASY_BLOCK("Scene update", profiler::colors::Amber100);
         m_currentScene->second.first.update(dt);
         EASY_END_BLOCK;
+
+        m_updateRenderBridge->renewLastUpdatedData();
 
         m_renderer->render();
     }

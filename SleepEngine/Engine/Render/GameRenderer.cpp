@@ -57,6 +57,11 @@ void GameRenderer::render()
     renderBridge.renewRenderData();
     auto& drawCalls = renderBridge.getRenderedData();
 
+    if (drawCalls.empty())
+    {
+        return;
+    }
+
     glClearColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

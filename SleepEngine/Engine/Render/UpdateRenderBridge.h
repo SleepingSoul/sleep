@@ -49,7 +49,7 @@ private:
 
     std::mutex m_swapMutex;
 
-    void threadSafeSwap(std::vector<DrawCall>& v1, std::vector<DrawCall> v2)
+    void threadSafeSwap(std::vector<DrawCall>& v1, std::vector<DrawCall>& v2)
     {
         LockGuard lk(m_swapMutex);
         v1.swap(v2);
