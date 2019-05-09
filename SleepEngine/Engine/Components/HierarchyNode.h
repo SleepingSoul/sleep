@@ -12,6 +12,7 @@ public:
     HierarchyNode();
 
     GET_SET(Object*, getParent, setParent, m_parent)
+    size_t getChildCount() const { return m_children.size(); }
 
     Object* addChild(std::unique_ptr<Object>&& child);
     void removeChild(Object* child);

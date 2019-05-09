@@ -30,7 +30,18 @@ void BubbleGun::setCenterRotation(float centerRotation)
 
 void BubbleGun::startFiring()
 {
-    m_fireTimer.every(m_settings.FireRate, [this] { fireBubble(); } );
+    m_fireTimer.every(m_settings.FireRate, [this] 
+    { 
+        int const maxCount = globalBubbleConfig().at("bubble_gun").at("max_bubbles");
+        int const bubblesFired = slp::getHierarchy(m_object).getChildCount();
+        if (bubblesFired >= maxCount)
+        {
+            m_fireTimer.stop();
+            return;
+        }
+
+        fireBubble(); 
+    });
 }
 
 void BubbleGun::update(float dt)
@@ -55,8 +66,6 @@ void BubbleGun::update(float dt)
 void BubbleGun::fireBubble()
 {
     auto bubble = createBubbleObject(m_settings.BubbleSettings);
-    // hack before we implement local space
-    slp::getTransform(*bubble).setPosition(slp::getTransform(m_object).getPosition());
 
     bubble->getComponent<Bubble>()->launch(slp::getTransform(m_object).getRotation());
     float const size = globalBubbleConfig().at("bubble_gun").at("bubble").at("size");
