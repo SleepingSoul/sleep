@@ -25,12 +25,14 @@ public:
     // else moves front to popped and pops it from queue
     bool tryPop(T& popped)
     {
+        LockGuard lk(m_mutex);
+
         if (m_queue.empty())
         {
             return false;
         }
         popped = std::move(front());
-        pop();
+        m_queue.pop();
         return true;
     }
 

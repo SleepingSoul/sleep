@@ -6,9 +6,14 @@ BEGIN_NAMESPACE_SLEEP
 WorkerThread::WorkerThread(JobQueue& jobQueue, Event& workAvailable)
     : m_jobQueue(jobQueue)
     , m_workAvailable(workAvailable)
+    , m_thread([this] 
+    { 
+        init();
+        pollAndExecuteJobs(); 
+    })
 {}
 
-void WorkerThread::startWorking()
+void WorkerThread::pollAndExecuteJobs()
 {
     while(true)
     {

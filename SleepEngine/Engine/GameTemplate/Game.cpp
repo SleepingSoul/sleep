@@ -7,6 +7,8 @@
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Config/EngineConfig.h>
 #include <Engine/Render/UpdateRenderBridge.h>
+#include <Engine/Jobs/JobSystem.h>
+
 
 BEGIN_NAMESPACE_SLEEP
 

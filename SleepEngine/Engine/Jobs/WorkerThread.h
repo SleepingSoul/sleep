@@ -14,19 +14,19 @@ public:
     // thread must be movable to support addition to vector, and Event is neithre movable nor copyable,
     // so must be stored in a static default constructed vector somewhere else
     WorkerThread(JobQueue& jobQueue, Event& workAvailable);
-    WorkerThread(WorkerThread&&) = default;
-    //WorkerThread(WorkerThread const&) = delete;
 
     REF_GETTER(getWorkAvailable, m_workAvailable);
 
-    // continuosly takes and executes jobs from job system
-    void startWorking();
-
+    // called from the worker thread, before polling
+    virtual void init() {}
 
 private:
     std::thread m_thread;
     JobQueue& m_jobQueue;
     Event& m_workAvailable;
+
+    // continuosly takes and executes jobs from job system
+    void pollAndExecuteJobs();
 };
 
 END_NAMESPACE_SLEEP

@@ -4,8 +4,6 @@
 
 #include <Engine/Systems/System.h>
 #include <Engine/Config/ConfigManager.h>
-#include <Engine/Jobs/JobSystem.h>
-//#include <Engine/Render/UpdateRenderBridge.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -13,6 +11,7 @@ BEGIN_NAMESPACE_SLEEP
 class ResourceManager;
 class ISystem;
 class UpdateRenderBridge;
+class JobSystem;
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components
@@ -40,7 +39,7 @@ public:
     REF_GETTERS(getResourceManager, *m_resourceManager)
     REF_GETTERS(getCamera, m_camera)
     REF_GETTERS(getConfigManager, m_configManager)
-    REF_GETTERS(getJobSystem, m_jobSystem)
+    REF_GETTERS(getJobSystem, *m_jobSystem)
 
     SceneIDType addScene(SceneIniter initer);
 
@@ -62,11 +61,11 @@ private:
     Clock m_clock;
     Camera m_camera;
     ConfigManager m_configManager;
-    JobSystem m_jobSystem;
-
-    std::unique_ptr <GameRenderer> m_renderer;
-    std::unique_ptr <UpdateRenderBridge> m_updateRenderBridge;
-    std::unique_ptr <ResourceManager> m_resourceManager;
+    
+    std::unique_ptr<JobSystem> m_jobSystem;
+    std::unique_ptr<GameRenderer> m_renderer;
+    std::unique_ptr<UpdateRenderBridge> m_updateRenderBridge;
+    std::unique_ptr<ResourceManager> m_resourceManager;
 
     SceneIDType m_nextSceneID;
     ScenesContainer m_scenes;

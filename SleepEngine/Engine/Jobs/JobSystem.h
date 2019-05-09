@@ -3,6 +3,7 @@
 #include <Engine/Jobs/Job.h>
 #include <Engine/Jobs/ThreadSafeQueue.h>
 #include <Engine/Jobs/Event.h>
+#include <Engine/Jobs/JobAffinity.h>
 
 BEGIN_NAMESPACE_SLEEP
 
@@ -17,7 +18,7 @@ public:
 
 private:
     std::vector<WorkerThread> m_workerThreads;
-    JobQueue m_jobQueue;
+    std::unordered_map<JobAffinity, JobQueue> m_affinityToQueues;
     std::vector<Event> m_jobAvailable;
 };
 
