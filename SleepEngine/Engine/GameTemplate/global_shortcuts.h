@@ -29,4 +29,9 @@ inline JobSystem& globalJobSystem()
     return Game::instance().getJobSystem();
 }
 
+inline Clock& getGlobalClock()
+{
+    return Game::instance().getClock();
+}
+
 END_NAMESPACE_SLEEP

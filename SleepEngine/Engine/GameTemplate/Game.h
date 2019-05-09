@@ -72,6 +72,7 @@ private:
     ScenesContainer::iterator m_currentScene;
 
     SystemsContainer m_systems;
+    bool m_isFirstFrame = true;
 
     void runFrame();
     void setupLogger();

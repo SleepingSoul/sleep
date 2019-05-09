@@ -8,6 +8,7 @@
 #include <Engine/Config/EngineConfig.h>
 #include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/Jobs/JobSystem.h>
+#include <Engine/Systems/UpdateJob.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -114,33 +115,16 @@ void Game::run()
 
 void Game::runFrame()
 {
-    EASY_FUNCTION(profiler::colors::Orange);
-    m_clock.frameStart();
+    //EASY_FUNCTION(profiler::colors::Orange);
 
     if (m_currentScene != m_scenes.end())
     {
-        auto update = [this] 
+        if (m_isFirstFrame)
         {
-            float const dt = m_clock.getDT();
-
-            EASY_BLOCK("Update systems");
-            for (auto& system : m_systems)
-            {
-                system->update(dt);
-            }
-            EASY_END_BLOCK;
-            
-            EASY_BLOCK("Scene update", profiler::colors::Amber100);
-            m_currentScene->second.first.update(dt);
-            EASY_END_BLOCK;
-
-            m_updateRenderBridge->renewLastUpdatedData();
-        };
-
-        //auto updateJob = std::make_unique<DelegateJob>(update);
-        //m_jobSystem->schedule(std::move(updateJob));
-
-        update();
+            auto& objectTree = m_currentScene->second.first;
+            m_jobSystem->schedule(std::make_unique<UpdateJob>(objectTree));
+            m_isFirstFrame = false;
+        }
 
         m_renderer->render();
     }
@@ -153,7 +137,7 @@ void Game::runFrame()
     EASY_END_BLOCK;
     #endif
 
-    m_clock.frameEnd();
+    //m_clock.frameEnd();
 }
 
 void Game::setupLogger()

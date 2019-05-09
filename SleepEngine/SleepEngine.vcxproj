@@ -232,6 +232,7 @@
     <ClCompile Include="Engine\Systems\ConcreteSystem.cpp" />
     <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Engine\Systems\System.cpp" />
+    <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Utils\file_utils.cpp" />
     <ClCompile Include="main.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Engine\Systems\ConcreteSystem.h" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.h" />
     <ClInclude Include="Engine\Systems\System.h" />
+    <ClInclude Include="Engine\Systems\UpdateJob.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Transform2DData.h" />
     <ClInclude Include="Engine\Utils\aliases.h" />
