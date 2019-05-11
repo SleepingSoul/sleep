@@ -21,10 +21,7 @@ Game::Game(size_t width, size_t height)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of the storm")
     , m_resourceManager(std::make_unique <ResourceManager>())
-    , m_nextSceneID(0)
 {
-    m_currentScene = m_scenes.end();
-
     setupLogger();
 
     m_configManager.addConfig<EngineConfig>();
@@ -32,66 +29,41 @@ Game::Game(size_t width, size_t height)
 
     if (m_instance)
     {
-	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game window! It is forbidden!");
-	    return;
+        LOG_AND_ASSERT_ERROR(false, "Attempt to create second game window! It is forbidden!");
+        return;
     }
     m_instance = this;
     m_renderer = std::make_unique <GameRenderer>();
 }
 
-Game::SceneIDType Game::addScene(SceneIniter initer)
+void Game::addScene(Scene::Initer initer, std::string_view id)
 {
-    auto sceneAndIniter = std::make_pair(Scene(), initer);
-    auto [it, wasInserted] = m_scenes.insert({ m_nextSceneID++, std::move(sceneAndIniter) });
-    assertion(wasInserted, "nextSceneID overflow");
+    auto& scene = m_scenes.emplace_back(std::move(initer), id);
 
     if (m_scenes.size() == 1)
     {
-        m_currentScene = it;
-        initCurrentScene();
+        m_sceneID = id;
     }
-
-    return it->first;
 }
 
-Game::Scene* Game::findScene(SceneIDType id)
+void Game::applyScene(std::string_view sceneID)
 {
-    auto it = m_scenes.find(id);
-
-    return it != m_scenes.end() ? &it->second.first : nullptr;
-}
-
-Game::Scene const* Game::findScene(SceneIDType id) const
-{
-    return const_cast <Game*>(this)->findScene(id);
-}
-
-bool Game::tryRemoveScene(SceneIDType id)
-{
-    auto it = m_scenes.find(id);
-
-    if (it == m_scenes.end())
+    auto const isSceneFound = [this, sceneID](auto const& scene)
     {
-        return false;
-    }
+        return scene.getID() == sceneID;
+    };
 
-    m_scenes.erase(it);
-    return true;
-}
+    auto const[found, it] = findIf(m_scenes, isSceneFound);
 
-void Game::changeScene(SceneIDType id)
-{
-    auto it = m_scenes.find(id);
-
-    if (it == m_currentScene)
+    if (!found)
     {
+        LOG_AND_FAIL("Invalid current scene: {}", m_currentSceneID);
         return;
     }
 
-    m_currentScene->second.first.clear();
-    m_currentScene = it;
+    it->init();
 
-    initCurrentScene();
+    m_currentSceneID = sceneID;
 }
 
 void Game::addSystem(SystemsContainer::value_type&& system)
@@ -103,7 +75,7 @@ void Game::run()
 {
     while (!m_window.shouldClose())
     {
-	    runFrame();
+        runFrame();
     }
 }
 
@@ -112,7 +84,14 @@ void Game::runFrame()
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
 
-    if (m_currentScene != m_scenes.end())
+    if (m_sceneID != m_currentSceneID)
+    {
+        EASY_BLOCK("Scene initialization", profiler::colors::Blue400);
+        applyScene(m_sceneID);
+        EASY_END_BLOCK;
+    }
+
+    if (!m_currentSceneID.empty())
     {
         auto const dt = m_clock.getDT();
 
@@ -123,8 +102,8 @@ void Game::runFrame()
         }
         EASY_END_BLOCK;
 
-        EASY_BLOCK("Current scene update", profiler::colors::Amber100);
-        m_currentScene->second.first.update(dt);
+        EASY_BLOCK("Entities update", profiler::colors::Amber100);
+        m_entityManager.update(dt);
         EASY_END_BLOCK;
 
         m_renderer->render();
@@ -146,12 +125,6 @@ void Game::setupLogger()
     bool const rewriteOldLog = true;
     auto engineLogger = spdlog::basic_logger_mt(EngineLogger, EngineLoggerPath, rewriteOldLog);
     engineLogger->set_level(spdlog::level::debug);
-}
-
-void Game::initCurrentScene()
-{
-    auto& [scene, initer] = m_currentScene->second;
-    initer(scene);
 }
 
 END_NAMESPACE_SLEEP

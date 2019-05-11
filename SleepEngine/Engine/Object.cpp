@@ -12,6 +12,11 @@ Component* Object::addComponent(ComponentsContainer::value_type&& component)
     return handle;
 }
 
+void Object::removeLater() const
+{
+    globalEntityManager().removeObjectLater(this);
+}
+
 void Object::update(float dt)
 {
     for (auto& component : m_components)

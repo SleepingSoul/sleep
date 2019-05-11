@@ -8,8 +8,8 @@
 // settings
 namespace
 {
-	size_t const WindowWidth = 1920;
-	size_t const WindowHeight = 1080;
+    size_t const WindowWidth = 1920;
+    size_t const WindowHeight = 1080;
 }
 
 int main()
@@ -22,8 +22,10 @@ int main()
     game.getClock().setRestrictFPS(true);
 
     game.getResourceManager().preload();
-    game.addScene(TestRelativeSceneIniter());
-	game.run();
+    game.addScene(initBubbleDemoScene, "bubble scene");
+    game.addScene(TestRelativeSceneIniter(), "relative transform scene");
+    game.setScene("relative transform scene");
+    game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;

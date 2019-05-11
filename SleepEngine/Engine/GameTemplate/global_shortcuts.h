@@ -19,4 +19,9 @@ inline ResourceManager& globalResourceManager()
     return Game::instance().getResourceManager();
 }
 
+inline EntityManager& globalEntityManager()
+{
+    return Game::instance().getEntityManager();
+}
+
 END_NAMESPACE_SLEEP

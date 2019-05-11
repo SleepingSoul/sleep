@@ -19,10 +19,10 @@ void Bubble::update(float dt)
 {
     auto& transform = slp::getTransform(m_object);
 
-    float const distanceFlown = static_cast <float>((transform.getPosition() - m_startPosition).length());
+    float const distanceFlown = glm::length(transform.getPosition() - m_startPosition);
     if (distanceFlown >= m_settings.FlightDistance)
     {
-        // TODO: destroy object
+        m_object->removeLater();
     }
 
     glm::vec2 const direction = slp::directionFromRotation(transform.getRotation());

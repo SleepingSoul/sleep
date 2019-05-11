@@ -16,7 +16,7 @@ public:
     template <class TComponent, class ...Args>
     TComponent* addComponent(Args&&... constructorArgs)
     {
-		static_assert(std::is_base_of_v <Component, TComponent>, "TComponent should be a heir of slp::Component class!");
+        static_assert(std::is_base_of_v <Component, TComponent>, "TComponent should be a heir of slp::Component class!");
         auto* const addedComponent = addComponent(std::make_unique <TComponent>(std::forward <Args>(constructorArgs)...));
         return static_cast<TComponent*>(addedComponent);
     }
@@ -46,6 +46,8 @@ public:
     {
         return const_cast <TComponent*>(static_cast <Object const*>(this)->getComponent <TComponent>());
     }
+
+    void removeLater() const;
 
 protected:
     ComponentsContainer m_components;

@@ -1,256 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Demos\Bubbles\bubbles_demo.cpp" />
+    <ClCompile Include="Demos\Bubbles\Entities\Bubble.cpp" />
+    <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp" />
+    <ClCompile Include="Demos\ciri.cpp" />
+    <ClCompile Include="Engine\Camera.cpp" />
+    <ClCompile Include="Engine\Clock.cpp" />
+    <ClCompile Include="Engine\Components\HierarchyNode.cpp" />
+    <ClCompile Include="Engine\Components\Renderer.cpp" />
+    <ClCompile Include="Engine\Components\RigidBody.cpp" />
+    <ClCompile Include="Engine\Config\ConfigManager.cpp" />
+    <ClCompile Include="Engine\Config\EngineConfig.cpp" />
+    <ClCompile Include="Engine\Config\JsonConfig.cpp" />
+    <ClCompile Include="Engine\EntityManager.cpp" />
+    <ClCompile Include="Engine\GameTemplate\Game.cpp" />
+    <ClCompile Include="Engine\GameWindow.cpp" />
+    <ClCompile Include="Engine\Object.cpp" />
+    <ClCompile Include="Engine\Render\DrawCall.cpp" />
+    <ClCompile Include="Engine\Render\GameRenderer.cpp" />
+    <ClCompile Include="Engine\Render\Texture.cpp" />
+    <ClCompile Include="Engine\Components\Transform2D.cpp" />
+    <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp" />
+    <ClCompile Include="Engine\Systems\ConcreteSystem.cpp" />
+    <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Engine\Systems\System.cpp" />
+    <ClCompile Include="Engine\Timer.cpp" />
+    <ClCompile Include="Engine\Utils\file_utils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Engine\GameTemplate\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Render\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Render\DrawCall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Clock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameTemplate\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Render\GameRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Components\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Components\Transform2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ObjectTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Components\RigidBody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Systems\System.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Systems\ConcreteSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Systems\PhysicsSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Utils\file_utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Config\EngineConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Demos\Bubbles\bubbles_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Demos\Bubbles\Entities\Bubble.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Config\ConfigManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Config\JsonConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Components\HierarchyNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Demos\ciri.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Demos\Bubbles\bubbles_demo.h" />
+    <ClInclude Include="Demos\Bubbles\Config\BubbleConfig.h" />
+    <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
+    <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
+    <ClInclude Include="Demos\ciri.h" />
+    <ClInclude Include="Demos\test_relative_transform.h" />
+    <ClInclude Include="Engine\Camera.h" />
+    <ClInclude Include="Engine\Clock.h" />
+    <ClInclude Include="Engine\Components\Component.h" />
+    <ClInclude Include="Engine\Components\HierarchyNode.h" />
+    <ClInclude Include="Engine\Components\RelativeTransform.h" />
+    <ClInclude Include="Engine\Components\Renderer.h" />
+    <ClInclude Include="Engine\Components\RigidBody.h" />
+    <ClInclude Include="Engine\Config\BaseConfig.h" />
+    <ClInclude Include="Engine\Config\ConfigManager.h" />
+    <ClInclude Include="Engine\Config\EngineConfigData.h" />
+    <ClInclude Include="Engine\Config\config.h" />
+    <ClInclude Include="Engine\Config\EngineConfig.h" />
+    <ClInclude Include="Engine\Config\JsonConfig.h" />
+    <ClInclude Include="Engine\Config\Loadable.h" />
+    <ClInclude Include="Engine\EngineConfig.h" />
+    <ClInclude Include="Engine\EntityManager.h" />
+    <ClInclude Include="Engine\GameTemplate\Game.h" />
+    <ClInclude Include="Engine\GameTemplate\global_shortcuts.h" />
+    <ClInclude Include="Engine\GameWindow.h" />
+    <ClInclude Include="Engine\Object.h" />
+    <ClInclude Include="Engine\Render\DrawCall.h" />
+    <ClInclude Include="Engine\Render\GameRenderer.h" />
+    <ClInclude Include="Engine\Render\Shader.h" />
+    <ClInclude Include="Engine\Render\Texture.h" />
+    <ClInclude Include="Engine\Components\Transform2D.h" />
+    <ClInclude Include="Engine\ResourceManagement\ResourceManager.h" />
+    <ClInclude Include="Engine\SleepTypes.h" />
+    <ClInclude Include="Engine\Systems\ConcreteSystem.h" />
+    <ClInclude Include="Engine\Systems\PhysicsSystem.h" />
+    <ClInclude Include="Engine\Systems\System.h" />
+    <ClInclude Include="Engine\Timer.h" />
+    <ClInclude Include="Engine\Transform2DData.h" />
+    <ClInclude Include="Engine\Utils\aliases.h" />
+    <ClInclude Include="Engine\Utils\FactoryUtils.h" />
+    <ClInclude Include="Engine\Utils\file_utils.h" />
+    <ClInclude Include="Engine\Utils\json_serialize_utils.h" />
+    <ClInclude Include="Engine\Utils\MacroUtils.h" />
+    <ClInclude Include="Engine\Utils\math.h" />
+    <ClInclude Include="Engine\object_shortcuts.h" />
+    <ClInclude Include="Engine\Utils\stl_utils.h" />
+    <ClInclude Include="Engine\Utils\unit_utils.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Engine\GameTemplate\Scene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Render\DrawCall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\MacroUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Render\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ResourceManagement\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SleepTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Render\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Clock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameTemplate\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Render\GameRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\Transform2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Transform2DData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ObjectTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\FactoryUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\RigidBody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Systems\PhysicsSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Systems\System.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Systems\ConcreteSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\file_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\EngineConfigData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\EngineConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\json_serialize_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demos\Bubbles\bubbles_demo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demos\Bubbles\Entities\Bubble.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\BaseConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\ConfigManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\JsonConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\Loadable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameTemplate\global_shortcuts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\unit_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demos\Bubbles\Config\BubbleConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\stl_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\aliases.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\object_shortcuts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\HierarchyNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demos\ciri.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demos\test_relative_transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\RelativeTransform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Engine\Render\Shaders\shader.vs" />
-    <None Include="Engine\Render\Shaders\shader.fs" />
-    <None Include="Engine\Config\config.json" />
-    <None Include="packages.config" />
     <None Include="Demos\Bubbles\Config\bubble_config.json" />
+    <None Include="Engine\Config\config.json" />
+    <None Include="Engine\Render\Shaders\shader.fs" />
+    <None Include="Engine\Render\Shaders\shader.vs" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

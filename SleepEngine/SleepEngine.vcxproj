@@ -214,10 +214,11 @@
     <ClCompile Include="Engine\Config\ConfigManager.cpp" />
     <ClCompile Include="Engine\Config\EngineConfig.cpp" />
     <ClCompile Include="Engine\Config\JsonConfig.cpp" />
+    <ClCompile Include="Engine\EntityManager.cpp" />
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
+    <ClCompile Include="Engine\GameTemplate\Scene.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
-    <ClCompile Include="Engine\ObjectTree.cpp" />
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
     <ClCompile Include="Engine\Render\GameRenderer.cpp" />
     <ClCompile Include="Engine\Render\Texture.cpp" />
@@ -261,11 +262,12 @@
     <ClInclude Include="Engine\Config\JsonConfig.h" />
     <ClInclude Include="Engine\Config\Loadable.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
+    <ClInclude Include="Engine\EntityManager.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
     <ClInclude Include="Engine\GameTemplate\global_shortcuts.h" />
+    <ClInclude Include="Engine\GameTemplate\Scene.h" />
     <ClInclude Include="Engine\GameWindow.h" />
     <ClInclude Include="Engine\Object.h" />
-    <ClInclude Include="Engine\ObjectTree.h" />
     <ClInclude Include="Engine\Render\DrawCall.h" />
     <ClInclude Include="Engine\Render\GameRenderer.h" />
     <ClInclude Include="Engine\Render\Shader.h" />

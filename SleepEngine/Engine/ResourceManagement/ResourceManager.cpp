@@ -5,13 +5,16 @@ BEGIN_NAMESPACE_SLEEP
 
 Texture* ResourceManager::getTexture(Textures texture)
 {
+    // oh shit
     std::lock_guard lk(m_mutex);
+
     auto it = m_textures.find(texture);
     if (it == m_textures.cend())
     {
-        LOG_AND_ASSERT_ERROR(false, "No texture found. Maybe you forgot to call preload()?");
+        LOG_AND_FAIL("No texture found. Maybe you forgot to call preload()?");
         return nullptr;
     }
+
     return it->second.get();
 }
 
