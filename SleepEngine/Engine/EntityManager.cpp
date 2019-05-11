@@ -61,6 +61,7 @@ void EntityManager::removeObjects()
         m_objects.clear();
         m_removeLaterObjects.clear();
         m_addLaterObjects.clear();
+        m_objectsToUpdate.clear();
         return;
     }
 

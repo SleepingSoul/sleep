@@ -40,17 +40,17 @@ void Game::addScene(Scene::Initer initer, std::string_view id)
 {
     auto& scene = m_scenes.emplace_back(std::move(initer), id);
 
-    if (m_currentSceneID.empty())
+    if (m_scenes.size() == 1)
     {
-        m_currentSceneID = id;
+        m_sceneID = id;
     }
 }
 
-void Game::applyCurrentScene()
+void Game::applyScene(std::string_view sceneID)
 {
-    auto const isSceneFound = [this](auto const& scene)
+    auto const isSceneFound = [this, sceneID](auto const& scene)
     {
-        return scene.getID() == m_currentSceneID;
+        return scene.getID() == sceneID;
     };
 
     auto const[found, it] = findIf(m_scenes, isSceneFound);
@@ -62,6 +62,8 @@ void Game::applyCurrentScene()
     }
 
     it->init();
+
+    m_currentSceneID = sceneID;
 }
 
 void Game::addSystem(SystemsContainer::value_type&& system)
@@ -71,8 +73,6 @@ void Game::addSystem(SystemsContainer::value_type&& system)
 
 void Game::run()
 {
-    applyCurrentScene();
-
     while (!m_window.shouldClose())
     {
         runFrame();
@@ -83,6 +83,13 @@ void Game::runFrame()
 {
     EASY_FUNCTION(profiler::colors::Orange);
     m_clock.frameStart();
+
+    if (m_sceneID != m_currentSceneID)
+    {
+        EASY_BLOCK("Scene initialization", profiler::colors::Blue400);
+        applyScene(m_sceneID);
+        EASY_END_BLOCK;
+    }
 
     if (!m_currentSceneID.empty())
     {

@@ -35,10 +35,8 @@ public:
 
     void addScene(Scene::Initer initer, std::string_view id);
     
-    SETTER(std::string_view, setCurrentScene, m_currentSceneID)
+    SETTER(std::string_view, setScene, m_sceneID)
     std::string_view getCurrentScene() const { return m_currentSceneID; }
-
-    void applyCurrentScene();
 
     void addSystem(SystemsContainer::value_type&& system);
 
@@ -56,12 +54,15 @@ private:
     std::unique_ptr <ResourceManager> m_resourceManager;
 
     ScenesContainer m_scenes;
+
     std::string m_currentSceneID;
+    std::string m_sceneID;
 
     SystemsContainer m_systems;
 
     EntityManager m_entityManager;
 
+    void applyScene(std::string_view sceneID);
     void runFrame();
     void setupLogger();
 };
