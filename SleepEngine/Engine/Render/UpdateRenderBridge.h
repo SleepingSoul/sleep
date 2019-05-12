@@ -8,9 +8,9 @@ BEGIN_NAMESPACE_SLEEP
 class UpdateRenderBridge
 {
 public:
-    CONST_REF_GETTER(getUpdatedData, m_updatedData)
-    CONST_REF_GETTER(getLastUpdatedData, m_lastUpdatedData)
-    REF_GETTER(getRenderedData, m_renderedData)
+    std::vector<DrawCall> const& getUpdatedData() { return m_updatedData; }
+    std::vector<DrawCall> const& getLastUpdatedData() { return m_lastUpdatedData; }
+    std::vector<DrawCall>& getRenderedData() { return m_renderedData; }
 
     // swaps last UPD data with current UPD data, clears current UPD data
     // atomic
@@ -20,6 +20,7 @@ public:
         m_updatedData.swap(m_lastUpdatedData);
         m_updatedData.clear();
     }
+
     // swaps RND data with last UPD data
     // atomic
     void renewRenderData()
@@ -27,18 +28,11 @@ public:
         threadSafeSwap(m_lastUpdatedData, m_renderedData);
     }
 
-    void addUpdatedDrawCall(DrawCall&& drawCall)
-    {
-        m_updatedData.emplace_back(std::move(drawCall));
-    }
-
     template <class... Args>
     void emplaceUpdatedDrawCall(Args&&... args)
     {
         m_updatedData.emplace_back(std::forward<Args>(args)...);
     }
-
-    void f();
 
 private:
     using LockGuard = std::lock_guard<std::mutex>;

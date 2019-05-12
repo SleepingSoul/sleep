@@ -9,18 +9,6 @@ class ThreadSafeQueue
 public:
     using LockGuard = std::lock_guard<std::mutex>;
 
-    T& front()
-    {
-        LockGuard lk(m_mutex);
-        return m_queue.front();
-    }
-
-    void pop()
-    {
-        LockGuard lk(m_mutex);
-        m_queue.pop();
-    }
-
     // if empty returns false
     // else moves front to popped and pops it from queue
     bool tryPop(T& popped)

@@ -9,27 +9,25 @@ public:
     Event() = default;
     Event(Event&&) = default;
 
-    inline void waitAndReset()
+    void waitAndReset()
     {
         std::unique_lock<std::mutex> lk(m_mutex);
-        assert(lk);
         m_condition.wait(lk, [this] { return m_isSet; });
-        assert(lk);
         m_isSet = false;
     }
 
-    inline void signal()
+    void signal()
     {
         threadSafeSet(true);
         m_condition.notify_all();
     }
 	
-    inline void reset()
+    void reset()
     {
         threadSafeSet(false);
     }
 
-    inline bool IsSet() const { return m_isSet; }
+    bool IsSet() const { return m_isSet; }
 
 private:
     bool m_isSet {false};
@@ -39,10 +37,6 @@ private:
     void threadSafeSet(bool value)
     {
         LockGuard lk(m_mutex);
-        if (m_isSet == value)
-        {
-            return;
-        }
         m_isSet = value;
     }
 };
