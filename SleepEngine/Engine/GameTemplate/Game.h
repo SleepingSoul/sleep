@@ -61,15 +61,16 @@ private:
     Clock m_clock;
     Camera m_camera;
     ConfigManager m_configManager;
-    
-    std::unique_ptr<JobSystem> m_jobSystem;
-    std::unique_ptr<GameRenderer> m_renderer;
-    std::unique_ptr<UpdateRenderBridge> m_updateRenderBridge;
-    std::unique_ptr<ResourceManager> m_resourceManager;
 
     SceneIDType m_nextSceneID;
     ScenesContainer m_scenes;
     ScenesContainer::iterator m_currentScene;
+    
+    std::unique_ptr<GameRenderer> m_renderer;
+    std::unique_ptr<UpdateRenderBridge> m_updateRenderBridge;
+    std::unique_ptr<ResourceManager> m_resourceManager;
+
+    std::unique_ptr<JobSystem> m_jobSystem;
 
     SystemsContainer m_systems;
     bool m_isFirstFrame = true;

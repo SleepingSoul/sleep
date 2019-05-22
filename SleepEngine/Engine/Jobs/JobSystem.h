@@ -23,7 +23,7 @@ private:
     std::unordered_map<JobAffinity, JobQueue> m_affinityToQueues;
     std::vector<Event> m_jobAvailableEvents;
     std::vector<JobThread> m_jobThreads;
-    bool m_shutdownRequested = false;
+    std::atomic<bool> m_shutdownRequested;
 };
 
 END_NAMESPACE_SLEEP
