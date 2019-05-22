@@ -19,30 +19,13 @@ namespace
     float const FPS = 60.f;
 }
 
-struct A
-{
-    A() { p = std::make_unique<int>(5); }
-    ~A()
-    {
-        int k;
-        int val = *p;
-    }
-
-    std::unique_ptr<int> p;
-};
-
 Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
     , m_window(width, height, "Heroes of The Storm")
-    , m_nextSceneID(0)
     , m_resourceManager(std::make_unique<ResourceManager>())
     , m_updateRenderBridge(std::make_unique<UpdateRenderBridge>())
 {
-    m_currentScene = m_scenes.end();
-
-    A a;
-
     setupLogger();
 
     m_configManager.addConfig<EngineConfig>();
@@ -117,8 +100,7 @@ void Game::runFrame()
     {
         if (m_isFirstFrame)
         {
-            auto& objectTree = m_currentScene->second.first;
-            m_jobSystem->schedule(std::make_unique<UpdateJob>(objectTree));
+            m_jobSystem->schedule(createUpdateJob());
             m_isFirstFrame = false;
         }
 

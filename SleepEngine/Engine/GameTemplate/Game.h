@@ -62,13 +62,13 @@ private:
     std::unique_ptr<GameRenderer> m_renderer;
     std::unique_ptr<UpdateRenderBridge> m_updateRenderBridge;
     std::unique_ptr<ResourceManager> m_resourceManager;
+    EntityManager m_entityManager;
 
     std::unique_ptr<JobSystem> m_jobSystem;
 
     SystemsContainer m_systems;
     bool m_isFirstFrame = true;
 
-    EntityManager m_entityManager;
 
     void applyScene(std::string_view sceneID);
     void runFrame();

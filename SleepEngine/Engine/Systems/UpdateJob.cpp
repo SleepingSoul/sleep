@@ -5,23 +5,24 @@
 
 BEGIN_NAMESPACE_SLEEP
 
-UpdateJob::UpdateJob(slp::ObjectTree& objectTree)
-   : m_objectTree(objectTree)
-{}
-
-void UpdateJob::execute()
+std::unique_ptr<DelegateJob> createUpdateJob()
 {
-    auto& clock = getGlobalClock();
-    clock.frameStart();
+    auto executer = [] 
+    {
+        auto& clock = getGlobalClock();
+        clock.frameStart();
 
-    EASY_BLOCK("Scene update", profiler::colors::Amber100);
-    m_objectTree.update(clock.getDT());
-    EASY_END_BLOCK;
+        EASY_BLOCK("Scene update", profiler::colors::Amber100);
+        globalEntityManager().update(clock.getDT());
+        EASY_END_BLOCK;
 
-    Game::instance().getRenderBridge().renewLastUpdatedData();
-    globalJobSystem().schedule(std::make_unique<UpdateJob>(m_objectTree));
+        Game::instance().getRenderBridge().renewLastUpdatedData();
+        globalJobSystem().schedule(createUpdateJob());
 
-    clock.frameEnd();
+        clock.frameEnd();
+    };
+
+    return std::make_unique<DelegateJob>(executer);
 }
 
 END_NAMESPACE_SLEEP

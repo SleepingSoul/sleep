@@ -14,8 +14,9 @@ void initBubbleDemoScene()
 
     auto background = slp::createRenderableObject();
     auto* const texture = slp::globalResourceManager().getTexture(slp::Textures::StarBackground);
+
     background->getComponent<slp::Renderer>()->setTexture(texture);
-    scene.addToRoot(std::move(background));
+    slp::globalEntityManager().addObject(std::move(background));
 
     glm::vec2 const center {0.f, 0.f};
     glm::vec2 const screenHalfSize = slp::screenSizeInWorldCoordinates() / 2.f;
