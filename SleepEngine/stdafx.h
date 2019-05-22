@@ -51,6 +51,7 @@
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
 #include <Engine/Utils/aliases.h>
+#include <Engine/Utils/stl_utils.h>
 
 #include <Engine/Render/Texture.h>
 #include <Engine/Transform2DData.h>
@@ -61,11 +62,13 @@
 #include <Engine/Clock.h>
 #include <Engine/Timer.h>
 #include <Engine/GameWindow.h>
-#include <Engine/ObjectTree.h>
+#include <Engine/EntityManager.h>
+#include <Engine/GameTemplate/Scene.h>
 #include <Engine/GameTemplate/Game.h>
 
 #include <Engine/Components/Component.h>
 #include <Engine/Object.h>
+#include <Engine/EntityManager.h>
 #include <Engine/Systems/System.h>
 
 #include <Engine/Components/Transform2D.h>

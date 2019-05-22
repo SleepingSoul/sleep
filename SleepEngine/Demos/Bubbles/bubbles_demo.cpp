@@ -7,7 +7,7 @@
 #include <Demos/Bubbles/Config/BubbleConfig.h>
 #include <Demos/Bubbles/Entities/BubbleGun.h>
 
-void initBubbleDemoScene(slp::Game::Scene& scene)
+void initBubbleDemoScene()
 {
     slp::globalConfigManager().addConfig<BubbleConfig>();
     slp::globalConfigManager().loadAllConfigs();
@@ -34,7 +34,7 @@ void initBubbleDemoScene(slp::Game::Scene& scene)
             bubbleGun->setCenterRotation(slp::lookAt(corner, center));
             bubbleGun->startFiring();
 
-            scene.addToRoot(std::move(bubbleGunObject));
+            slp::globalEntityManager().addObject(std::move(bubbleGunObject));
         }
     }
 }

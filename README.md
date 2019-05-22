@@ -11,7 +11,7 @@ This engine stands for __simplicity, good architecture, fast and smooth runtime_
 Currently engine works only on Windows and Visual Studio IDE.\
 We have some crossplatform plans on future. Since we use crosspltform libraries it can work on anything. Also some day we will migrate to cmake and it will be possible to use any of IDEs.
 
-## How to install end run the example scene?
+## How to install and run the example scene?
 This is quite easy to do. You should do the following things:
 - Clone this repository and it's submodules. You can do it with running this command in Git Bash:\
 `git clone --recursive https://github.com/SleepingSoul/sleep`\

@@ -59,59 +59,34 @@ Game::Game(size_t width, size_t height)
     m_instance = this;
 }
 
-Game::SceneIDType Game::addScene(SceneIniter initer)
+void Game::addScene(Scene::Initer initer, std::string_view id)
 {
-    auto sceneAndIniter = std::make_pair(Scene(), initer);
-    auto [it, wasInserted] = m_scenes.insert({ m_nextSceneID++, std::move(sceneAndIniter) });
-    assertion(wasInserted, "nextSceneID overflow");
+    auto& scene = m_scenes.emplace_back(std::move(initer), id);
 
     if (m_scenes.size() == 1)
     {
-        m_currentScene = it;
-        initCurrentScene();
+        m_sceneID = id;
     }
-
-    return it->first;
 }
 
-Game::Scene* Game::findScene(SceneIDType id)
+void Game::applyScene(std::string_view sceneID)
 {
-    auto it = m_scenes.find(id);
-
-    return it != m_scenes.end() ? &it->second.first : nullptr;
-}
-
-Game::Scene const* Game::findScene(SceneIDType id) const
-{
-    return const_cast <Game*>(this)->findScene(id);
-}
-
-bool Game::tryRemoveScene(SceneIDType id)
-{
-    auto it = m_scenes.find(id);
-
-    if (it == m_scenes.end())
+    auto const isSceneFound = [this, sceneID](auto const& scene)
     {
-        return false;
-    }
+        return scene.getID() == sceneID;
+    };
 
-    m_scenes.erase(it);
-    return true;
-}
+    auto const[found, it] = findIf(m_scenes, isSceneFound);
 
-void Game::changeScene(SceneIDType id)
-{
-    auto it = m_scenes.find(id);
-
-    if (it == m_currentScene)
+    if (!found)
     {
+        LOG_AND_FAIL("Invalid current scene: {}", m_currentSceneID);
         return;
     }
 
-    m_currentScene->second.first.clear();
-    m_currentScene = it;
+    it->init();
 
-    initCurrentScene();
+    m_currentSceneID = sceneID;
 }
 
 void Game::addSystem(SystemsContainer::value_type&& system)
@@ -123,7 +98,7 @@ void Game::run()
 {
     while (!m_window.shouldClose())
     {
-	    runFrame();
+        runFrame();
     }
 }
 
@@ -131,7 +106,14 @@ void Game::runFrame()
 {
     //EASY_FUNCTION(profiler::colors::Orange);
 
-    if (m_currentScene != m_scenes.end())
+    if (m_sceneID != m_currentSceneID)
+    {
+        EASY_BLOCK("Scene initialization", profiler::colors::Blue400);
+        applyScene(m_sceneID);
+        EASY_END_BLOCK;
+    }
+
+    if (!m_currentSceneID.empty())
     {
         if (m_isFirstFrame)
         {
@@ -159,12 +141,6 @@ void Game::setupLogger()
     bool const rewriteOldLog = true;
     auto engineLogger = spdlog::basic_logger_mt(EngineLogger, EngineLoggerPath, rewriteOldLog);
     engineLogger->set_level(spdlog::level::debug);
-}
-
-void Game::initCurrentScene()
-{
-    auto& [scene, initer] = m_currentScene->second;
-    initer(scene);
 }
 
 END_NAMESPACE_SLEEP

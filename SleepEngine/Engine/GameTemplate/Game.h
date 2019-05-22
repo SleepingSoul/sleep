@@ -21,12 +21,7 @@ class JobSystem;
 class Game
 {
 public:
-    using Base = ObjectTree;
-    using Scene = ObjectTree;
-    using SceneIniter = std::function <void(Scene&)>;
-    using SceneAndInitter = std::pair <Scene, SceneIniter>;
-    using SceneIDType = unsigned;
-    using ScenesContainer = std::unordered_map <SceneIDType, SceneAndInitter>;
+    using ScenesContainer = std::vector <Scene>;
     using SystemsContainer = std::vector <std::unique_ptr <ISystem>>;
 
     static Game& instance() { return *m_instance; }
@@ -40,15 +35,12 @@ public:
     REF_GETTERS(getCamera, m_camera)
     REF_GETTERS(getConfigManager, m_configManager)
     REF_GETTERS(getJobSystem, *m_jobSystem)
+    REF_GETTERS(getEntityManager, m_entityManager)
 
-    SceneIDType addScene(SceneIniter initer);
-
-    Scene* findScene(SceneIDType id);
-    Scene const* findScene(SceneIDType id) const;
-
-    bool tryRemoveScene(SceneIDType id);
-
-    void changeScene(SceneIDType id);
+    void addScene(Scene::Initer initer, std::string_view id);
+    
+    SETTER(std::string_view, setScene, m_sceneID)
+    std::string_view getCurrentScene() const { return m_currentSceneID; }
 
     void addSystem(SystemsContainer::value_type&& system);
 
@@ -62,9 +54,10 @@ private:
     Camera m_camera;
     ConfigManager m_configManager;
 
-    SceneIDType m_nextSceneID;
     ScenesContainer m_scenes;
-    ScenesContainer::iterator m_currentScene;
+
+    std::string m_currentSceneID;
+    std::string m_sceneID;
     
     std::unique_ptr<GameRenderer> m_renderer;
     std::unique_ptr<UpdateRenderBridge> m_updateRenderBridge;
@@ -75,10 +68,11 @@ private:
     SystemsContainer m_systems;
     bool m_isFirstFrame = true;
 
+    EntityManager m_entityManager;
+
+    void applyScene(std::string_view sceneID);
     void runFrame();
     void setupLogger();
-
-    void initCurrentScene();
 };
 
 END_NAMESPACE_SLEEP

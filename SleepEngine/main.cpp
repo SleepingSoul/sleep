@@ -25,8 +25,10 @@ int main()
     //game.getClock().setRestrictFPS(true);
 
     game.getResourceManager().preload();
-    game.addScene(initBubbleDemoScene);
-	game.run();
+    game.addScene(initBubbleDemoScene, "bubble scene");
+    game.addScene(TestRelativeSceneIniter(), "relative transform scene");
+    game.setScene("bubble scene");
+    game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;

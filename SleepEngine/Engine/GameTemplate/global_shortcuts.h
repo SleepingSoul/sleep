@@ -34,4 +34,9 @@ inline Clock& getGlobalClock()
     return Game::instance().getClock();
 }
 
+inline EntityManager& globalEntityManager()
+{
+    return Game::instance().getEntityManager();
+}
+
 END_NAMESPACE_SLEEP

@@ -66,6 +66,11 @@ void GameRenderer::render()
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    if (m_drawCalls.empty())
+    {
+        return;
+    }
+
     EASY_BLOCK("Sort draw calls");
     std::sort(drawCalls.begin(), drawCalls.end());
     EASY_END_BLOCK;
