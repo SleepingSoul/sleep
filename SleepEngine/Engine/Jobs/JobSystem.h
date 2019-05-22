@@ -21,7 +21,7 @@ public:
 
 private:
     std::unordered_map<JobAffinity, JobQueue> m_affinityToQueues;
-    std::vector<Event> m_jobAvailable;
+    std::vector<Event> m_jobAvailableEvents;
     std::vector<JobThread> m_jobThreads;
     bool m_shutdownRequested = false;
 };

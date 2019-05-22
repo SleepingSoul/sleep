@@ -15,7 +15,7 @@ unsigned workerThreadCount()
 }
 
 JobSystem::JobSystem()
-    : m_jobAvailable(workerThreadCount())
+    : m_jobAvailableEvents(workerThreadCount())
 {
     if (workerThreadCount() == 0)
     {
@@ -29,7 +29,7 @@ JobSystem::JobSystem()
     JobQueue& genericQueue = m_affinityToQueues[JobAffinity::Generic];
     for (size_t i = 0; i < workerThreadCount(); i++)
     {
-        m_jobThreads.emplace_back(genericQueue, m_jobAvailable.at(i), m_shutdownRequested);
+        m_jobThreads.emplace_back(genericQueue, m_jobAvailableEvents.at(i), m_shutdownRequested);
     }
 }
 
@@ -38,7 +38,7 @@ JobSystem::~JobSystem()
     // wake up sleeping threads, so that they can finish
     m_shutdownRequested = true;
 
-    for (auto& event : m_jobAvailable)
+    for (auto& event : m_jobAvailableEvents)
     {
         event.signal();
     }
@@ -59,7 +59,7 @@ void JobSystem::schedule(std::unique_ptr<Job>&& job)
     auto& queue = m_affinityToQueues.at(job->getAffinity());
     queue.push(std::move(job));
 
-    for (auto& event : m_jobAvailable)
+    for (auto& event : m_jobAvailableEvents)
     {
         event.signal();
     }
