@@ -35,9 +35,9 @@ JobSystem::JobSystem()
 
 JobSystem::~JobSystem()
 {
-    // wake up sleeping threads, so that they can finish
     m_shutdownRequested = true;
 
+    // wake up sleeping threads, so that they can finish
     for (auto& event : m_jobAvailableEvents)
     {
         event.signal();

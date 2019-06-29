@@ -3,6 +3,12 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+EntityManager::~EntityManager()
+{
+    m_clearAll = true;
+    removeObjects();
+}
+
 void EntityManager::addObject(std::unique_ptr<Object>&& object, bool shouldUpdate)
 {
     m_addLaterObjects.emplace_back(std::move(object), shouldUpdate);
@@ -16,7 +22,7 @@ void EntityManager::removeObjectLater(Object const* object)
     }
 }
 
-void EntityManager::clear()
+void EntityManager::clearLater()
 {
     m_clearAll = true;
 }
