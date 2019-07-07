@@ -14,10 +14,16 @@ call bootstrap-vcpkg.bat
 
 @echo on
 @echo Done.
-@echo Installing dependencies...
+@echo Installing dependencies under x86/x64...
 @echo off
 
-vcpkg.exe install opengl glfw3 glm glad stb spdlog nlohmann-json
+vcpkg.exe install opengl:x86-windows opengl:x64-windows
+vcpkg.exe install glfw3:x86-windows glfw3:x64-windows
+vcpkg.exe install glm:x86-windows glm:x64-windows
+vcpkg.exe install glad:x86-windows glad:x64-windows
+vcpkg.exe install stb:x86-windows stb:x64-windows
+vcpkg.exe install spdlog:x86-windows spdlog:x64-windows
+vcpkg.exe install nlohmann-json:x86-windows nlohmann-json:x64-windows
 
 @echo on
 @echo Done.
