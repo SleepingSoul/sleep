@@ -115,7 +115,7 @@ void Game::runFrame()
     EASY_END_BLOCK;
     #endif
 
-    //m_clock.frameEnd();
+    m_clock.frameEnd();
 }
 
 void Game::setupLogger()
