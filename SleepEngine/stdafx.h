@@ -1,5 +1,8 @@
 #pragma once
 
+// disable warnings in external headers
+#pragma warning(push, 0)
+
 #pragma region Standard headers
 #include <cassert>
 #include <iostream>
@@ -44,6 +47,8 @@
 
 // json
 #include <nlohmann/json.hpp>
+
+#pragma warning(pop)
 
 #include <Engine/Utils/MacroUtils.h>
 #include <Engine/SleepTypes.h>
