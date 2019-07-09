@@ -9,17 +9,12 @@ std::unique_ptr<DelegateJob> createUpdateJob()
 {
     auto executer = [] 
     {
-        auto& clock = getGlobalClock();
-        clock.frameStart();
-
         EASY_BLOCK("Scene update", profiler::colors::Amber100);
-        globalEntityManager().update(clock.getDT());
+        globalEntityManager().update(getGlobalClock().getDT());
         EASY_END_BLOCK;
 
         Game::instance().getRenderBridge().renewLastUpdatedData();
         globalJobSystem().schedule(createUpdateJob());
-
-        clock.frameEnd();
     };
 
     return std::make_unique<DelegateJob>(executer);

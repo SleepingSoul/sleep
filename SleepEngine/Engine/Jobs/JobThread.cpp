@@ -7,12 +7,16 @@ JobThread::JobThread(JobQueue& jobQueue, Event& workAvailable, std::atomic<bool>
     : m_jobQueue(jobQueue)
     , m_workAvailable(workAvailable)
     , m_shutdownRequested(shutdownRequested)
-    , m_thread([this]
-    { 
-        init();
-        pollAndExecuteJobs(); 
-    })
 {}
+
+void JobThread::start()
+{
+    m_thread = std::thread([this]
+        {
+            init();
+            pollAndExecuteJobs();
+        });
+}
 
 void JobThread::pollAndExecuteJobs()
 {

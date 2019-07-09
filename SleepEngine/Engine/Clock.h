@@ -17,11 +17,10 @@ public:
 
     void frameStart();
 	// also sleeps if m_restrictFPS is set and 
-    // also sleeps if m_restrictFPS is set and
-    // the frame was to short to sustain desired fps has passed since last frame
+    // the frame was to short to sustain desired fps
     void frameEnd();
 
-    GETTER(getDT, m_amortizedDT)
+    CONST_REF_GETTER(getDT, m_amortizedDT)
 
     void setFPS(float fps) { m_desiredFrameTime = 1.f / fps; }
 
@@ -41,7 +40,7 @@ private:
     TimersContainerType m_timers;
 
     double m_frameStartTime;
-    float m_amortizedDT;
+    std::atomic<float> m_amortizedDT;
 
     float m_desiredFrameTime;
     bool m_restrictFPS;

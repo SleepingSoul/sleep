@@ -40,7 +40,8 @@ void Clock::frameEnd()
     {
         m_lastDT = m_lastDTs.begin();
     }
-    m_amortizedDT = std::accumulate(m_lastDTs.cbegin(), m_lastDTs.cend(), 0.f) / m_lastDTs.size();
+    float const dt = std::accumulate(m_lastDTs.cbegin(), m_lastDTs.cend(), 0.f) / m_lastDTs.size();
+    m_amortizedDT.store(dt);
 }
 
 float Clock::calculateFPS() const

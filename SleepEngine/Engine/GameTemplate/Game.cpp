@@ -87,6 +87,8 @@ void Game::run()
 
 void Game::runFrame()
 {
+    m_clock.frameStart();
+
     if (m_sceneID != m_currentSceneID)
     {
         EASY_BLOCK("Scene initialization", profiler::colors::Blue400);
@@ -98,9 +100,15 @@ void Game::runFrame()
     {
         if (m_isFirstFrame)
         {
-            m_jobSystem->schedule(createUpdateJob());
+            //m_jobSystem->schedule(createUpdateJob());
             m_isFirstFrame = false;
         }
+
+        EASY_BLOCK("Scene update", profiler::colors::Amber100);
+        globalEntityManager().update(getGlobalClock().getDT());
+        EASY_END_BLOCK;
+
+        Game::instance().getRenderBridge().renewLastUpdatedData();
 
         m_renderer->render();
     }

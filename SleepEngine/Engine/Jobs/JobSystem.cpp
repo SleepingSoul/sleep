@@ -10,7 +10,8 @@ namespace
 
 unsigned workerThreadCount()
 {
-    return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
+    //return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
+    return 1;
 }
 
 JobSystem::JobSystem()
@@ -24,9 +25,12 @@ JobSystem::JobSystem()
     // TODO: add render thread
 
     JobQueue& genericQueue = m_affinityToQueues[JobAffinity::Generic];
+
+    m_jobThreads.reserve(workerThreadCount());
     for (size_t i = 0; i < workerThreadCount(); i++)
     {
         m_jobThreads.emplace_back(genericQueue, m_jobAvailableEvents.at(i), m_shutdownRequested);
+        m_jobThreads.at(i).start();
     }
 }
 

@@ -17,6 +17,7 @@ public:
 
     REF_GETTER(getWorkAvailable, m_workAvailable);
 
+    void start();
     // called from the worker thread, before polling
     virtual void init() {}
 
