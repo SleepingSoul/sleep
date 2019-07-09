@@ -10,8 +10,7 @@ namespace
 
 unsigned workerThreadCount()
 {
-    return 1;
-    //return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
+    return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
 }
 
 JobSystem::JobSystem()
@@ -22,9 +21,7 @@ JobSystem::JobSystem()
         return;
     }
 
-    // using [] for default constructing queues, as it is the only way for non-movable and non-copyable objects
-    //JobQueue& renderQueue = m_affinityToQueues[JobAffinity::Render];
-    //m_workerThreads.emplace_back(renderQueue, m_jobAvailable.at(0));
+    // TODO: add render thread
 
     JobQueue& genericQueue = m_affinityToQueues[JobAffinity::Generic];
     for (size_t i = 0; i < workerThreadCount(); i++)

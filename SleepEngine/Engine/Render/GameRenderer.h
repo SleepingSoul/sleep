@@ -11,7 +11,6 @@ class GameRenderer
 {
     FORBID_COPY_AND_MOVE(GameRenderer)
 public:
-    //using DrawCallsContainer = std::vector <DrawCall>;
 
     GameRenderer();
 
@@ -21,7 +20,6 @@ public:
 
 private:
     Shader m_shader;
-    //DrawCallsContainer m_drawCalls;
 
     unsigned m_vertexVBO;
     unsigned m_uvVBO;

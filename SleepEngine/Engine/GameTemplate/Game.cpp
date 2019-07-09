@@ -87,8 +87,6 @@ void Game::run()
 
 void Game::runFrame()
 {
-    //EASY_FUNCTION(profiler::colors::Orange);
-
     if (m_sceneID != m_currentSceneID)
     {
         EASY_BLOCK("Scene initialization", profiler::colors::Blue400);
