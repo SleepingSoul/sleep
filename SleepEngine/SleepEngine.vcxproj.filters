@@ -94,6 +94,8 @@
     <ClInclude Include="Engine\Jobs\JobThread.h" />
     <ClInclude Include="Engine\Render\UpdateRenderBridge.h" />
     <ClInclude Include="Engine\Systems\UpdateJob.h" />
+    <ClInclude Include="Engine\DeltaTimeData.h" />
+    <ClInclude Include="Engine\Systems\Systems.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Demos\Bubbles\Config\bubble_config.json" />

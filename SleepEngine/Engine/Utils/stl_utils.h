@@ -141,4 +141,17 @@ TContainer filter(TContainer const& orig, TFilter filter)
 
 #pragma endregion
 
+// asserts when not found
+template <class TMap>
+bool tryGet(TMap const& map, typename TMap::key_type& key, typename TMap::mapped_type& outElement, const char* message = "MSG")
+{
+    auto it = map.find(key);
+    if (it == map.cend())
+    {
+        LOG_AND_FAIL(message)
+        return false;
+    }
+    return false;
+}
+
 END_NAMESPACE_SLEEP

@@ -1,26 +1,29 @@
 // Copyright 2019 Tihran Katolikian
 
 #pragma once
+#include <Engine/DeltaTimeData.h>
+#include <Engine/Systems/Systems.h>
 
 BEGIN_NAMESPACE_SLEEP
 
 class Timer;
 
+// calculates and stores DT,
+// stores and updates timers
 class Clock
 {
     FORBID_COPY_AND_MOVE(Clock)
 public:
-    using DTStorageContainerType = std::array <float, 10>;
     using TimersContainerType = std::vector <Timer*>;
 
     Clock(float fps);
 
-    void frameStart();
+    void frameStart(GameSystem system);
 	// also sleeps if m_restrictFPS is set and 
     // the frame was to short to sustain desired fps
-    void frameEnd();
+    void frameEnd(GameSystem system);
 
-    CONST_REF_GETTER(getDT, m_amortizedDT)
+    float getDT() const { return 0.f; }
 
     void setFPS(float fps) { m_desiredFrameTime = 1.f / fps; }
 
@@ -32,18 +35,14 @@ public:
     void unregisterTimer(Timer* timer);
 
 private:
-    void updateTimers();
-
-    DTStorageContainerType m_lastDTs;
-    DTStorageContainerType::iterator m_lastDT;
-
     TimersContainerType m_timers;
 
-    double m_frameStartTime;
-    std::atomic<float> m_amortizedDT;
+    std::unordered_map<GameSystem, DeltaTimeData> m_deltaTimes;
 
     float m_desiredFrameTime;
     bool m_restrictFPS;
+
+    void updateTimers();
 };
 
 END_NAMESPACE_SLEEP

@@ -266,6 +266,10 @@
     <ClInclude Include="Engine\Config\EngineConfig.h" />
     <ClInclude Include="Engine\Config\JsonConfig.h" />
     <ClInclude Include="Engine\Config\Loadable.h" />
+    <ClInclude Include="Engine\DeltaTimeData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\EntityManager.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
@@ -290,6 +294,10 @@
     <ClInclude Include="Engine\Systems\ConcreteSystem.h" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.h" />
     <ClInclude Include="Engine\Systems\System.h" />
+    <ClInclude Include="Engine\Systems\Systems.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Engine\Systems\UpdateJob.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Transform2DData.h" />

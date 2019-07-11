@@ -8,45 +8,48 @@ BEGIN_NAMESPACE_SLEEP
 Clock::Clock(float fps)
     : m_desiredFrameTime(1.f / fps)
     , m_restrictFPS(false)
-    , m_amortizedDT(1.f / fps)
 {
-    std::fill(m_lastDTs.begin(), m_lastDTs.end(), m_desiredFrameTime);
-    m_lastDT = m_lastDTs.begin();
 }
 
-void Clock::frameStart()
+void Clock::frameStart(GameSystem system)
 {
-    m_frameStartTime = glfwGetTime();
+    auto it = m_deltaTimes.find(system);
+
+
+
+    //DeltaTimeData& deltaTimeData = m_deltaTimes.at(
+
+    //m_frameStartTime = glfwGetTime();
     updateTimers();
 }
 
-void Clock::frameEnd()
+void Clock::frameEnd(GameSystem system)
 {
-    auto const frameEndTime = glfwGetTime();
-    auto frameTime = static_cast <float>(frameEndTime - m_frameStartTime);
+    //auto const frameEndTime = glfwGetTime();
+    //auto frameTime = static_cast <float>(frameEndTime - m_frameStartTime);
 
-    if (m_restrictFPS && frameTime < m_desiredFrameTime)
-    {
-        EASY_BLOCK("Sleeping to sync FPS", profiler::colors::Amber);
+    //if (m_restrictFPS && frameTime < m_desiredFrameTime)
+    //{
+    //    EASY_BLOCK("Sleeping to sync FPS", profiler::colors::Amber);
 
-        auto const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
-        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
-        frameTime = m_desiredFrameTime;
-        EASY_END_BLOCK;
-    }
+    //    auto const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
+    //    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
+    //    frameTime = m_desiredFrameTime;
+    //    EASY_END_BLOCK;
+    //}
 
-    *m_lastDT = frameTime;
-    if (++m_lastDT == m_lastDTs.end())
-    {
-        m_lastDT = m_lastDTs.begin();
-    }
-    float const dt = std::accumulate(m_lastDTs.cbegin(), m_lastDTs.cend(), 0.f) / m_lastDTs.size();
-    m_amortizedDT.store(dt);
+    //*m_lastDT = frameTime;
+    //if (++m_lastDT == m_lastDTs.end())
+    //{
+    //    m_lastDT = m_lastDTs.begin();
+    //}
+    //float const dt = std::accumulate(m_lastDTs.cbegin(), m_lastDTs.cend(), 0.f) / m_lastDTs.size();
+    //m_amortizedDT.store(dt);
 }
 
 float Clock::calculateFPS() const
 {
-    return 1.f / m_amortizedDT;
+    return 1.f; // / m_amortizedDT;
 }
 
 void Clock::registerTimer(Timer* timer)
@@ -70,7 +73,7 @@ void Clock::updateTimers()
 {
     for (auto* const timer : m_timers)
     {
-        timer->update(m_amortizedDT);
+        //timer->update(m_amortizedDT);
     }
 }
 

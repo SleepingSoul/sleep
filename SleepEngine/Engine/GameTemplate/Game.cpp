@@ -87,7 +87,10 @@ void Game::run()
 
 void Game::runFrame()
 {
-    m_clock.frameStart();
+
+
+
+    m_clock.frameStart(GameSystem::Render);
 
     if (m_sceneID != m_currentSceneID)
     {
@@ -100,15 +103,15 @@ void Game::runFrame()
     {
         if (m_isFirstFrame)
         {
-            //m_jobSystem->schedule(createUpdateJob());
+            m_jobSystem->schedule(createUpdateJob());
             m_isFirstFrame = false;
         }
 
-        EASY_BLOCK("Scene update", profiler::colors::Amber100);
-        globalEntityManager().update(getGlobalClock().getDT());
-        EASY_END_BLOCK;
+        //EASY_BLOCK("Scene update", profiler::colors::Amber100);
+        //globalEntityManager().update(getGlobalClock().getDT());
+        //EASY_END_BLOCK;
 
-        Game::instance().getRenderBridge().renewLastUpdatedData();
+        //Game::instance().getRenderBridge().renewLastUpdatedData();
 
         m_renderer->render();
     }
@@ -121,7 +124,7 @@ void Game::runFrame()
     EASY_END_BLOCK;
     #endif
 
-    m_clock.frameEnd();
+    m_clock.frameEnd(GameSystem::Render);
 }
 
 void Game::setupLogger()
