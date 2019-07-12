@@ -22,6 +22,8 @@ public:
 	// also sleeps if m_restrictFPS is set and 
     // the frame was to short to sustain desired fps
     void frameEnd(GameSystem system);
+    void updateTimers();
+
 
     float getDT() const { return 0.f; }
 
@@ -29,6 +31,7 @@ public:
 
     SETTER(bool, setRestrictFPS, m_restrictFPS)
 
+    // fps of the render
     float calculateFPS() const;
 
     void registerTimer(Timer* timer);
@@ -41,8 +44,6 @@ private:
 
     float m_desiredFrameTime;
     bool m_restrictFPS;
-
-    void updateTimers();
 };
 
 END_NAMESPACE_SLEEP

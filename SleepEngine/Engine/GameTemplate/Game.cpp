@@ -87,9 +87,6 @@ void Game::run()
 
 void Game::runFrame()
 {
-
-
-
     m_clock.frameStart(GameSystem::Render);
 
     if (m_sceneID != m_currentSceneID)
