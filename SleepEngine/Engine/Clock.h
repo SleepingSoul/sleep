@@ -18,14 +18,16 @@ public:
 
     Clock(float fps);
 
+    // TODO: mb its worth hardcoding a switch to get rid of a map, or using a vector of pairs for performance
+    // but elegance is more importante now
     void frameStart(GameSystem system);
 	// also sleeps if m_restrictFPS is set and 
     // the frame was to short to sustain desired fps
     void frameEnd(GameSystem system);
+    float getDT(GameSystem system) const;
+
     void updateTimers();
 
-
-    float getDT() const { return 0.f; }
 
     void setFPS(float fps) { m_desiredFrameTime = 1.f / fps; }
 

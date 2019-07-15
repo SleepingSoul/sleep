@@ -40,7 +40,7 @@ void Clock::frameEnd(GameSystem system)
     {
         EASY_BLOCK("Sleeping to sync FPS", profiler::colors::Amber);
 
-        auto const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
+        float const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
         std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
         frameTime = m_desiredFrameTime;
         EASY_END_BLOCK;
@@ -53,6 +53,17 @@ void Clock::frameEnd(GameSystem system)
     }
     float const dt = std::accumulate(systemDt->LastDts.cbegin(), systemDt->LastDts.cend(), 0.f) / systemDt->LastDts.size();
     systemDt->AmortizedDt = dt;
+}
+
+float Clock::getDT(GameSystem system) const
+{
+    DeltaTimeData* systemDt = nullptr;
+    if (!tryGet(m_deltaTimes, system, systemDt))
+    {
+        return 0.f;
+    }
+
+    return systemDt->AmortizedDt;
 }
 
 float Clock::calculateFPS() const

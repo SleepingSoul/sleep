@@ -12,7 +12,7 @@ std::unique_ptr<DelegateJob> createUpdateJob()
         getGlobalClock().frameStart(GameSystem::Update);
 
         EASY_BLOCK("Scene update", profiler::colors::Amber100);
-        globalEntityManager().update(getGlobalClock().getDT());
+        globalEntityManager().update(getGlobalClock().getDT(GameSystem::Update));
         EASY_END_BLOCK;
 
         Game::instance().getRenderBridge().renewLastUpdatedData();
