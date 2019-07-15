@@ -87,7 +87,7 @@ void Game::run()
 
 void Game::runFrame()
 {
-    m_clock.frameStart(GameSystem::Render);
+    m_clock.renderFrameStart();
 
     if (m_sceneID != m_currentSceneID)
     {
@@ -117,11 +117,11 @@ void Game::runFrame()
 
     #ifdef SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT
     EASY_BLOCK("Console output", profiler::colors::Grey);
-    std::cout << "FPS: " << m_clock.calculateFPS() << ", DT: " << m_clock.getDT() << '\n';
+    std::cout << "FPS: " << m_clock.calculateFPS() << ", DT: " << m_clock.getRenderDT() << '\n';
     EASY_END_BLOCK;
     #endif
 
-    m_clock.frameEnd(GameSystem::Render);
+    m_clock.renderFrameEnd();
 }
 
 void Game::setupLogger()

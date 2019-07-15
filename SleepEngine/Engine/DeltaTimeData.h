@@ -2,11 +2,15 @@
 
 BEGIN_NAMESPACE_SLEEP
 
+template <class TDeltaTime>
 struct DeltaTimeData
 {
+    using DeltaTime = TDeltaTime;
+
     DeltaTimeData()
     {
-        init();
+        std::fill(LastDts.begin(), LastDts.end(), 0.f);
+        LastDt = LastDts.begin();
     }
 
     DeltaTimeData(DeltaTimeData&& other)
@@ -25,13 +29,7 @@ struct DeltaTimeData
     DTContainer::iterator LastDt;
 
     double FrameStartTime = 0.f;
-    float AmortizedDt = 0.f;
-
-    void init()
-    {
-        std::fill(LastDts.begin(), LastDts.end(), 0.f);
-        LastDt = LastDts.begin();
-    }
+    TDeltaTime AmortizedDt = 0.f;
 };
 
 END_NAMESPACE_SLEEP

@@ -10,8 +10,8 @@ namespace
 
 unsigned workerThreadCount()
 {
-    //return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
-    return 1;
+    return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
+    //return 1;
 }
 
 JobSystem::JobSystem()

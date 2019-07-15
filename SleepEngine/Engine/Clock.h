@@ -18,19 +18,22 @@ public:
 
     Clock(float fps);
 
-    // TODO: mb its worth hardcoding a switch to get rid of a map, or using a vector of pairs for performance
-    // but elegance is more importante now
-    void frameStart(GameSystem system);
+    // method duplication is needed, as the delta time datas are of different type for render and update
+
+    void updateFrameStart() { frameStart(m_updateDeltaTime); }
 	// also sleeps if m_restrictFPS is set and 
     // the frame was to short to sustain desired fps
-    void frameEnd(GameSystem system);
-    float getDT(GameSystem system) const;
+    void updateFrameEnd() { frameEnd(m_updateDeltaTime); }
+    float getUpdateDT() const { return m_updateDeltaTime.AmortizedDt; }
+
+    void renderFrameStart() { frameStart(m_renderDeltaTime); }
+    // also sleeps if m_restrictFPS is set and 
+    // the frame was to short to sustain desired fps
+    void renderFrameEnd() { frameEnd(m_renderDeltaTime); }
+    float getRenderDT() const { return m_renderDeltaTime.AmortizedDt; }
 
     void updateTimers();
-
-
     void setFPS(float fps) { m_desiredFrameTime = 1.f / fps; }
-
     SETTER(bool, setRestrictFPS, m_restrictFPS)
 
     // fps of the render
@@ -42,10 +45,43 @@ public:
 private:
     TimersContainerType m_timers;
 
-    std::unordered_map<GameSystem, DeltaTimeData> m_deltaTimes;
+    DeltaTimeData<float> m_renderDeltaTime;
+    DeltaTimeData<std::atomic<float>> m_updateDeltaTime;
 
     float m_desiredFrameTime;
     bool m_restrictFPS;
+
+    template <class TDeltaTime>
+    static void frameStart(DeltaTimeData<TDeltaTime>& deltaTimeData)
+    {
+        deltaTimeData.FrameStartTime = glfwGetTime();
+    }
+
+    template <class TDeltaTime>
+    void frameEnd(DeltaTimeData<TDeltaTime>& deltaTimeData)
+    {
+        double const frameEndTime = glfwGetTime();
+        float frameTime = static_cast <float>(frameEndTime - deltaTimeData.FrameStartTime);
+
+        if (m_restrictFPS && frameTime < m_desiredFrameTime)
+        {
+            EASY_BLOCK("Sleeping to sync FPS", profiler::colors::Amber);
+
+            float const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
+            std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
+            frameTime = m_desiredFrameTime;
+            EASY_END_BLOCK;
+        }
+
+        *deltaTimeData.LastDt = frameTime;
+        if (++deltaTimeData.LastDt == deltaTimeData.LastDts.end())
+        {
+            deltaTimeData.LastDt = deltaTimeData.LastDts.begin();
+        }
+        float const dt = std::accumulate(deltaTimeData.LastDts.cbegin(), deltaTimeData.LastDts.cend(), 0.f) / deltaTimeData.LastDts.size();
+        deltaTimeData.AmortizedDt = dt;
+    }
 };
 
 END_NAMESPACE_SLEEP
+
