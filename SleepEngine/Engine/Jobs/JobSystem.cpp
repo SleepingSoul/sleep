@@ -8,26 +8,24 @@ namespace
     constexpr unsigned ThreadsLeftAlone = 1;
 }
 
-unsigned workerThreadCount()
+JobSystem::JobSystem()
+    : JobSystem(JobSystem::getWorkerThreadCount())
 {
-    return std::max(std::thread::hardware_concurrency() - ThreadsLeftAlone, 0u);
-    //return 1;
 }
 
-JobSystem::JobSystem()
-    : m_jobAvailableEvents(workerThreadCount())
+JobSystem::JobSystem(size_t workerThreadCount)
+    : m_jobAvailableEvents(workerThreadCount)
 {
-    if (workerThreadCount() == 0)
+    if (workerThreadCount == 0)
     {
         return;
     }
 
     // TODO: add render thread
-
     JobQueue& genericQueue = m_affinityToQueues[JobAffinity::Generic];
 
-    m_jobThreads.reserve(workerThreadCount());
-    for (size_t i = 0; i < workerThreadCount(); i++)
+    m_jobThreads.reserve(workerThreadCount);
+    for (size_t i = 0; i < workerThreadCount; i++)
     {
         m_jobThreads.emplace_back(genericQueue, m_jobAvailableEvents.at(i), m_shutdownRequested);
         m_jobThreads.at(i).start();
@@ -64,6 +62,25 @@ void JobSystem::schedule(std::unique_ptr<Job>&& job)
     {
         event.signal();
     }
+}
+
+size_t JobSystem::getWorkerThreadCount()
+{
+    return getWorkerThreadCount(*globalEngineConfig());
+}
+
+size_t JobSystem::getWorkerThreadCount(EngineConfig const& config)
+{
+    // all
+    size_t threadCount = config.getData().ThreadsCount;
+
+    if (threadCount == -1)
+    {
+        threadCount = std::thread::hardware_concurrency();
+    }
+
+    size_t const workerThreadCount = std::max(threadCount - ThreadsLeftAlone, 0u);
+    return workerThreadCount;
 }
 
 END_NAMESPACE_SLEEP

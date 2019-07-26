@@ -14,10 +14,14 @@ public:
     using JobQueue = ThreadSafeQueue<std::unique_ptr<Job>>;
 
     JobSystem();
+    JobSystem(size_t workerThreadCount);
     ~JobSystem();
 
     void schedule(std::unique_ptr<Job>&& job);
-   
+   // from config
+    static size_t getWorkerThreadCount();
+    // for use inside game
+    static size_t getWorkerThreadCount(EngineConfig const&);
 
 private:
     std::unordered_map<JobAffinity, JobQueue> m_affinityToQueues;

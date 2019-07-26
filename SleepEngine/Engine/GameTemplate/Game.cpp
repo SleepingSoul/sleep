@@ -37,7 +37,8 @@ Game::Game(size_t width, size_t height)
 	    return;
     }
     m_renderer = std::make_unique <GameRenderer>();
-    m_jobSystem = std::make_unique<JobSystem>();
+    size_t const threadsCount = JobSystem::getWorkerThreadCount(*m_configManager.getConfig<EngineConfig>());
+    m_jobSystem = std::make_unique<JobSystem>(threadsCount);
 
     m_instance = this;
 }

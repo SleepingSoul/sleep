@@ -9,6 +9,7 @@ struct EngineConfigData
     LayerT MaxLayer = 0;
     size_t MeterLengthInPixels = 0;
     glm::vec2 PrimaryWindowSize;
+    size_t ThreadsCount = 0;
 };
 
 static void from_json(nlohmann::json const& json, EngineConfigData& configData) 
@@ -18,6 +19,7 @@ static void from_json(nlohmann::json const& json, EngineConfigData& configData)
         configData.MaxLayer = json.at("max_layer");
         configData.MeterLengthInPixels = json.at("meter_length_in_pixels");
         from_json(json.at("primary_window_size"), configData.PrimaryWindowSize);
+        configData.ThreadsCount = json.at("threads_count");
     }
     catch (nlohmann::json::exception const&)
     {

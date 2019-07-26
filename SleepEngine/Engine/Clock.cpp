@@ -33,6 +33,35 @@ void Clock::unregisterTimer(Timer* timer)
     m_timers.erase(it);
 }
 
+void Clock::frameStart(DeltaTimeData<float>& deltaTimeData)
+{
+    deltaTimeData.FrameStartTime = glfwGetTime();
+}
+
+void Clock::frameEnd(DeltaTimeData<float>& deltaTimeData)
+{
+    double const frameEndTime = glfwGetTime();
+    float frameTime = static_cast <float>(frameEndTime - deltaTimeData.FrameStartTime);
+
+    if (m_restrictFPS && frameTime < m_desiredFrameTime)
+    {
+        EASY_BLOCK("Sleeping to sync FPS", profiler::colors::Amber);
+
+        float const millisecondsToSleep = 1000.f * (m_desiredFrameTime - frameTime);
+        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(std::floor(millisecondsToSleep))));
+        frameTime = m_desiredFrameTime;
+        EASY_END_BLOCK;
+    }
+
+    *deltaTimeData.LastDt = frameTime;
+    if (++deltaTimeData.LastDt == deltaTimeData.LastDts.end())
+    {
+        deltaTimeData.LastDt = deltaTimeData.LastDts.begin();
+    }
+    float const dt = std::accumulate(deltaTimeData.LastDts.cbegin(), deltaTimeData.LastDts.cend(), 0.f) / deltaTimeData.LastDts.size();
+    deltaTimeData.AmortizedDt = dt;
+}
+
 void Clock::updateTimers()
 {
     for (auto* const timer : m_timers)
