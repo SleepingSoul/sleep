@@ -20,15 +20,17 @@ public:
 
     // method duplication is needed, as the delta time datas are of different type for render and update
     void updateFrameStart() { frameStart(m_updateDeltaTime); }
-	// also sleeps if m_restrictFPS is set and 
-    // the frame was to short to sustain desired fps
     void updateFrameEnd() { frameEnd(m_updateDeltaTime); }
     float getUpdateDT() const { return m_updateDeltaTime.AmortizedDt; }
 
     void renderFrameStart() { frameStart(m_renderDeltaTime); }
     // also sleeps if m_restrictFPS is set and 
     // the frame was to short to sustain desired fps
-    void renderFrameEnd() { frameEnd(m_renderDeltaTime); }
+    void renderFrameEnd() 
+    { 
+        sleepToSyncFpsIfNeeded(m_renderDeltaTime);
+        frameEnd(m_renderDeltaTime); 
+    }
     float getRenderDT() const { return m_renderDeltaTime.AmortizedDt; }
 
     void updateTimers();
@@ -44,14 +46,15 @@ public:
 private:
     TimersContainerType m_timers;
 
-    DeltaTimeData<float> m_renderDeltaTime;
-    DeltaTimeData<float> m_updateDeltaTime;
+    DeltaTimeData m_renderDeltaTime;
+    DeltaTimeData m_updateDeltaTime;
 
     float m_desiredFrameTime;
     bool m_restrictFPS;
 
-    static void frameStart(DeltaTimeData<float>& deltaTimeData);
-    void frameEnd(DeltaTimeData<float>& deltaTimeData);
+    static void frameStart(DeltaTimeData& deltaTimeData);
+    void frameEnd(DeltaTimeData& deltaTimeData);
+    void sleepToSyncFpsIfNeeded(DeltaTimeData& deltaTimeData);
 
 };
 
