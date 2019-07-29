@@ -14,6 +14,7 @@ struct DeltaTimeData
 
     DeltaTimeData(DeltaTimeData&& other) = delete;
     DeltaTimeData(DeltaTimeData const& other) = delete;
+    DeltaTimeData& operator= (DeltaTimeData const& other) = delete;
 
     using DTContainer = std::array<float, 10>;
 

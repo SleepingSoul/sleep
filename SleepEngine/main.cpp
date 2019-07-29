@@ -22,7 +22,7 @@ int main()
     slp::Game game(WindowWidth, WindowHeight);
 
     game.getClock().setFPS(60.f);
-    //game.getClock().setRestrictFPS(true);
+    game.getClock().setRestrictFPS(true);
 
     game.getResourceManager().preload();
     game.addScene(initBubbleDemoScene, "bubble scene");
