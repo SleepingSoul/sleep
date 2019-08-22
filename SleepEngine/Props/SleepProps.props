@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <EngineDir>$(ProjectDir)\..\..</EngineDir>
+    <EnginePch>$(EngineDir)\Intermediate\$(Configuration)\SharedPch\SleepEngine.pch</EnginePch>
+    <EnginePdbDir>$(EngineDir)\$(Platform)\$(Configuration)</EnginePdbDir>
+    <SharedPdb>$(EnginePdbDir)\vc$(PlatformToolsetVersion).pdb</SharedPdb>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(VC_IncludePath);$(EngineDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(EngineDir)</IncludePath>
+    <LibraryPath>$(EngineDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(EnginePch)</PrecompiledHeaderOutputFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <CustomBuildStep>
+      <Command>if EXIST "$(SharedPdb)" xcopy /Y /F "$(SharedPdb)" "$(IntDir)"</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="EngineDir">
+      <Value>$(EngineDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EnginePch">
+      <Value>$(EnginePch)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EnginePdbDir">
+      <Value>$(EnginePdbDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SharedPdb">
+      <Value>$(SharedPdb)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

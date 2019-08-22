@@ -26,7 +26,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -58,6 +58,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Props\SleepSharedPch.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -72,6 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
     <LibraryPath>$(ProjectDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath)</LibraryPath>
+    <IntDir>Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\prof_release\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
@@ -92,7 +94,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -206,7 +208,6 @@
     <ClCompile Include="Demos\Bubbles\bubbles_demo.cpp" />
     <ClCompile Include="Demos\Bubbles\Entities\Bubble.cpp" />
     <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp" />
-    <ClCompile Include="Demos\ciri.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Clock.cpp" />
     <ClCompile Include="Engine\Components\HierarchyNode.cpp" />
@@ -251,7 +252,6 @@
     <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
     <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
     <ClInclude Include="Demos\Bubbles\dummy_work.h" />
-    <ClInclude Include="Demos\ciri.h" />
     <ClInclude Include="Demos\test_relative_transform.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Clock.h" />

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <EnginePchDir>$(SolutionDir)\Intermediate\$(Configuration)\SharePch</EnginePchDir>
+    <EnginePch>$(EnginePchDir)\SleepEngine.pch</EnginePch>
+    <EnginePdb>$(EnginePchDir)\SleepEngine.pdb</EnginePdb>
+    <EngineIdb>$(EnginePchDir)\SleepEngine.idb</EngineIdb>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile>$(EnginePch)</PrecompiledHeaderOutputFile>
+      <ProgramDataBaseFileName>$(EnginePdb)</ProgramDataBaseFileName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="EnginePchDir">
+      <Value>$(EnginePchDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EnginePch">
+      <Value>$(EnginePch)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EnginePdb">
+      <Value>$(EnginePdb)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EngineIdb">
+      <Value>$(EngineIdb)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
