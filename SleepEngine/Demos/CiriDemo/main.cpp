@@ -1,7 +1,7 @@
 #include "stdafx.h"
-//#include <Engine/ResourceManagement/ResourceManager.h>
-//#include <Engine/Utils/unit_utils.h>
-//#include <Engine/object_shortcuts.h>
+#include <Engine/ResourceManagement/ResourceManager.h>
+#include <Engine/Utils/unit_utils.h>
+#include <Engine/object_shortcuts.h>
 #include <Engine/Jobs/JobSystem.h>
 #include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/GameTemplate/Game.h>
@@ -16,9 +16,9 @@ namespace
 
 int main()
 {
-    EASY_PROFILER_ENABLE;
+    //EASY_PROFILER_ENABLE;
 
-    slp::Game game(WindowWidth, WindowHeight);
+    //slp::Game game(WindowWidth, WindowHeight);
 
     //game.getClock().setFPS(60.f);
     //game.getClock().setRestrictFPS(true);
