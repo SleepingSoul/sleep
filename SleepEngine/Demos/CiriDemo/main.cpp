@@ -18,6 +18,9 @@ int main()
 {
     //EASY_PROFILER_ENABLE;
 
+    slp::Object o;
+    o.update(2.f);
+
     //slp::Game game(WindowWidth, WindowHeight);
 
     //game.getClock().setFPS(60.f);

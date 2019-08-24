@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
-  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="UserMacros">
+    <EngineLibDir>$(SolutionDir)\$(Configuration)</EngineLibDir>
+    <EnginePackageDir>$(SolutionDir)\..\vcpkg\packages</EnginePackageDir>
+  </PropertyGroup>
   <PropertyGroup>
     <IncludePath>$(VC_IncludePath);$(SolutionDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath);$(EngineLibDir)</LibraryPath>
     <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
+    <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -14,10 +18,21 @@
     </ClCompile>
     <CustomBuildStep>
       <Command>if EXIST "$(EnginePdb)" xcopy /Y /F "$(EnginePdb)" "$(IntDir)"
-if EXIST "$(EngineIdb)" xcopy /Y /F "$(EngineIdb)" "$(IntDir)"</Command>
+if EXIST "$(EngineIdb)" xcopy /Y /F "$(EngineIdb)" "$(IntDir)"
+if EXIST "$(EngineLibDir)" xcopy /Y /F "$(EngineLibDir)\*.dll" "$(IntDir)"</Command>
       <Inputs>$(EnginePdb)</Inputs>
       <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb;</Outputs>
     </CustomBuildStep>
+    <Link>
+      <AdditionalDependencies>easy_profiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BuildMacro Include="EngineLibDir">
+      <Value>$(EngineLibDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EnginePackageDir">
+      <Value>$(EnginePackageDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
 </Project>
