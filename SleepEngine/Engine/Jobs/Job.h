@@ -6,7 +6,7 @@ BEGIN_NAMESPACE_SLEEP
 class Job
 {
 public:
-    Job(JobAffinity affinity = JobAffinity::Generic)
+    Job(JobAffinity affinity)
         : m_affinity(affinity) {}
     
     JobAffinity getAffinity() const { return m_affinity; }
@@ -20,7 +20,7 @@ class DelegateJob : public Job
 {
     using Base = Job;
 public:
-    DelegateJob(std::function<void()> executer, JobAffinity affinity = JobAffinity::Generic)
+    DelegateJob(std::function<void()> executer, JobAffinity affinity)
         : Base(affinity)
         , m_executer(std::move(executer))
     {}

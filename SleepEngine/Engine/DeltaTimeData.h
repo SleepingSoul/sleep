@@ -4,17 +4,11 @@ BEGIN_NAMESPACE_SLEEP
 
 struct DeltaTimeData
 {
-    //using DeltaTime = TDeltaTime;
-
     DeltaTimeData()
     {
         std::fill(LastDts.begin(), LastDts.end(), 0.f);
         LastDtIter = LastDts.begin();
     }
-
-    DeltaTimeData(DeltaTimeData&& other) = delete;
-    DeltaTimeData(DeltaTimeData const& other) = delete;
-    DeltaTimeData& operator= (DeltaTimeData const& other) = delete;
 
     using DTContainer = std::array<float, 10>;
 

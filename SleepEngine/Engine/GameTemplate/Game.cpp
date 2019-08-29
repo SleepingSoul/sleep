@@ -33,8 +33,8 @@ Game::Game(size_t width, size_t height)
 
     if (m_instance)
     {
-	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
-	    return;
+        LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
+        return;
     }
     m_renderer = std::make_unique <GameRenderer>();
     size_t const threadsCount = JobSystem::getWorkerThreadCount(*m_configManager.getConfig<EngineConfig>());
@@ -104,12 +104,6 @@ void Game::runFrame()
             m_jobSystem->schedule(createUpdateJob());
             m_isFirstFrame = false;
         }
-
-        //EASY_BLOCK("Scene update", profiler::colors::Amber100);
-        //globalEntityManager().update(getGlobalClock().getDT());
-        //EASY_END_BLOCK;
-
-        //Game::instance().getRenderBridge().renewLastUpdatedData();
 
         m_renderer->render();
     }

@@ -4,14 +4,13 @@ BEGIN_NAMESPACE_SLEEP
 
 class Event
 {
-    using LockGuard = std::lock_guard<std::mutex>;
 public:
     Event() = default;
     Event(Event&&) = default;
 
     void waitAndReset()
     {
-        std::unique_lock<std::mutex> lk(m_mutex);
+        std::unique_lock lk(m_mutex);
         m_condition.wait(lk, [this] { return m_isSet; });
         m_isSet = false;
     }
@@ -36,7 +35,7 @@ private:
 
     void threadSafeSet(bool value)
     {
-        LockGuard lk(m_mutex);
+        std::lock_guard lk(m_mutex);
         m_isSet = value;
     }
 };

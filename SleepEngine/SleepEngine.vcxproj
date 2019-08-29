@@ -231,7 +231,6 @@
     <ClCompile Include="Engine\Render\GameRenderer.cpp" />
     <ClCompile Include="Engine\Render\Texture.cpp" />
     <ClCompile Include="Engine\Components\Transform2D.cpp" />
-    <ClCompile Include="Engine\Render\UpdateRenderBridge.cpp" />
     <ClCompile Include="Engine\ResourceManagement\ResourceManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>

@@ -22,7 +22,7 @@ std::unique_ptr<DelegateJob> createUpdateJob()
         getGlobalClock().updateFrameEnd();
     };
 
-    return std::make_unique<DelegateJob>(executer);
+    return std::make_unique<DelegateJob>(executer, JobAffinity::Generic);
 }
 
 END_NAMESPACE_SLEEP
