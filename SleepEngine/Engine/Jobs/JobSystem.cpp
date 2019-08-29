@@ -5,7 +5,7 @@ BEGIN_NAMESPACE_SLEEP
 
 namespace
 {
-    constexpr unsigned ThreadsLeftAlone = 1;
+    unsigned const ThreadsLeftAlone = 1;
 }
 
 JobSystem::JobSystem()

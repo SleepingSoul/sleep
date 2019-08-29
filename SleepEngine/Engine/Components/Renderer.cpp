@@ -24,7 +24,6 @@ void Renderer::update(float dt)
         return;
     }
 
-    //Game::instance().getRenderer().emplaceDrawCall(transform->getGlobalData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
     Game::instance().getRenderBridge().emplaceUpdatedDrawCall(transform->getGlobalData(), m_texture, m_topLeftUV, m_downRightUV, m_color);
 }
 
