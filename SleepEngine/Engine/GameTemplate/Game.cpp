@@ -9,6 +9,7 @@
 #include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/Jobs/JobSystem.h>
 #include <Engine/Systems/UpdateJob.h>
+#include <Engine/Utils/file_utils.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -33,8 +34,8 @@ Game::Game(size_t width, size_t height)
 
     if (m_instance)
     {
-	    LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
-	    return;
+        LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
+        return;
     }
     m_renderer = std::make_unique <GameRenderer>();
     size_t const threadsCount = JobSystem::getWorkerThreadCount(*m_configManager.getConfig<EngineConfig>());
@@ -60,7 +61,7 @@ void Game::applyScene(std::string_view sceneID)
         return scene.getID() == sceneID;
     };
 
-    auto const[found, it] = findIf(m_scenes, isSceneFound);
+    auto const [found, it] = findIf(m_scenes, isSceneFound);
 
     if (!found)
     {
@@ -116,17 +117,19 @@ void Game::runFrame()
 
     m_window.runFrame();
 
-    #ifdef SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT
+#ifdef SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT
     EASY_BLOCK("Console output", profiler::colors::Grey);
     std::cout << "FPS: " << m_clock.calculateFPS() << ", DT: " << m_clock.getRenderDT() << '\n';
     EASY_END_BLOCK;
-    #endif
+#endif
 
     m_clock.renderFrameEnd();
 }
 
 void Game::setupLogger()
 {
+    ensureFileExists(EngineLoggerPath);
+
     bool const rewriteOldLog = true;
     auto engineLogger = spdlog::basic_logger_mt(EngineLogger, EngineLoggerPath, rewriteOldLog);
     engineLogger->set_level(spdlog::level::debug);

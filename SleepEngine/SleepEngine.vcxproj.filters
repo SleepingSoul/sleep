@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Demos\Bubbles\bubbles_demo.cpp" />
-    <ClCompile Include="Demos\Bubbles\Entities\Bubble.cpp" />
-    <ClCompile Include="Demos\Bubbles\Entities\BubbleGun.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Clock.cpp" />
     <ClCompile Include="Engine\Components\HierarchyNode.cpp" />
@@ -26,7 +23,6 @@
     <ClCompile Include="Engine\Systems\System.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Utils\file_utils.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Engine\GameTemplate\Scene.cpp" />
     <ClCompile Include="Engine\Jobs\JobSystem.cpp" />
@@ -35,10 +31,6 @@
     <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Demos\Bubbles\bubbles_demo.h" />
-    <ClInclude Include="Demos\Bubbles\Config\BubbleConfig.h" />
-    <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
-    <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
     <ClInclude Include="Demos\test_relative_transform.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Clock.h" />
@@ -83,7 +75,6 @@
     <ClInclude Include="Engine\Utils\unit_utils.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Engine\GameTemplate\Scene.h" />
-    <ClInclude Include="Demos\Bubbles\dummy_work.h" />
     <ClInclude Include="Engine\Jobs\Event.h" />
     <ClInclude Include="Engine\Jobs\Job.h" />
     <ClInclude Include="Engine\Jobs\JobAffinity.h" />
@@ -96,10 +87,9 @@
     <ClInclude Include="Engine\Systems\Systems.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Demos\Bubbles\Config\bubble_config.json" />
-    <None Include="Engine\Config\config.json" />
     <None Include="Engine\Render\Shaders\shader.fs" />
     <None Include="Engine\Render\Shaders\shader.vs" />
     <None Include="packages.config" />
+    <None Include="Config\config.json" />
   </ItemGroup>
 </Project>

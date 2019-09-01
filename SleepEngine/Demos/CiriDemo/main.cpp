@@ -5,6 +5,7 @@
 #include <Engine/Jobs/JobSystem.h>
 #include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/GameTemplate/Game.h>
+#include "ciri.h"
 
 // settings
 namespace
@@ -16,20 +17,20 @@ namespace
 
 int main()
 {
-    //EASY_PROFILER_ENABLE;
+    EASY_PROFILER_ENABLE;
 
-    slp::Object o;
-    o.update(2.f);
+    //slp::Object o;
+    //o.update(2.f);
 
-    //slp::Game game(WindowWidth, WindowHeight);
+    slp::Game game(WindowWidth, WindowHeight);
 
-    //game.getClock().setFPS(60.f);
-    //game.getClock().setRestrictFPS(true);
+    game.getClock().setFPS(60.f);
+    game.getClock().setRestrictFPS(true);
 
-    //game.getResourceManager().preload();
-    ////game.addScene(initBubbleDemoScene, "bubble scene");
-    ////game.setScene("bubble scene");
-    //game.run();
+    game.getResourceManager().preload();
+    game.addScene(initCiriScene, "siri");
+    game.setScene("siri");
+    game.run();
 
     //profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;

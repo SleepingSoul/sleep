@@ -10,6 +10,8 @@
     <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath);$(EngineLibDir)</LibraryPath>
     <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
+    <OutDir>$(ProjectDir)\$(Configuration)\</OutDir>
+    <IntDir>Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -19,13 +21,16 @@
     <CustomBuildStep>
       <Command>if EXIST "$(EnginePdb)" xcopy /Y /F "$(EnginePdb)" "$(IntDir)"
 if EXIST "$(EngineIdb)" xcopy /Y /F "$(EngineIdb)" "$(IntDir)"
-if EXIST "$(EngineLibDir)" xcopy /Y /F "$(EngineLibDir)\*.dll" "$(IntDir)"</Command>
+if EXIST "$(EngineLibDir)" xcopy /Y /F "$(EngineLibDir)\*.dll" "$(OutDir)"</Command>
       <Inputs>$(EnginePdb)</Inputs>
       <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb;</Outputs>
     </CustomBuildStep>
     <Link>
       <AdditionalDependencies>easy_profiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)\Engine\Render\Shaders $(TargetDir) /E /I /F /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="EngineLibDir">

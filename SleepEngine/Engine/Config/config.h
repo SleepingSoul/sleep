@@ -7,14 +7,14 @@
 BEGIN_NAMESPACE_SLEEP
 
 // logger info and any paths for dynamic loading should be here, 
-// but all data that can be retrieved dynamically should be in EngineConfig isntead
+// but all data that can be retrieved dynamically should be in EngineConfig instead
 static auto EngineLogger = "engine_logger";
 static auto EngineLoggerPath = "Logs/engine_logger.log";
-static auto ConfigFile = "Engine/Config/config.json";
+static auto ConfigFile = "Config/config.json";
 
 namespace Resources
 {
-    static auto ImagesTablePath = "Engine/Generated/textures_table.json";
+    static auto ImagesTablePath = "Generated/textures_table.json";
 }
 
 END_NAMESPACE_SLEEP

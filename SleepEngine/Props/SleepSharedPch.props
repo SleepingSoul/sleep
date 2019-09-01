@@ -15,7 +15,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeaderOutputFile>$(EnginePch)</PrecompiledHeaderOutputFile>
       <ProgramDataBaseFileName>$(EnginePdb)</ProgramDataBaseFileName>
       <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
