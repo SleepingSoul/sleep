@@ -73,7 +73,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(SolutionDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
     <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath)</LibraryPath>
-    <IntDir>Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\prof_release\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
@@ -96,7 +95,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeaderOutputFile>$(EnginePch)</PrecompiledHeaderOutputFile>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <CustomBuildStep>
       <Command>xcopy $(ProjectDir)\external\easy_profiler\prof_debug\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
@@ -105,8 +104,7 @@
       <Outputs>easy_profiler.dll</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy $(IntDir)Sleep.pch $(EnginePch)</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -236,12 +234,6 @@
     <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Utils\file_utils.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demos\test_relative_transform.h" />
@@ -303,7 +295,6 @@
     <ClInclude Include="Engine\object_shortcuts.h" />
     <ClInclude Include="Engine\Utils\stl_utils.h" />
     <ClInclude Include="Engine\Utils\unit_utils.h" />
-    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\config.json" />

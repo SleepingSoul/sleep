@@ -23,7 +23,6 @@
     <ClCompile Include="Engine\Systems\System.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Utils\file_utils.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Engine\GameTemplate\Scene.cpp" />
     <ClCompile Include="Engine\Jobs\JobSystem.cpp" />
     <ClCompile Include="Engine\Jobs\JobThread.cpp" />
@@ -73,7 +72,6 @@
     <ClInclude Include="Engine\object_shortcuts.h" />
     <ClInclude Include="Engine\Utils\stl_utils.h" />
     <ClInclude Include="Engine\Utils\unit_utils.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Engine\GameTemplate\Scene.h" />
     <ClInclude Include="Engine\Jobs\Event.h" />
     <ClInclude Include="Engine\Jobs\Job.h" />
