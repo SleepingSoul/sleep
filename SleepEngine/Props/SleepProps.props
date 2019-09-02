@@ -13,14 +13,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeaderOutputFile>$(EnginePch)</PrecompiledHeaderOutputFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <CustomBuildStep>
       <Command>if EXIST "$(EnginePdb)" xcopy /Y /F "$(EnginePdb)" "$(IntDir)"
 if EXIST "$(EngineIdb)" xcopy /Y /F "$(EngineIdb)" "$(IntDir)"
-</Command>
-      <Inputs>$(EnginePdb)</Inputs>
+xcopy $(ProjectDir)\external\easy_profiler\prof_debug\bin\easy_profiler.dll $(TargetDir) /E /I /F /Y</Command>
       <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb;</Outputs>
     </CustomBuildStep>
     <Link>
