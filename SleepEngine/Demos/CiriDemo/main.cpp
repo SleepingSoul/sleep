@@ -5,7 +5,7 @@
 #include <Engine/Jobs/JobSystem.h>
 #include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/GameTemplate/Game.h>
-//#include "ciri.h"
+#include "ciri.h"
 
 // settings
 namespace
@@ -28,8 +28,8 @@ int main()
     game.getClock().setRestrictFPS(true);
 
     game.getResourceManager().preload();
-    //game.addScene(initCiriScene, "siri");
-    //game.setScene("siri");
+    game.addScene(initCiriScene, "siri");
+    game.setScene("siri");
     game.run();
 
     //profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");

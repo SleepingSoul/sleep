@@ -5,5 +5,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ciri.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ciri.h" />
   </ItemGroup>
 </Project>
