@@ -7,9 +7,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <IncludePath>$(VC_IncludePath);$(SolutionDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath);$(EngineLibDir)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath);</LibraryPath>
     <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
-    <ExecutablePath>$(VC_ExecutablePath_x86);$(CommonExecutablePath)</ExecutablePath>
+    <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -19,7 +19,7 @@
       <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb;</Outputs>
     </CustomBuildStep>
     <Link>
-      <AdditionalDependencies>easy_profiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SharedPchLinkObj);easy_profiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)\Engine\Render\Shaders $(TargetDir) /E /I /F /Y</Command>
