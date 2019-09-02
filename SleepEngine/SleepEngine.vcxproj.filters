@@ -28,6 +28,7 @@
     <ClCompile Include="Engine\Jobs\JobThread.cpp" />
     <ClCompile Include="Engine\Render\UpdateRenderBridge.cpp" />
     <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demos\test_relative_transform.h" />
