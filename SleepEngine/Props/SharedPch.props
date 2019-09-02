@@ -11,6 +11,7 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)Outputs\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Outputs\Intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -18,6 +19,12 @@
       <PrecompiledHeaderOutputFile>$(SharedPch)</PrecompiledHeaderOutputFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
+    <CustomBuildStep>
+      <Command>if EXIST "$(SharedPdb)" xcopy /Y /F "$(SharedPdb)" "$(IntDir)"
+if EXIST "$(SharedIdb)" xcopy /Y /F "$(SharedIdb)" "$(IntDir)"</Command>
+      <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb</Outputs>
+      <Inputs>$(SharedPdb)</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="SharedPchDir">
