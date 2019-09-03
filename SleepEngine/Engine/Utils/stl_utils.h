@@ -141,18 +141,18 @@ TContainer filter(TContainer const& orig, TFilter filter)
 
 #pragma endregion
 
-#define SLP_ELEMENT_NOT_IN_MAP_MSG "Element not found in the map"
+static auto SlpElementNotInMapMessage = "Element not found in the map";
 
  //asserts when not found
 template <class TMap>
-bool tryGetCopy(TMap const& map, typename TMap::key_type const& key, typename TMap::mapped_type& outElement, const char* message = SLP_ELEMENT_NOT_IN_MAP_MSG)
+bool tryGetCopy(TMap const& map, typename TMap::key_type const& key, typename TMap::mapped_type& outElement, std::string_view message = SlpElementNotInMapMessage)
 {
     // can prevent copypaste by reusing ptr variant, but it actually takes more code
     auto it = map.find(key);
     if (it == map.end())
     {
         LOG_AND_FAIL(message)
-            return false;
+        return false;
     }
 
     outElement = it->second;
@@ -161,7 +161,7 @@ bool tryGetCopy(TMap const& map, typename TMap::key_type const& key, typename TM
 
 
 template <class TMap>
-bool tryGet(TMap& map, typename TMap::key_type const& key, typename TMap::mapped_type*& outElement, const char* message = SLP_ELEMENT_NOT_IN_MAP_MSG)
+bool tryGet(TMap& map, typename TMap::key_type const& key, typename TMap::mapped_type*& outElement, std::string_view message = SlpElementNotInMapMessage)
 {
     typename TMap::mapped_type const* element = nullptr;
     bool const found = tryGet(map, key, element);
@@ -171,7 +171,7 @@ bool tryGet(TMap& map, typename TMap::key_type const& key, typename TMap::mapped
 }
 
 template <class TMap>
-bool tryGet(TMap const& map, typename TMap::key_type const& key, typename TMap::mapped_type const*& outElement, const char* message = SLP_ELEMENT_NOT_IN_MAP_MSG)
+bool tryGet(TMap const& map, typename TMap::key_type const& key, typename TMap::mapped_type const*& outElement, std::string_view message = SlpElementNotInMapMessage)
 {
     auto it = map.find(key);
     if (it == map.cend())

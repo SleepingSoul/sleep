@@ -106,12 +106,6 @@ void Game::runFrame()
             m_isFirstFrame = false;
         }
 
-        //EASY_BLOCK("Scene update", profiler::colors::Amber100);
-        //globalEntityManager().update(getGlobalClock().getDT());
-        //EASY_END_BLOCK;
-
-        //Game::instance().getRenderBridge().renewLastUpdatedData();
-
         m_renderer->render();
     }
 

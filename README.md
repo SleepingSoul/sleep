@@ -1,11 +1,12 @@
 # sleep game engine
 2D game engine written in modern C++.
 
-# Build status
-Windows Debug x86 => [![Build status](https://ci.appveyor.com/api/projects/status/6q5iwq0663gqc14m?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep)\
-Windows Release x86 => [![Build status](https://ci.appveyor.com/api/projects/status/6ico441n2483p30i?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep-isewm)\
-Windows Debug x64 => [![Build status](https://ci.appveyor.com/api/projects/status/cr8ingqk399vsywd?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep-md0ar)\
-Windows Release x64 => [![Build status](https://ci.appveyor.com/api/projects/status/ea3sbufiingdu2ip?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep-a0y8m)
+| Platform / configuration      | Build status (master) |
+|-------------------------------|-----------------------|
+| Windows x86 Debug (VS 2017)   |     [![Build status](https://ci.appveyor.com/api/projects/status/6q5iwq0663gqc14m?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep)    |
+| Windows x86 Release (VS 2017) |     [![Build status](https://ci.appveyor.com/api/projects/status/6ico441n2483p30i?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep-isewm)    |
+| Windows x64 Debug (VS 2017)   |     [![Build status](https://ci.appveyor.com/api/projects/status/cr8ingqk399vsywd?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep-md0ar)    |
+| Windows x64 Release (VS 2017) |     [![Build status](https://ci.appveyor.com/api/projects/status/ea3sbufiingdu2ip?svg=true)](https://ci.appveyor.com/project/SleepingSoul/sleep-a0y8m)    |
 
 **Currently in development**, no stable builds here. But we have many things already done :3
 
