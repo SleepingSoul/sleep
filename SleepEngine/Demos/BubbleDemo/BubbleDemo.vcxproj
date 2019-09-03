@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{16963455-173E-4C66-98AE-995D4F3CCA0D}</ProjectGuid>
+    <ProjectGuid>{63FE35E0-2317-4DB9-85A7-99791D6C55DE}</ProjectGuid>
     <RootNamespace>BubbleDemo</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -58,7 +58,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\Props\SleepSharedPch.props" />
+    <Import Project="..\..\Props\SharedPch.props" />
     <Import Project="..\..\Props\SleepProps.props" />
     <Import Project="..\..\Props\SleepPropsDebug.props" />
   </ImportGroup>
@@ -126,6 +126,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="bubbles_demo.h" />
     <ClInclude Include="Config\BubbleConfig.h" />
     <ClInclude Include="dummy_work.h" />
@@ -137,9 +140,6 @@
     <ClCompile Include="Entities\Bubble.cpp" />
     <ClCompile Include="Entities\BubbleGun.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

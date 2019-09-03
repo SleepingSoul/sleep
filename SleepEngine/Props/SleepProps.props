@@ -6,8 +6,7 @@
     <EnginePackageDir>$(SolutionDir)\..\vcpkg\packages</EnginePackageDir>
   </PropertyGroup>
   <PropertyGroup>
-    <IncludePath>$(VC_IncludePath);$(SolutionDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
-    <LibraryPath>$(SolutionDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath);</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
     <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
   </PropertyGroup>
@@ -18,12 +17,13 @@
     <CustomBuildStep>
       <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb;</Outputs>
     </CustomBuildStep>
-    <Link>
-      <AdditionalDependencies>$(SharedPchLinkObj);easy_profiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+    <Link />
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)\Engine\Render\Shaders $(TargetDir) /E /I /F /Y</Command>
     </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>$(TargetDir)\SleepEngine.lib;$(SharedPchLinkObj);easy_profiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="EngineLibDir">
