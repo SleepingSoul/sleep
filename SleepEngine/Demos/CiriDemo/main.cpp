@@ -5,6 +5,8 @@
 #include <Engine/Jobs/JobSystem.h>
 #include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/GameTemplate/Game.h>
+#include <Engine/ECS/Signatures/SignatureBitsets.h>
+//#include <Engine/ECS/Signatures/SignatureBitsets.h>
 #include "ciri.h"
 
 // settings

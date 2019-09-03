@@ -26,7 +26,6 @@
     <ClCompile Include="Engine\GameTemplate\Scene.cpp" />
     <ClCompile Include="Engine\Jobs\JobSystem.cpp" />
     <ClCompile Include="Engine\Jobs\JobThread.cpp" />
-    <ClCompile Include="Engine\Render\UpdateRenderBridge.cpp" />
     <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -84,6 +83,11 @@
     <ClInclude Include="Engine\Systems\UpdateJob.h" />
     <ClInclude Include="Engine\DeltaTimeData.h" />
     <ClInclude Include="Engine\Systems\Systems.h" />
+    <ClInclude Include="Engine\ECS\Signatures\brigand_type_macro.h" />
+    <ClInclude Include="Engine\ECS\Signatures\Settings.h" />
+    <ClInclude Include="Engine\ECS\Signatures\Signature.h" />
+    <ClInclude Include="Engine\ECS\Signatures\SignatureBitsets.h" />
+    <ClInclude Include="Engine\ECS\Signatures\SignatureBitsetsStorage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Render\Shaders\shader.fs" />

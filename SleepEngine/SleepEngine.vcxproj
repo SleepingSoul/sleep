@@ -250,6 +250,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Engine\ECS\Signatures\brigand_type_macro.h" />
+    <ClInclude Include="Engine\ECS\Signatures\Settings.h" />
+    <ClInclude Include="Engine\ECS\Signatures\Signature.h" />
+    <ClInclude Include="Engine\ECS\Signatures\SignatureBitsets.h" />
+    <ClInclude Include="Engine\ECS\Signatures\SignatureBitsetsStorage.h" />
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\EntityManager.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
