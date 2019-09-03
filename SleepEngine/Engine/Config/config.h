@@ -9,8 +9,10 @@ BEGIN_NAMESPACE_SLEEP
 // logger info and any paths for dynamic loading should be here, 
 // but all data that can be retrieved dynamically should be in EngineConfig instead
 static auto EngineLogger = "engine_logger";
-static auto EngineLoggerPath = "Logs/engine_logger.log";
-static auto ConfigFile = "Config/config.json";
+static auto EngineLoggerPath = "Logs/slp_logger.log";
+static auto ConfigFile = "Config/slp_config.json";
+static auto VertexShader = "Generated/Shaders/shader.vs";
+static auto FragmentShader = "Generated/Shaders/shader.fs";
 
 namespace Resources
 {

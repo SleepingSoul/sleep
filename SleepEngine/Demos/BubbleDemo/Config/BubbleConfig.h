@@ -1,12 +1,12 @@
 #pragma once
 #include <Engine/Config/JsonConfig.h>
 
-// need to define unique class, becausethe config manager looks up the instance by it's class
+// need to define unique class, because the config manager looks up the instance by it's class
 class BubbleConfig : public slp::JsonConfig 
 {
 public:
     BubbleConfig() 
-        : JsonConfig("Demos/Bubbles/Config/bubble_config.json", BaseConfig::getConfigTypeID<BubbleConfig>()) 
+        : JsonConfig("Config/bubble_config.json", BaseConfig::getConfigTypeID<BubbleConfig>()) 
     {}
 };
 

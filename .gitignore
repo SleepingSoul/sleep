@@ -21,16 +21,20 @@ x64/
 x86/
 bld/
 [Ll]og/
+Outputs/
 
 .vs
 *.log
+.vscode
 
 # profiles
 *.prof
 
-.vscode
+# python
 Pipfile
 Pipfile.lock
 *egg-info*
 packages.config
 packages
+
+Generated/Shaders

@@ -20,7 +20,7 @@ namespace
 BEGIN_NAMESPACE_SLEEP
 
 GameRenderer::GameRenderer()
-    : m_shader("shader.vs", "shader.fs")
+    : m_shader(VertexShader, FragmentShader)
     , m_backgroundColor(0.f, 0.f, 0.f, 0.f)
 {
     glEnable(GL_DEPTH_TEST);
