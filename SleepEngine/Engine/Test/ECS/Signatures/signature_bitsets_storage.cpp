@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include "test_type_defs.h"
 #include <Engine/ECS/signatures/SignatureBitsetsStorage.h>
-using namespace tests::tmengine::ecs;
+using 
 using namespace tmengine::ecs;
 using namespace std;
 

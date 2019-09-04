@@ -2,7 +2,11 @@ BasedOnStyle: LLVM
 AllowShortFunctionsOnASingleLine: true
 AllowShortBlocksOnASingleLine: true
     
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+
+
 BreakConstructorInitializers : BeforeComma
 ColumnLimit: 0
 
@@ -11,6 +15,7 @@ IncludeCategories:
   - Regex: 'stdafx'
     Priority: -1
 
+MaxEmptyLinesToKeep: 2
 PointerAlignment: Left
 
 Language: Cpp

@@ -28,6 +28,9 @@
     <ClCompile Include="Engine\Jobs\JobThread.cpp" />
     <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Engine\Test\ECS\Signatures\settings.cpp" />
+    <ClCompile Include="Engine\Test\ECS\Signatures\signature_bitsets.cpp" />
+    <ClCompile Include="Engine\Test\ECS\Signatures\signature_bitsets_storage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demos\test_relative_transform.h" />
@@ -88,6 +91,8 @@
     <ClInclude Include="Engine\ECS\Signatures\Signature.h" />
     <ClInclude Include="Engine\ECS\Signatures\SignatureBitsets.h" />
     <ClInclude Include="Engine\ECS\Signatures\SignatureBitsetsStorage.h" />
+    <ClInclude Include="Engine\Test\ECS\Signatures\print_type.h" />
+    <ClInclude Include="Engine\Test\ECS\Signatures\test_type_defs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Render\Shaders\shader.fs" />

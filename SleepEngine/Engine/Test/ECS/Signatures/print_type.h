@@ -5,7 +5,7 @@
 
 #include <Engine/ECS/signatures/brigand_type_macro.h>
 
-namespace tests::tmengine::ecs {
+
     template <typename T>
     void printType(const T *addr)
     {

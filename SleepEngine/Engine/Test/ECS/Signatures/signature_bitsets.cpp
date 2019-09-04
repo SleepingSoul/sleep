@@ -1,7 +1,7 @@
 //
 // Created by Taras Martyniuk on 7/25/2018.
 //
-#include <ecs/signatures/SignatureBitsets.h>
+#include <Engine/ECS/signatures/SignatureBitsets.h>
 #include "test_type_defs.h"
 using namespace tmengine::ecs;
 
@@ -22,7 +22,7 @@ namespace tests::tmengine::ecs
 
         using TestBitsets = SignatureBitsets<TestSettings>;
 
-        //region filtering
+
 
         using FilteredComponents = TestBitsets::SignatureComponents<Signature>;
         static_assert(std::is_same<FilteredComponents, brigand::list<ComponentC>>::value,
@@ -31,15 +31,15 @@ namespace tests::tmengine::ecs
         using FilteredTags = TestBitsets::SignatureTags<Signature>;
         static_assert(std::is_same<FilteredTags, brigand::list<TagB>>::value,
                       "TestBitsets_SignatureTags");
-        //endregion
-        //region bits
+
+
 
         static_assert(TestBitsets::componentBit<ComponentC>() == 1,
                       "TestBitsets_ComponentBit");
 
         static_assert(TestBitsets::tagBit<TagB>() == 2,
                       "TestBitsets_TagBit");
-        //endregion
+
     }
 
     TEST(SignatureBitsets, Size)
