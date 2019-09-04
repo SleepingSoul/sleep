@@ -1,11 +1,22 @@
 BasedOnStyle: LLVM
 AllowShortFunctionsOnASingleLine: true
 AllowShortBlocksOnASingleLine: true
-    
+AllowShortBlocksOnASingleLine: true
+
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: true
-
+  AfterClass: true
+  AfterControlStatement : true
+  AfterEnum: true
+  AfterFunction: true 
+  AfterNamespace: true
+  AfterStruct: true
+  BeforeCatch: true
+  BeforeElse: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
 
 BreakConstructorInitializers : BeforeComma
 ColumnLimit: 0

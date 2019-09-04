@@ -7,13 +7,19 @@
 #include <brigand/sequences/list.hpp>
 
 
-struct ComponentA {};
-struct ComponentB {};
-struct ComponentC {};
+struct ComponentA
+{};
+struct ComponentB
+{};
+struct ComponentC
+{};
 
-struct TagA {};
-struct TagB {};
-struct TagC {};
+struct TagA
+{};
+struct TagB
+{};
+struct TagC
+{};
 
 using SignatureA = ::tmengine::ecs::Signature<ComponentA, TagB>;
 

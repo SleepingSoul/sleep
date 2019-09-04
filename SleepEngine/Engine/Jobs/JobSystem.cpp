@@ -5,13 +5,17 @@ BEGIN_NAMESPACE_SLEEP
 
 namespace
 {
-    unsigned const ThreadsLeftAlone = 1;
+unsigned const ThreadsLeftAlone = 1;
 }
+
+enum class E
+{
+    E
+};
 
 JobSystem::JobSystem()
     : JobSystem(JobSystem::getWorkerThreadCount())
-{
-}
+{}
 
 JobSystem::JobSystem(size_t workerThreadCount)
     : m_jobAvailableEvents(workerThreadCount)
@@ -41,7 +45,7 @@ JobSystem::~JobSystem()
     {
         event.signal();
     }
-    for(auto& thread : m_jobThreads)
+    for (auto& thread : m_jobThreads)
     {
         if (!thread.joinable())
         {
