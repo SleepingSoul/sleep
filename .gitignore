@@ -37,4 +37,4 @@ Pipfile.lock
 packages.config
 packages
 
-Generated/Shaders
+**/Generated/Shaders
