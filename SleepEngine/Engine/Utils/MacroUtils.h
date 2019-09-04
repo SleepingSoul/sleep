@@ -130,3 +130,5 @@ inline componentType const& shortcutName(Object const* obj) \
 
 #define BEGIN_NAMESPACE_SLEEP namespace slp{
 #define END_NAMESPACE_SLEEP }
+#define BEGIN_NAMESPACE_SLEEP_TEST BEGIN_NAMESPACE_SLEEP namespace test {}
+#define END_NAMESPACE_SLEEP_TEST }

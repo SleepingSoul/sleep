@@ -6,8 +6,6 @@
 #include <Demos/test_relative_transform.h>
 #include <Engine/Jobs/JobSystem.h>
 #include <Engine/Render/UpdateRenderBridge.h>
-#include <Engine/ECS/Signatures/Settings.h>
-#include <Engine/ECS/Signatures/SignatureBitsets.h>
 
 // settings
 namespace

@@ -15,7 +15,7 @@ template <typename TSettings>
 class SignatureBitsetsStorage
 {
 private:
-    using SignatureBitsets = ::tmengine::ecs::SignatureBitsets<TSettings>;
+    using SignatureBitsets = SignatureBitsets<TSettings>;
 
 public:
     using Bitset = typename SignatureBitsets::Bitset;

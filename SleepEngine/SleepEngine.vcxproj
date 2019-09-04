@@ -228,7 +228,6 @@
     <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
     <ClCompile Include="Engine\Test\ECS\Signatures\settings.cpp" />
     <ClCompile Include="Engine\Test\ECS\Signatures\signature_bitsets.cpp" />
-    <ClCompile Include="Engine\Test\ECS\Signatures\signature_bitsets_storage.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Utils\file_utils.cpp" />
     <ClCompile Include="main.cpp" />

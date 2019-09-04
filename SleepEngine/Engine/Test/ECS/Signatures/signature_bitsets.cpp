@@ -1,12 +1,12 @@
-//
-// Created by Taras Martyniuk on 7/25/2018.
-//
+#include "stdafx.h"
 #include "test_type_defs.h"
 #include <Engine/ECS/signatures/SignatureBitsets.h>
-using namespace tmengine::ecs;
 
-namespace tests::tmengine::ecs {
-namespace {
+
+BEGIN_NAMESPACE_SLEEP_TEST
+namespace
+{
+
 using Components = brigand::list<ComponentB, ComponentC>;
 using Tags = brigand::list<TagB>;
 
@@ -37,10 +37,4 @@ static_assert(TestBitsets::tagBit<TagB>() == 2,
               "TestBitsets_TagBit");
 
 } // namespace
-
-TEST(SignatureBitsets, Size) {
-    TestBitsets::Bitset bitset;
-
-    EXPECT_EQ(bitset.size(), 3);
-}
-} // namespace tests::tmengine::ecs
+END_NAMESPACE_SLEEP_TEST

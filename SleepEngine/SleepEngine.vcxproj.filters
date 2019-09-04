@@ -30,7 +30,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Test\ECS\Signatures\settings.cpp" />
     <ClCompile Include="Engine\Test\ECS\Signatures\signature_bitsets.cpp" />
-    <ClCompile Include="Engine\Test\ECS\Signatures\signature_bitsets_storage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demos\test_relative_transform.h" />

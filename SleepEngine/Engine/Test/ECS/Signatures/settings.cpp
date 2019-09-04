@@ -1,9 +1,10 @@
-//
-// Created by Taras Martyniuk on 7/24/2018.
-//
+#include "stdafx.h"
 #include "test_type_defs.h"
 #include <Engine/ECS/Signatures/Settings.h>
 
+BEGIN_NAMESPACE_SLEEP_TEST
+namespace
+{
 
 using Components = brigand::list<ComponentA, ComponentB, ComponentC>;
 using Tags = brigand::list<TagA, TagB>;
@@ -35,19 +36,17 @@ static_assert(!TestSettings::isSignature<TagB>(),
 
 static_assert(TestSettings::componentCount() == kComponentsSize,
               "ComponentCount");
-
 static_assert(TestSettings::tagCount() == kTagsSize,
               "TagCount");
-
 static_assert(TestSettings::signatureCount() == kSignaturesSize,
               "SignatureCount");
 
 
 static_assert(TestSettings::componentId<ComponentB>() == 1,
               "ComponentId");
-
 static_assert(TestSettings::tagId<TagA>() == 0,
               "TagId");
-
 static_assert(TestSettings::signatureId<SignatureA>() == 0,
               "SignatureId");
+} // namespace
+END_NAMESPACE_SLEEP_TEST
