@@ -19,6 +19,21 @@ inline ResourceManager& globalResourceManager()
     return Game::instance().getResourceManager();
 }
 
+inline Camera& globalCamera()
+{
+    return Game::instance().getCamera();
+}
+
+inline JobSystem& globalJobSystem()
+{
+    return Game::instance().getJobSystem();
+}
+
+inline Clock& getGlobalClock()
+{
+    return Game::instance().getClock();
+}
+
 inline EntityManager& globalEntityManager()
 {
     return Game::instance().getEntityManager();

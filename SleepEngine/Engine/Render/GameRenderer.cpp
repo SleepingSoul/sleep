@@ -4,6 +4,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 #include <Engine/GameTemplate/Game.h>
+#include <Engine/Render/UpdateRenderBridge.h>
 
 
 namespace
@@ -48,32 +49,31 @@ GameRenderer::GameRenderer()
     glBindVertexArray(0);
 }
 
-void GameRenderer::addDrawCall(DrawCall const drawCall)
-{
-    m_drawCalls.push_back(drawCall);
-}
-
 void GameRenderer::render()
 {
     EASY_FUNCTION(profiler::colors::Red);
+
+    UpdateRenderBridge& renderBridge = Game::instance().getRenderBridge();
+    renderBridge.renewRenderData();
+    auto& drawCalls = renderBridge.getRenderedData();
+
+    if (drawCalls.empty())
+    {
+        return;
+    }
 
     glClearColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
     /*Clear buffers every frame*/
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if (m_drawCalls.empty())
-    {
-        return;
-    }
-
     EASY_BLOCK("Sort draw calls");
-    std::sort(m_drawCalls.begin(), m_drawCalls.end());
+    std::sort(drawCalls.begin(), drawCalls.end());
     EASY_END_BLOCK;
 
-    float lastLayer = static_cast <float>(m_drawCalls.front().getTransform().Layer);
+    float lastLayer = static_cast <float>(drawCalls.front().getTransform().Layer);
     float nextLayerOffset = 0.f;
 
-    for (auto const& drawCall : m_drawCalls)
+    for (auto const& drawCall : drawCalls)
     {
         EASY_BLOCK("render draw call");
         
@@ -161,8 +161,6 @@ void GameRenderer::render()
         EASY_END_BLOCK;
         EASY_END_BLOCK;
     }
-
-    m_drawCalls.clear();
 }
 
 END_NAMESPACE_SLEEP

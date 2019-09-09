@@ -9,10 +9,11 @@ class EntityManager
     FORBID_COPY_AND_MOVE(EntityManager)
 public:
     EntityManager() = default;
+    ~EntityManager();
 
     void addObject(std::unique_ptr <Object>&& object, bool shouldUpdate = true);
     void removeObjectLater(Object const* object);
-    void clear();
+    void clearLater();
 
     void update(float dt);
 

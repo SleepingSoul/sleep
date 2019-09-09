@@ -11,23 +11,15 @@ class GameRenderer
 {
     FORBID_COPY_AND_MOVE(GameRenderer)
 public:
-    using DrawCallsContainer = std::vector <DrawCall>;
 
     GameRenderer();
 
-    void addDrawCall(DrawCall drawCall);
-    template <class ...Args>
-    void emplaceDrawCall(Args&&... args)
-    {
-        m_drawCalls.emplace_back(std::forward <Args>(args)...);
-    }
     void render();
 
     REF_GET_SET(Color, getBackgroundColor, setBackgroundColor, m_backgroundColor)
 
 private:
     Shader m_shader;
-    DrawCallsContainer m_drawCalls;
 
     unsigned m_vertexVBO;
     unsigned m_uvVBO;

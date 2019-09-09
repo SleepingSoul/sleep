@@ -15,7 +15,8 @@ namespace slp
         , LiMing
         , Orphea
         , Red
-        , Spaceship
+        , spaceship
+        , StarBackground
     };
 }
 

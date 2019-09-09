@@ -24,4 +24,13 @@ inline glm::vec2 pixelsToMeters(glm::vec2 sizeInPixels)
     return sizeInPixels * 2.f / static_cast <float>(globalEngineConfig()->getData().MeterLengthInPixels);
 }
 
+inline glm::vec2 screenSizeInWorldCoordinates()
+{
+    return pixelsToMeters(
+    {
+        static_cast<float>(globalCamera().getScreenWidth()),
+        static_cast<float>(globalCamera().getScreenHeight()),
+    });
+}
+
 END_NAMESPACE_SLEEP

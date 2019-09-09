@@ -10,6 +10,8 @@ BEGIN_NAMESPACE_SLEEP
 
 class ResourceManager;
 class ISystem;
+class UpdateRenderBridge;
+class JobSystem;
 
 // stores and updates all game objects in a tree,
 // stores all other engine objects as components
@@ -28,9 +30,11 @@ public:
 
     REF_GETTERS(getClock, m_clock)
     REF_GETTERS(getRenderer, *m_renderer)
+    REF_GETTERS(getRenderBridge, *m_updateRenderBridge)
     REF_GETTERS(getResourceManager, *m_resourceManager)
     REF_GETTERS(getCamera, m_camera)
     REF_GETTERS(getConfigManager, m_configManager)
+    REF_GETTERS(getJobSystem, *m_jobSystem)
     REF_GETTERS(getEntityManager, m_entityManager)
 
     void addScene(Scene::Initer initer, std::string_view id);
@@ -50,17 +54,21 @@ private:
     Camera m_camera;
     ConfigManager m_configManager;
 
-    std::unique_ptr <GameRenderer> m_renderer;
-    std::unique_ptr <ResourceManager> m_resourceManager;
-
     ScenesContainer m_scenes;
 
     std::string m_currentSceneID;
     std::string m_sceneID;
+    
+    std::unique_ptr<GameRenderer> m_renderer;
+    std::unique_ptr<UpdateRenderBridge> m_updateRenderBridge;
+    std::unique_ptr<ResourceManager> m_resourceManager;
+    EntityManager m_entityManager;
+
+    std::unique_ptr<JobSystem> m_jobSystem;
 
     SystemsContainer m_systems;
+    bool m_isFirstFrame = true;
 
-    EntityManager m_entityManager;
 
     void applyScene(std::string_view sceneID);
     void runFrame();

@@ -6,6 +6,9 @@
 #include <Engine/GameWindow.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Config/EngineConfig.h>
+#include <Engine/Render/UpdateRenderBridge.h>
+#include <Engine/Jobs/JobSystem.h>
+#include <Engine/Systems/UpdateJob.h>
 
 
 BEGIN_NAMESPACE_SLEEP
@@ -19,8 +22,9 @@ namespace
 Game::Game(size_t width, size_t height)
     : m_clock(FPS)
     , m_camera(width, height)
-    , m_window(width, height, "Heroes of the storm")
-    , m_resourceManager(std::make_unique <ResourceManager>())
+    , m_window(width, height, "Heroes of The Storm")
+    , m_resourceManager(std::make_unique<ResourceManager>())
+    , m_updateRenderBridge(std::make_unique<UpdateRenderBridge>())
 {
     setupLogger();
 
@@ -29,11 +33,14 @@ Game::Game(size_t width, size_t height)
 
     if (m_instance)
     {
-        LOG_AND_ASSERT_ERROR(false, "Attempt to create second game window! It is forbidden!");
+        LOG_AND_ASSERT_ERROR(false, "Attempt to create second game! It is forbidden!");
         return;
     }
-    m_instance = this;
     m_renderer = std::make_unique <GameRenderer>();
+    size_t const threadsCount = JobSystem::getWorkerThreadCount(*m_configManager.getConfig<EngineConfig>());
+    m_jobSystem = std::make_unique<JobSystem>(threadsCount);
+
+    m_instance = this;
 }
 
 void Game::addScene(Scene::Initer initer, std::string_view id)
@@ -81,8 +88,7 @@ void Game::run()
 
 void Game::runFrame()
 {
-    EASY_FUNCTION(profiler::colors::Orange);
-    m_clock.frameStart();
+    m_clock.renderFrameStart();
 
     if (m_sceneID != m_currentSceneID)
     {
@@ -93,18 +99,11 @@ void Game::runFrame()
 
     if (!m_currentSceneID.empty())
     {
-        auto const dt = m_clock.getDT();
-
-        EASY_BLOCK("Update systems");
-        for (auto& system : m_systems)
+        if (m_isFirstFrame)
         {
-            system->update(dt);
+            m_jobSystem->schedule(createUpdateJob());
+            m_isFirstFrame = false;
         }
-        EASY_END_BLOCK;
-
-        EASY_BLOCK("Entities update", profiler::colors::Amber100);
-        m_entityManager.update(dt);
-        EASY_END_BLOCK;
 
         m_renderer->render();
     }
@@ -113,11 +112,11 @@ void Game::runFrame()
 
     #ifdef SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT
     EASY_BLOCK("Console output", profiler::colors::Grey);
-    std::cout << "FPS: " << m_clock.calculateFPS() << ", DT: " << m_clock.getDT() << '\n';
+    std::cout << "FPS: " << m_clock.calculateFPS() << ", DT: " << m_clock.getRenderDT() << '\n';
     EASY_END_BLOCK;
     #endif
 
-    m_clock.frameEnd();
+    m_clock.renderFrameEnd();
 }
 
 void Game::setupLogger()

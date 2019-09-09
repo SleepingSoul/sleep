@@ -22,32 +22,32 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DE4774CF-D98B-4D53-B16E-875A7CCD77B1}</ProjectGuid>
     <RootNamespace>SleepEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -78,8 +78,8 @@
     <LibraryPath>$(ProjectDir)\external\easy_profiler\prof_release_x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
-    <LibraryPath>$(ProjectDir)\external\easy_profiler\prof_debug_x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(ProjectDir)\external\easy_profiler\prof_debug\include;$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
+    <LibraryPath>$(ProjectDir)\external\easy_profiler\prof_debug\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
@@ -87,14 +87,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <TreatWarningAsError>false</TreatWarningAsError>
-      <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;SLEEP_ENABLE_CONSOLE_FRAMERATE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_MBCS;BUILD_WITH_EASY_PROFILER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>$(ProjectDir)\external\easy_profiler\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -224,6 +224,8 @@
     <ClCompile Include="Engine\GameTemplate\Game.cpp" />
     <ClCompile Include="Engine\GameTemplate\Scene.cpp" />
     <ClCompile Include="Engine\GameWindow.cpp" />
+    <ClCompile Include="Engine\Jobs\JobSystem.cpp" />
+    <ClCompile Include="Engine\Jobs\JobThread.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Render\DrawCall.cpp" />
     <ClCompile Include="Engine\Render\GameRenderer.cpp" />
@@ -236,6 +238,7 @@
     <ClCompile Include="Engine\Systems\ConcreteSystem.cpp" />
     <ClCompile Include="Engine\Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Engine\Systems\System.cpp" />
+    <ClCompile Include="Engine\Systems\UpdateJob.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Utils\file_utils.cpp" />
     <ClCompile Include="main.cpp" />
@@ -251,6 +254,7 @@
     <ClInclude Include="Demos\Bubbles\Config\BubbleConfig.h" />
     <ClInclude Include="Demos\Bubbles\Entities\Bubble.h" />
     <ClInclude Include="Demos\Bubbles\Entities\BubbleGun.h" />
+    <ClInclude Include="Demos\Bubbles\dummy_work.h" />
     <ClInclude Include="Demos\ciri.h" />
     <ClInclude Include="Demos\test_relative_transform.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -267,23 +271,39 @@
     <ClInclude Include="Engine\Config\EngineConfig.h" />
     <ClInclude Include="Engine\Config\JsonConfig.h" />
     <ClInclude Include="Engine\Config\Loadable.h" />
+    <ClInclude Include="Engine\DeltaTimeData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Engine\EngineConfig.h" />
     <ClInclude Include="Engine\EntityManager.h" />
     <ClInclude Include="Engine\GameTemplate\Game.h" />
     <ClInclude Include="Engine\GameTemplate\global_shortcuts.h" />
     <ClInclude Include="Engine\GameTemplate\Scene.h" />
     <ClInclude Include="Engine\GameWindow.h" />
+    <ClInclude Include="Engine\Jobs\Event.h" />
+    <ClInclude Include="Engine\Jobs\Job.h" />
+    <ClInclude Include="Engine\Jobs\JobAffinity.h" />
+    <ClInclude Include="Engine\Jobs\JobSystem.h" />
+    <ClInclude Include="Engine\Jobs\ThreadSafeQueue.h" />
+    <ClInclude Include="Engine\Jobs\JobThread.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Render\DrawCall.h" />
     <ClInclude Include="Engine\Render\GameRenderer.h" />
     <ClInclude Include="Engine\Render\Shader.h" />
     <ClInclude Include="Engine\Render\Texture.h" />
     <ClInclude Include="Engine\Components\Transform2D.h" />
+    <ClInclude Include="Engine\Render\UpdateRenderBridge.h" />
     <ClInclude Include="Engine\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Engine\SleepTypes.h" />
     <ClInclude Include="Engine\Systems\ConcreteSystem.h" />
     <ClInclude Include="Engine\Systems\PhysicsSystem.h" />
     <ClInclude Include="Engine\Systems\System.h" />
+    <ClInclude Include="Engine\Systems\Systems.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Engine\Systems\UpdateJob.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Transform2DData.h" />
     <ClInclude Include="Engine\Utils\aliases.h" />

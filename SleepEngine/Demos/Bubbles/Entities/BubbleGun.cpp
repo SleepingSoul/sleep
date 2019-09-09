@@ -30,7 +30,18 @@ void BubbleGun::setCenterRotation(float centerRotation)
 
 void BubbleGun::startFiring()
 {
-    m_fireTimer.every(m_settings.FireRate, [this] { fireBubble(); } );
+    m_fireTimer.every(m_settings.FireRate, [this] 
+    { 
+        int const maxCount = globalBubbleConfig().at("bubble_gun").at("max_bubbles");
+        int const bubblesFired = slp::getHierarchy(m_object).getChildCount();
+        if (bubblesFired >= maxCount)
+        {
+            m_fireTimer.stop();
+            return;
+        }
+
+        fireBubble(); 
+    });
 }
 
 void BubbleGun::update(float dt)
@@ -55,6 +66,7 @@ void BubbleGun::update(float dt)
 void BubbleGun::fireBubble()
 {
     auto bubble = createBubbleObject(m_settings.BubbleSettings);
+
     bubble->getComponent<Bubble>()->launch(slp::getTransform(m_object).getRotation());
     float const size = globalBubbleConfig().at("bubble_gun").at("bubble").at("size");
     slp::getTransform(*bubble).setSize({size, size});
@@ -71,11 +83,13 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
     float size = config.at("size");
     slp::getTransform(*bubbleGunObject).setSize({size, size});
 
+    auto& bubbleConfig = config.at("bubble");
     BubbleGunSettings const settings
     {
         {
-            config.at("bubble").at("speed"),
-            config.at("bubble").at("flight_distance"),
+            bubbleConfig.at("speed"),
+            bubbleConfig.at("flight_distance"),
+            bubbleConfig.at("work_count")
         },
         config.at("fire_rate"),
         config.at("field_of_view"),
@@ -86,7 +100,7 @@ std::unique_ptr<slp::Object> createBubbleGunObject()
 
     auto& game = slp::Game::instance();
 
-    renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::Spaceship));
+    renderer->setTexture(slp::globalResourceManager().getTexture(slp::Textures::spaceship));
     
     return bubbleGunObject;
 }

@@ -4,12 +4,15 @@
 #include <Engine/object_shortcuts.h>
 #include <Demos/Bubbles/bubbles_demo.h>
 #include <Demos/test_relative_transform.h>
+#include <Engine/Jobs/JobSystem.h>
+#include <Engine/Render/UpdateRenderBridge.h>
 
 // settings
 namespace
 {
-    size_t const WindowWidth = 1920;
-    size_t const WindowHeight = 1080;
+    // todo move to config
+	size_t const WindowWidth = 1920;
+	size_t const WindowHeight = 1080;
 }
 
 int main()
@@ -24,7 +27,7 @@ int main()
     game.getResourceManager().preload();
     game.addScene(initBubbleDemoScene, "bubble scene");
     game.addScene(TestRelativeSceneIniter(), "relative transform scene");
-    game.setScene("relative transform scene");
+    game.setScene("bubble scene");
     game.run();
 
     profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
