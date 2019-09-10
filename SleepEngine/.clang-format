@@ -1,8 +1,23 @@
 BasedOnStyle: LLVM
 AllowShortFunctionsOnASingleLine: true
 AllowShortBlocksOnASingleLine: true
-    
-BreakBeforeBraces: Allman
+AllowShortBlocksOnASingleLine: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement : true
+  AfterEnum: true
+  AfterFunction: true 
+  AfterNamespace: true
+  AfterStruct: true
+  BeforeCatch: true
+  BeforeElse: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
 BreakConstructorInitializers : BeforeComma
 ColumnLimit: 0
 
@@ -11,6 +26,7 @@ IncludeCategories:
   - Regex: 'stdafx'
     Priority: -1
 
+MaxEmptyLinesToKeep: 2
 PointerAlignment: Left
 
 Language: Cpp
