@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+AllowShortFunctionsOnASingleLine: true
+AllowShortBlocksOnASingleLine: true
+    
+BreakBeforeBraces: Allman
+BreakConstructorInitializers : BeforeComma
+ColumnLimit: 0
+
+IndentWidth: 4
+IncludeCategories:
+  - Regex: 'stdafx'
+    Priority: -1
+
+PointerAlignment: Left
+
+Language: Cpp
