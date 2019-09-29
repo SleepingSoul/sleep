@@ -3,7 +3,6 @@ AllowShortFunctionsOnASingleLine: true
 AllowShortBlocksOnASingleLine: true
 AllowShortBlocksOnASingleLine: true
 
-BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: true
   AfterClass: true
@@ -17,6 +16,8 @@ BraceWrapping:
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
+BreakBeforeBraces: Custom
+
 
 BreakConstructorInitializers : BeforeComma
 ColumnLimit: 0

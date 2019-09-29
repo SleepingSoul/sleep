@@ -13,6 +13,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);BUILD_WITH_EASY_PROFILER</PreprocessorDefinitions>
     </ClCompile>
     <CustomBuildStep>
       <Outputs>$(IntDir)vc$(PlatformToolsetVersion).pdb;</Outputs>

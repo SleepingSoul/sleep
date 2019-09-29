@@ -1,19 +1,19 @@
 #include "stdafx.h"
+#include <Engine/GameTemplate/Game.h>
+#include <Engine/Jobs/JobSystem.h>
+#include <Engine/Render/UpdateRenderBridge.h>
 #include <Engine/ResourceManagement/ResourceManager.h>
 #include <Engine/Utils/unit_utils.h>
 #include <Engine/object_shortcuts.h>
-#include <Engine/Jobs/JobSystem.h>
-#include <Engine/Render/UpdateRenderBridge.h>
-#include <Engine/GameTemplate/Game.h>
 //#include "ciri.h"
 
 // settings
 namespace
 {
-    // todo move to config
-	size_t const WindowWidth = 1920;
-	size_t const WindowHeight = 1080;
-}
+// todo move to config
+size_t const WindowWidth = 1920;
+size_t const WindowHeight = 1080;
+} // namespace
 
 int main()
 {
@@ -32,6 +32,6 @@ int main()
     //game.setScene("siri");
     game.run();
 
-    ////profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
+    profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     //return 0;
 }

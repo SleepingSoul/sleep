@@ -91,6 +91,7 @@
     <CustomBuildStep />
     <CustomBuildStep />
     <PostBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

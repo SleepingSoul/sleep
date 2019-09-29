@@ -32,6 +32,6 @@ int main()
     game.setScene("siri");
     game.run();
 
-    //profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
+    profiler::dumpBlocksToFile("../profiles/last_session_profile.prof");
     return 0;
 }
