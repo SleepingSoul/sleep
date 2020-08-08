@@ -1,5 +1,5 @@
 # sleep game engine
-2D game engine written in modern C++.
+This is what happens when 2 lazy programmers decide to create engine
 
 | Platform / configuration      | Build status (master) |
 |-------------------------------|-----------------------|
